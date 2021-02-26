@@ -1,0 +1,13 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://bansikee.cw8zqwjsc03r.ap-northeast-2.rds.amazonaws.com:3306/bansikee_database?characterEncoding=UTF-8&serverTimezone=UTC
+    username: bansikee
+    password: Tfriend21$
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: false
+    show-sql: true
