@@ -35,6 +35,6 @@ class KakaoLoginControllerTest {
         mockMvc.perform(post("/sginup/kakao")
             .contentType(MediaType.APPLICATION_JSON)
             .content(kakaoAccessTokenJsonString))
-            .andExpect(status().is(403));
+            .andExpect(status().is(404));
     }
 }
