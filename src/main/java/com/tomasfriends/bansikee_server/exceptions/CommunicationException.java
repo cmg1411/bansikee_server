@@ -1,4 +1,4 @@
-package com.tomasfriends.exceptions;
+package com.tomasfriends.bansikee_server.exceptions;
 
 public class CommunicationException extends RuntimeException {
 

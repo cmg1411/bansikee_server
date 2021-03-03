@@ -1,7 +1,7 @@
 package com.tomasfriends.bansikee_server.controller.logincontroller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tomasfriends.bansikee_server.domain.login.accesstoken.KakaoAccessToken;
+import com.tomasfriends.bansikee_server.domain.login.accesstoken.AccessObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +24,12 @@ class KakaoLoginControllerTest {
     @DisplayName("@Valid 에러 테스트")
     void isValidObject() throws Exception {
         // given
-        KakaoAccessToken kakaoAccessToken = KakaoAccessToken.builder()
+        AccessObject accessObject = AccessObject.builder()
             .accessToken("")
             .build();
 
         // when
-        String kakaoAccessTokenJsonString = objectMapper.writeValueAsString(kakaoAccessToken);
+        String kakaoAccessTokenJsonString = objectMapper.writeValueAsString(accessObject);
 
         // then
         mockMvc.perform(post("/sginup/kakao")

@@ -3,7 +3,7 @@ package com.tomasfriends.bansikee_server.service.loginservice;
 import com.google.gson.Gson;
 import com.tomasfriends.bansikee_server.domain.login.profile.KakaoProfile;
 import com.tomasfriends.bansikee_server.domain.login.profile.Profile;
-import com.tomasfriends.exceptions.CommunicationException;
+import com.tomasfriends.bansikee_server.exceptions.CommunicationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 @RequiredArgsConstructor
 @Service
-public class KakaoService implements OAuthService {
+public class KakaoOAuthService implements OAuthService {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final Gson gson;

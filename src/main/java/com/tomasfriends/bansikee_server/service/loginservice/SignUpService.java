@@ -1,6 +1,7 @@
 package com.tomasfriends.bansikee_server.service.loginservice;
 
 import com.tomasfriends.bansikee_server.domain.login.jwt.JWT;
+import com.tomasfriends.bansikee_server.domain.login.profile.GoogleProfile;
 import com.tomasfriends.bansikee_server.domain.login.profile.KakaoProfile;
 import com.tomasfriends.bansikee_server.dto.User;
 import com.tomasfriends.bansikee_server.repository.loginrepository.UserRepository;
@@ -19,10 +20,20 @@ public class SignUpService {
         this.userRepository = userRepository;
     }
 
-    public String signUp(KakaoProfile profile) {
+    public String signUpWithKakao(KakaoProfile profile) {
         String nickname = profile.getProperties().getNickname();
         String profileImage = profile.getProperties().getProfile_image();
         String email = profile.getKakao_account().getEmail();
+
+        signUpIfNotUser(nickname, email, profileImage);
+
+        return JWT.getJWT(nickname, email, profileImage);
+    }
+
+    public String signUpWithGoogle(GoogleProfile profile) {
+        String nickname = profile.getGiven_name();
+        String profileImage = profile.getPicture();
+        String email = profile.getEmail();
 
         signUpIfNotUser(nickname, email, profileImage);
 

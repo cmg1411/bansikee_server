@@ -8,7 +8,7 @@ import javax.validation.constraints.Positive;
 
 @Getter
 @Builder
-public class KakaoAccessToken {
+public class AccessObject {
 
     private final String tokenType = "bearer";
 
