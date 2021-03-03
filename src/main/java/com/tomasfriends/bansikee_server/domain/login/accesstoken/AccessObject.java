@@ -10,7 +10,8 @@ import javax.validation.constraints.Positive;
 @Builder
 public class AccessObject {
 
-    private final String tokenType = "bearer";
+    @NotBlank
+    private final String tokenType;
 
     @NotBlank
     private String accessToken;

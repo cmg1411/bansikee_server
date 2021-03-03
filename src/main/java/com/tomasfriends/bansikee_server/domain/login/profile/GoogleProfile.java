@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class GoogleProfile extends Profile {
+public class GoogleProfile implements Profile {
     private String email;
     private String name;
     private String picture;

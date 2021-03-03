@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class KakaoProfile extends Profile {
+public class KakaoProfile implements Profile {
     private int id;
     private Properties properties;
     private KakaoAccount kakao_account;
