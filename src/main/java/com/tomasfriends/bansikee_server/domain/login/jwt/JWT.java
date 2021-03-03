@@ -6,7 +6,6 @@ import java.util.*;
 
 public class JWT {
     private static final String KEY = "tomasWithTomasFriends";
-    private static final String JWT_DECODE_FAIL = "JWT 복호화에 실패하였습니다.";
     private static final long JWT_EXPIRED_TIME = 1000 * 60L * 60L * 12; // 12시간
 
     private JWT() {
