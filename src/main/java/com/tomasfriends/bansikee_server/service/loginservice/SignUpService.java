@@ -1,8 +1,8 @@
 package com.tomasfriends.bansikee_server.service.loginservice;
 
-import com.tomasfriends.bansikee_server.domain.login.jwt.JWT;
-import com.tomasfriends.bansikee_server.domain.login.profile.GoogleProfile;
-import com.tomasfriends.bansikee_server.domain.login.profile.KakaoProfile;
+import com.tomasfriends.bansikee_server.domain.jwt.JwtProvider;
+import com.tomasfriends.bansikee_server.dto.oauthprofile.GoogleProfile;
+import com.tomasfriends.bansikee_server.dto.oauthprofile.KakaoProfile;
 import com.tomasfriends.bansikee_server.dto.User;
 import com.tomasfriends.bansikee_server.repository.loginrepository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,12 @@ import java.util.Optional;
 public class SignUpService {
 
     private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
 
     @Autowired
-    public SignUpService(UserRepository userRepository) {
+    public SignUpService(UserRepository userRepository, JwtProvider jwtProvider) {
         this.userRepository = userRepository;
+        this.jwtProvider = jwtProvider;
     }
 
     public String signUpWithKakao(KakaoProfile profile) {
@@ -27,7 +29,7 @@ public class SignUpService {
 
         signUpIfNotUser(nickname, email, profileImage);
 
-        return JWT.getJWT(nickname, email, profileImage);
+        return jwtProvider.getJWT(nickname, email, profileImage);
     }
 
     public String signUpWithGoogle(GoogleProfile profile) {
@@ -37,18 +39,18 @@ public class SignUpService {
 
         signUpIfNotUser(nickname, email, profileImage);
 
-        return JWT.getJWT(nickname, email, profileImage);
+        return jwtProvider.getJWT(nickname, email, profileImage);
     }
 
     private void signUpIfNotUser(String nickname, String email, String profileImage) {
         Optional<User> userByEmail = userRepository.findByEmail(email);
 
-        if (userByEmail.isEmpty()) {
-            userRepository.save(User.builder()
-                .name(nickname)
-                .email(email)
-                .profileImageURL(profileImage)
-                .build());
-        }
+        if (userByEmail.isPresent()) return ;
+
+        userRepository.save(User.builder()
+            .name(nickname)
+            .email(email)
+            .profileImageURL(profileImage)
+            .build());
     }
 }

@@ -1,8 +1,8 @@
 package com.tomasfriends.bansikee_server.service.loginservice;
 
 import com.google.gson.Gson;
-import com.tomasfriends.bansikee_server.domain.login.profile.KakaoProfile;
-import com.tomasfriends.bansikee_server.domain.login.profile.Profile;
+import com.tomasfriends.bansikee_server.dto.oauthprofile.KakaoProfile;
+import com.tomasfriends.bansikee_server.dto.oauthprofile.Profile;
 import com.tomasfriends.bansikee_server.exceptions.CommunicationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;

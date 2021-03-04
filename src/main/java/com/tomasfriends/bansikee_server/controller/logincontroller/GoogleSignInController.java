@@ -1,7 +1,8 @@
 package com.tomasfriends.bansikee_server.controller.logincontroller;
 
-import com.tomasfriends.bansikee_server.domain.login.profile.GoogleProfile;
-import com.tomasfriends.bansikee_server.domain.login.profile.Profile;
+import com.tomasfriends.bansikee_server.dto.AccessToken;
+import com.tomasfriends.bansikee_server.dto.oauthprofile.GoogleProfile;
+import com.tomasfriends.bansikee_server.dto.oauthprofile.Profile;
 import com.tomasfriends.bansikee_server.domain.response.SingleDataResultMessage;
 import com.tomasfriends.bansikee_server.service.loginservice.GoogleOAuthService;
 import com.tomasfriends.bansikee_server.service.loginservice.OAuthService;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.stream.Collectors;
 
 @Api(tags = {"1. 로그인"})
 @RestController
@@ -37,8 +37,8 @@ public class GoogleSignInController {
     @ApiOperation(value = "구글 회원가입", notes = "등록되지 않은 회원은 카카오에 등록된 이메일로 가입. JWT 발급.")
     @PostMapping("/signup/google")
     public ResponseEntity<SingleDataResultMessage<String>> signUpAndSignIn(
-        @ApiParam(value = "id 토큰", required = true) @RequestBody @Valid String idToken) {
-        Profile googleProfile = googleService.getProfile(idToken);
+        @ApiParam(value = "id 토큰", required = true) @RequestBody @Valid AccessToken token) {
+        Profile googleProfile = googleService.getProfile(token.getAccessToken());
 
         return responseService.getSingleResult(signUpService.signUpWithGoogle((GoogleProfile) googleProfile));
     }

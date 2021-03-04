@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.domain.login.profile;
+package com.tomasfriends.bansikee_server.dto.oauthprofile;
 
 import lombok.Getter;
 import lombok.Setter;
