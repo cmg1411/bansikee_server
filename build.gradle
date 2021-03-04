@@ -4,6 +4,7 @@ plugins {
 
 	id 'java'
 	id 'jacoco'
+	id "org.sonarqube" version "3.0"
 }
 
 group = 'com.tomasfriends'
@@ -25,15 +26,24 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compile 'mysql:mysql-connector-java'
 
-	//implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	// Swagger
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+
+// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'com.google.code.gson:gson'
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	//testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 test {
@@ -48,7 +58,8 @@ test {
 
 jacoco {
 	// JaCoCo 버전
-	toolVersion = '0.8.5'
+	// 버전 0.8.5 로 했다가 하루종일 삽질함. 최신으로 유지.
+	toolVersion = '0.8.6'
 
 	//  테스트결과 리포트를 저장할 경로 변경
 	//  default는 "${project.reporting.baseDir}/jacoco"
@@ -59,7 +70,7 @@ jacocoTestReport {
 	reports {
 		// 원하는 리포트를 켜고 끌 수 있다.
 		html.enabled true
-		xml.enabled false
+		xml.enabled true
 		csv.enabled false
 
 //      각 리포트 타입 마다 리포트 저장 경로를 설정할 수 있다.
@@ -79,7 +90,7 @@ jacocoTestCoverageVerification {
 			limit {
 				// 'counter'를 지정하지 않으면 default는 'INSTRUCTION'
 				// 'value'를 지정하지 않으면 default는 'COVEREDRATIO'
-				minimum = 0.30
+				minimum = 0.00
 			}
 		}
 
@@ -124,7 +135,7 @@ jacocoTestCoverageVerification {
 task testCoverage(type: Test) {
 	// task 지정으로
 	// ./gradlew --console verbose test jacocoTestReport jacocoTestCoverageVerification 와 같은 긴 명령을
-	// ./gradlew --console testCoverage 로 한꺼번에 순서대로 진행 가
+	// ./gradlew testCoverage 로 한꺼번에 순서대로 진행 가능
 	group 'verification'
 	description 'Runs the unit tests with coverage'
 
@@ -134,4 +145,17 @@ task testCoverage(type: Test) {
 
 	tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
 	tasks['jacocoTestCoverageVerification'].mustRunAfter(tasks['jacocoTestReport'])
+}
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "bansikee_server"
+		property "sonar.host.url", "http://34.64.89.2:8080"
+		property "sonar.login", "9c1885722133b2778e5ba408584605450e6e2163"
+		property "sonar.source", "src"
+		property "sonar.language", "java"
+		property "sonar.sourceEncoding", "UTF-8"
+		property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+		property "sonar.exclusions", "*.dto, *.dto.*, *.BackApplication, *.config.*, *.security.*, *.exceptions.*, *.util.*, *.EmptyUser"
+	}
 }

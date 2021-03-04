@@ -9,5 +9,9 @@ spring:
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    generate-ddl: false
+    generate-ddl: true
     show-sql: true
+
+properties:
+  jwt:
+    secretKey : tomasWithFriends
