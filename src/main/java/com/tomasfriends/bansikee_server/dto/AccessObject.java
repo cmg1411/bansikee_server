@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.domain.login.accesstoken;
+package com.tomasfriends.bansikee_server.dto;
 
 import lombok.Builder;
 import lombok.Getter;

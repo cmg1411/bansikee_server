@@ -1,7 +1,7 @@
 package com.tomasfriends.bansikee_server.controller.logincontroller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tomasfriends.bansikee_server.domain.login.accesstoken.AccessObject;
+import com.tomasfriends.bansikee_server.dto.AccessObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
