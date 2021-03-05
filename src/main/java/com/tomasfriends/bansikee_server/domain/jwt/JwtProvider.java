@@ -1,9 +1,8 @@
 package com.tomasfriends.bansikee_server.domain.jwt;
 
 import com.tomasfriends.bansikee_server.dto.servicedto.BansikeeUser;
-import com.tomasfriends.bansikee_server.service.userservice.UserDetailService;
+import com.tomasfriends.bansikee_server.service.userservice.CustomUserDetailService;
 import io.jsonwebtoken.*;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,13 +17,18 @@ import java.util.*;
 
 @Component
 public class JwtProvider {
-    private static final long JWT_VALID_PERIOD = 1000 * 60L * 60L * 24 * 30; // 30일
 
     @Value("${properties.jwt.secretKey}")
     private String secretKey;
 
+    private long JWT_VALID_PERIOD = 1000 * 60L * 60L * 24 * 100; // 100일
+
+    private final UserDetailsService userDetailsService;
+
     @Autowired
-    private UserDetailService userDetailsService;
+    public JwtProvider(CustomUserDetailService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @PostConstruct
     protected void init() {
@@ -39,7 +43,7 @@ public class JwtProvider {
             .setIssuedAt(now)
             .setClaims(setPayloads(user, roles))
             .setExpiration(getExpiredTime())
-            .signWith(SignatureAlgorithm.HS256, secretKey.getBytes())
+            .signWith(SignatureAlgorithm.HS256, secretKey)
             .compact();
     }
 
@@ -49,10 +53,9 @@ public class JwtProvider {
         return header;
     }
 
-    private Map<String, Object> setPayloads(BansikeeUser user, List<String> roles) {
-        Map<String, Object> payloads = new HashMap<>();
+    private Claims setPayloads(BansikeeUser user, List<String> roles) {
+        Claims payloads = Jwts.claims().setSubject(String.valueOf(user.getId()));
 
-        payloads.put("exp", getExpiredTime());
         payloads.put("userIdx", user.getId());
         payloads.put("email", user.getEmail());
         payloads.put("roles", roles);
@@ -62,21 +65,21 @@ public class JwtProvider {
 
     private Date getExpiredTime() {
         Date expireDate = new Date();
-        expireDate.setTime(expireDate.getTime() + JwtProvider.JWT_VALID_PERIOD);
+        expireDate.setTime(expireDate.getTime() + JWT_VALID_PERIOD);
         return expireDate;
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserEmail(token));
+        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserId(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    public String getUserEmail(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJwt(token).getBody().getSubject();
+    public String getUserId(String token) {
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("OAUTH-TOKEN");
+        return request.getHeader("X-AUTH-TOKEN");
     }
 
     public boolean validateToken (String jwtToken) {

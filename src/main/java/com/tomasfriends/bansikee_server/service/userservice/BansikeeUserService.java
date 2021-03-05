@@ -9,29 +9,21 @@ import com.tomasfriends.bansikee_server.exceptions.HaveToSignInWithOauthExceptio
 import com.tomasfriends.bansikee_server.exceptions.InvalidPasswordException;
 import com.tomasfriends.bansikee_server.exceptions.NotRegisteredEmailException;
 import com.tomasfriends.bansikee_server.repository.loginrepository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 
+@RequiredArgsConstructor
 @Service
-public class UserDetailService implements UserDetailsService {
+public class BansikeeUserService {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private  JwtProvider jwtProvider;
-    @Autowired
-    private  PasswordEncoder passwordEncoder;
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email).orElseThrow(NotRegisteredEmailException::new);
-    }
+    private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
+    private final PasswordEncoder passwordEncoder;
 
     public void signUp(BasicLoginUserRequest user) {
         isAlreadyExistUser(user);
@@ -68,5 +60,13 @@ public class UserDetailService implements UserDetailsService {
         if (!passwordEncoder.matches(password, passwordRe)) {
             throw new InvalidPasswordException();
         }
+    }
+
+    public BansikeeUser findByEmailService(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmail(email).orElseThrow(NotRegisteredEmailException::new);
+    }
+
+    public void deleteUser(int id) {
+        userRepository.deleteById(id);
     }
 }

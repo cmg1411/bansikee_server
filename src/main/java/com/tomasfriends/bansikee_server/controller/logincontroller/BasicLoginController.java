@@ -6,7 +6,7 @@ import com.tomasfriends.bansikee_server.domain.response.SuccessCode;
 import com.tomasfriends.bansikee_server.dto.controllerdto.BasicLoginUserRequest;
 import com.tomasfriends.bansikee_server.dto.controllerdto.EmailAndPassword;
 import com.tomasfriends.bansikee_server.service.response.ResponseService;
-import com.tomasfriends.bansikee_server.service.userservice.UserDetailService;
+import com.tomasfriends.bansikee_server.service.userservice.BansikeeUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -26,20 +26,20 @@ import javax.validation.Valid;
 @RequestMapping("/v1")
 public class BasicLoginController {
 
-    private final UserDetailService userDetailService;
+    private final BansikeeUserService bansikeeUserService;
     private final ResponseService responseService;
 
     @ApiOperation(value = "로그인", notes = "이메일 로그인 api")
     @PostMapping("/signin")
     public ResponseEntity<SingleDataSuccessResponse<String>> signIn(@ApiParam(value = "로그인 정보") @RequestBody @Valid EmailAndPassword emailAndPassword) {
-        String jwtToken = userDetailService.signIn(emailAndPassword.getEmail(), emailAndPassword.getPassword());
+        String jwtToken = bansikeeUserService.signIn(emailAndPassword.getEmail(), emailAndPassword.getPassword());
         return responseService.getSingleResult(jwtToken, SuccessCode.SIGN_IN_SUCCESS);
     }
 
     @ApiOperation(value = "회원가입", notes = "일반 로그인 회원가입")
     @PostMapping("/signup")
     public ResponseEntity<SuccessResponse> signUp(@Valid @RequestBody BasicLoginUserRequest user) {
-        userDetailService.signUp(user);
+        bansikeeUserService.signUp(user);
         return responseService.getSuccessResult(SuccessCode.SIGN_UP_SUCCESS);
     }
 }
