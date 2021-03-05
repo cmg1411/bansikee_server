@@ -32,14 +32,14 @@ public class BasicLoginController {
     @ApiOperation(value = "로그인", notes = "이메일 로그인 api")
     @PostMapping("/signin")
     public ResponseEntity<SingleDataSuccessResponse<String>> signIn(@ApiParam(value = "로그인 정보") @RequestBody @Valid EmailAndPassword emailAndPassword) {
-        String jwtToken = userDetailService.validatePassword(emailAndPassword.getEmail(), emailAndPassword.getPassword());
+        String jwtToken = userDetailService.signIn(emailAndPassword.getEmail(), emailAndPassword.getPassword());
         return responseService.getSingleResult(jwtToken, SuccessCode.SIGN_IN_SUCCESS);
     }
 
     @ApiOperation(value = "회원가입", notes = "일반 로그인 회원가입")
     @PostMapping("/signup")
     public ResponseEntity<SuccessResponse> signUp(@Valid @RequestBody BasicLoginUserRequest user) {
-        userDetailService.signIn(user);
+        userDetailService.signUp(user);
         return responseService.getSuccessResult(SuccessCode.SIGN_UP_SUCCESS);
     }
 }

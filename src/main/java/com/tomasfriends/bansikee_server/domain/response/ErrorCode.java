@@ -12,7 +12,8 @@ public enum ErrorCode {
     NOT_REGISTERED_EMAIL(455, "Not registered email.", "해당 이메일로 가입된 계정이 없습니다."),
     NOT_SAME_PASSWORD_AND_REPEATED(450, "Password and repeated password are different.", "비밀번호와 확인이 같지 않습니다."),
     INVALID_PASSWORD(451, "Password is Invalid.", "비밀번호가 틀렸습니다."),
-    ALREADY_EXIST_EMAIL(452, "The email is already exist.", "이미 가입된 이메일입니다.");
+    ALREADY_EXIST_EMAIL(452, "The email is already exist.", "이미 가입된 이메일입니다."),
+    HAVE_TO_SIGN_IN_WITH_OAUTH(460, "Need to Sign in with Oauth.", "소셜 로그인 회원입니다.");
 
     private final int status;
     private final String title;

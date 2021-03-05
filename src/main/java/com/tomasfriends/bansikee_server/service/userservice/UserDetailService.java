@@ -5,6 +5,7 @@ import com.tomasfriends.bansikee_server.domain.jwt.JwtProvider;
 import com.tomasfriends.bansikee_server.dto.controllerdto.BasicLoginUserRequest;
 import com.tomasfriends.bansikee_server.dto.servicedto.BansikeeUser;
 import com.tomasfriends.bansikee_server.exceptions.AlreadySignedUpException;
+import com.tomasfriends.bansikee_server.exceptions.HaveToSignInWithOauthException;
 import com.tomasfriends.bansikee_server.exceptions.InvalidPasswordException;
 import com.tomasfriends.bansikee_server.exceptions.NotRegisteredEmailException;
 import com.tomasfriends.bansikee_server.repository.loginrepository.UserRepository;
@@ -32,10 +33,8 @@ public class UserDetailService implements UserDetailsService {
         return userRepository.findByEmail(email).orElseThrow(NotRegisteredEmailException::new);
     }
 
-    public void signIn(BasicLoginUserRequest user) {
-        if(userRepository.findTopByEmail(user.getEmail()).isPresent()) {
-            throw new AlreadySignedUpException();
-        }
+    public void signUp(BasicLoginUserRequest user) {
+        isAlreadyExistUser(user);
 
         userRepository.save(BansikeeUser.builder()
             .email(user.getEmail())
@@ -46,11 +45,28 @@ public class UserDetailService implements UserDetailsService {
             .build());
     }
 
-    public String validatePassword(String email, String password) {
+    private void isAlreadyExistUser(BasicLoginUserRequest user) {
+        if(userRepository.findTopByEmail(user.getEmail()).isPresent()) {
+            throw new AlreadySignedUpException();
+        }
+    }
+
+    public String signIn(String email, String password) {
         BansikeeUser user = userRepository.findByEmail(email).orElseThrow(NotRegisteredEmailException::new);
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+        isNormalUser(user.getLoginMethod());
+        isValidPassword(password, user.getPassword());
+        return jwtProvider.getJWT(user, user.getRoles());
+    }
+
+    private void isNormalUser(String loginMethod) {
+        if (!loginMethod.equals("NORMAL")) {
+            throw new HaveToSignInWithOauthException();
+        }
+    }
+
+    private void isValidPassword(String password, String passwordRe) {
+        if (!passwordEncoder.matches(password, passwordRe)) {
             throw new InvalidPasswordException();
         }
-        return jwtProvider.getJWT(user, user.getRoles());
     }
 }

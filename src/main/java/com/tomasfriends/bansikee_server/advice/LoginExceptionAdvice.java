@@ -52,4 +52,10 @@ public class LoginExceptionAdvice {
     public ResponseEntity<ErrorResponse> communicationException(AlreadySignedUpException ex) {
         return new ResponseEntity<>(ErrorResponse.of(ErrorCode.ALREADY_EXIST_EMAIL), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(HaveToSignInWithOauthException.class)
+    public ResponseEntity<ErrorResponse> communicationException(HaveToSignInWithOauthException ex) {
+        return new ResponseEntity<>(ErrorResponse.of(ErrorCode.HAVE_TO_SIGN_IN_WITH_OAUTH), HttpStatus.BAD_REQUEST);
+    }
 }
+
