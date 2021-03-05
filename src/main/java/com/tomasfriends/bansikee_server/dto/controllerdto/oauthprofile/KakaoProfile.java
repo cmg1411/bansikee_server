@@ -1,5 +1,6 @@
-package com.tomasfriends.bansikee_server.dto.oauthprofile;
+package com.tomasfriends.bansikee_server.dto.controllerdto.oauthprofile;
 
+import com.tomasfriends.bansikee_server.domain.LoginMethod;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,6 +12,11 @@ public class KakaoProfile implements Profile {
     private int id;
     private Properties properties;
     private KakaoAccount kakao_account;
+
+    @Override
+    public LoginMethod getLoginMethod() {
+        return LoginMethod.KAKAO;
+    }
 
     @Getter
     @Setter
