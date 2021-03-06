@@ -1,6 +1,6 @@
-package com.tomasfriends.bansikee_server.repository;
+package com.tomasfriends.bansikee_server.onBoarding.repository;
 
-import com.tomasfriends.bansikee_server.domain.Question;
+import com.tomasfriends.bansikee_server.onBoarding.domain.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

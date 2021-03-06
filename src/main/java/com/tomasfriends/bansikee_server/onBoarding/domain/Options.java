@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.domain;
+package com.tomasfriends.bansikee_server.onBoarding.domain;
 
 import lombok.Data;
 
@@ -14,7 +14,7 @@ public class Options {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer optionsIdx;
 
-    private Integer questionIdx;
+//    private Integer questionIdx;
 
     private String content;
 }

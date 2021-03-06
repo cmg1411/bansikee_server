@@ -19,5 +19,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/swagger-resources/**");
         web.ignoring().antMatchers("/webjars/**");
         web.ignoring().antMatchers("/**");
+
+        web.ignoring().antMatchers("/on-boarding");
+
     }
 }
