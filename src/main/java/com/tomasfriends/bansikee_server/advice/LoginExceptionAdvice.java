@@ -2,61 +2,60 @@ package com.tomasfriends.bansikee_server.advice;
 
 import com.tomasfriends.bansikee_server.domain.response.ErrorCode;
 import com.tomasfriends.bansikee_server.domain.response.ErrorResponse;
-import com.tomasfriends.bansikee_server.exceptions.CommunicationException;
-import com.tomasfriends.bansikee_server.exceptions.JWTDecodeException;
+import com.tomasfriends.bansikee_server.exceptions.*;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.tomasfriends.bansikee_server.domain.response.ErrorResponse.FiledErrors;
-
+import javax.servlet.http.HttpServletRequest;
 @RestControllerAdvice
+@AllArgsConstructor
 public class LoginExceptionAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ResponseEntity<ErrorResponse> tokenValidationException(MethodArgumentNotValidException ex) {
-        List<FiledErrors> errors = new ArrayList<>();
-        ex.getBindingResult().getAllErrors()
-            .forEach(c -> errors.add(new FiledErrors(((FieldError) c).getField(), c.getDefaultMessage())));
-
-        ErrorResponse response = getErrorResponse(ErrorCode.NOT_INVALID_ACCESS_TOKEN, errors);
-        return ResponseEntity.badRequest().body(response);
-    }
-
-    @ExceptionHandler(CommunicationException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<ErrorResponse> communicationException(CommunicationException ex) {
-        ErrorResponse response = getErrorResponse(ErrorCode.COMMUNICATION_ERROR, getErrorMessages(ex));
-        return ResponseEntity.badRequest().body(response);
+        return new ResponseEntity<>(ErrorResponse.of(ErrorCode.INVALID_REQUEST_DATA), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(JWTDecodeException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ErrorResponse> jwtDecodeException(JWTDecodeException ex) {
-        ErrorResponse response = getErrorResponse(ErrorCode.COMMUNICATION_ERROR, getErrorMessages(ex));
-        return ResponseEntity.badRequest().body(response);
+        return new ResponseEntity<>(ErrorResponse.of(ErrorCode.NOT_INVALID_JWT_TOKEN), HttpStatus.BAD_REQUEST);
     }
 
-    private ErrorResponse getErrorResponse(ErrorCode communicationError, List<FiledErrors> errorMessages) {
-        return ErrorResponse.builder()
-            .status(communicationError.getStatus())
-            .code(communicationError.getCode())
-            .errors(errorMessages)
-            .build();
+    @ExceptionHandler(NotRegisteredEmailException.class)
+    protected ResponseEntity<ErrorResponse> emailSignInFailedException(HttpServletRequest request, NotRegisteredEmailException ex) {
+        return new ResponseEntity<>(ErrorResponse.of(ErrorCode.NOT_REGISTERED_EMAIL), HttpStatus.BAD_REQUEST);
     }
 
-    private List<FiledErrors> getErrorMessages(Exception e) {
-        List<FiledErrors> errors = new ArrayList<>();
-        FiledErrors filedErrors = new FiledErrors("error", e.getMessage());
-        errors.add(filedErrors);
-        return errors;
+    @ExceptionHandler(NotSamePasswordException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected ResponseEntity<ErrorResponse> notSamePasswordException(HttpServletRequest request, NotSamePasswordException ex) {
+        return new ResponseEntity<>(ErrorResponse.of(ErrorCode.NOT_SAME_PASSWORD_AND_REPEATED), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected ResponseEntity<ErrorResponse> invalidPasswordException(HttpServletRequest request, InvalidPasswordException ex) {
+        return new ResponseEntity<>(ErrorResponse.of(ErrorCode.INVALID_PASSWORD), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CommunicationException.class)
+    public ResponseEntity<ErrorResponse> communicationException(CommunicationException ex) {
+        return new ResponseEntity<>(ErrorResponse.of(ErrorCode.COMMUNICATION_ERROR), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AlreadySignedUpException.class)
+    public ResponseEntity<ErrorResponse> communicationException(AlreadySignedUpException ex) {
+        return new ResponseEntity<>(ErrorResponse.of(ErrorCode.ALREADY_EXIST_EMAIL), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HaveToSignInWithOauthException.class)
+    public ResponseEntity<ErrorResponse> communicationException(HaveToSignInWithOauthException ex) {
+        return new ResponseEntity<>(ErrorResponse.of(ErrorCode.HAVE_TO_SIGN_IN_WITH_OAUTH), HttpStatus.BAD_REQUEST);
     }
 }
+
