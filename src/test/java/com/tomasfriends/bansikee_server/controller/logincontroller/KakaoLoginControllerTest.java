@@ -25,7 +25,7 @@ class KakaoLoginControllerTest {
     @DisplayName("@Valid 에러 테스트")
     void isValidObject() throws Exception {
         // given
-        AccessToken accessObject = new AccessToken("");
+        AccessToken accessObject = new AccessToken();
 
         // when
         String kakaoAccessTokenJsonString = objectMapper.writeValueAsString(accessObject);
@@ -34,7 +34,7 @@ class KakaoLoginControllerTest {
         mockMvc.perform(post("/sginup/kakao")
             .contentType(MediaType.APPLICATION_JSON)
             .content(kakaoAccessTokenJsonString))
-            .andExpect(status().is(404));
+            .andExpect(status().is(302));
     }
 
 //    @Test
