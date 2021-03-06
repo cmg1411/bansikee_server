@@ -22,13 +22,13 @@ class UserRepositoryTest {
 //    @Test
 //    void di() throws SQLException {
 //        //given
-//        User user = new User();
+//        ServiceUserDTO user = new ServiceUserDTO();
 //        user.setEmail("cmg1411@naver.com");
 //
 //        //when
-//        User savedUser = userRepository.save(user);
-//        Optional<User> foundedUser = userRepository.findById(user.getUserIdx());
-//        User user1 = foundedUser.get();
+//        ServiceUserDTO savedUser = userRepository.save(user);
+//        Optional<ServiceUserDTO> foundedUser = userRepository.findById(user.getUserIdx());
+//        ServiceUserDTO user1 = foundedUser.get();
 //
 //        //then
 //        assertThat(savedUser).isNotNull();

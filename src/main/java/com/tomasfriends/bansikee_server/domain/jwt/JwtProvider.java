@@ -1,9 +1,18 @@
 package com.tomasfriends.bansikee_server.domain.jwt;
 
+import com.tomasfriends.bansikee_server.dto.servicedto.BansikeeUser;
+import com.tomasfriends.bansikee_server.service.userservice.CustomUserDetailService;
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Component
@@ -11,17 +20,30 @@ public class JwtProvider {
 
     @Value("${properties.jwt.secretKey}")
     private String secretKey;
-    private static final long JWT_VALID_PERIOD = 1000 * 60L * 60L * 12; // 12시간
 
-    private JwtProvider() {
+    private long JWT_VALID_PERIOD = 1000 * 60L * 60L * 24 * 100; // 100일
+
+    private final UserDetailsService userDetailsService;
+
+    @Autowired
+    public JwtProvider(CustomUserDetailService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
-    public String getJWT (String nickname, String email, String profile) {
+    @PostConstruct
+    protected void init() {
+        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+    }
+
+    public String getJWT (BansikeeUser user, List<String> roles) {
+        Date now = new Date();
+
         return Jwts.builder()
             .setHeader(setHeader())
-            .setClaims(setPayloads(nickname, email, profile))
-            .setExpiration(getExpiredTime(JWT_VALID_PERIOD))
-            .signWith(SignatureAlgorithm.HS256, secretKey.getBytes())
+            .setIssuedAt(now)
+            .setClaims(setPayloads(user, roles))
+            .setExpiration(getExpiredTime())
+            .signWith(SignatureAlgorithm.HS256, secretKey)
             .compact();
     }
 
@@ -31,20 +53,41 @@ public class JwtProvider {
         return header;
     }
 
-    private Map<String, Object> setPayloads(String nickname, String email, String profile) {
-        Map<String, Object> payloads = new HashMap<>();
+    private Claims setPayloads(BansikeeUser user, List<String> roles) {
+        Claims payloads = Jwts.claims().setSubject(String.valueOf(user.getId()));
 
-        payloads.put("exp", getExpiredTime(JWT_VALID_PERIOD));
-        payloads.put("name", nickname);
-        payloads.put("email", email);
-        payloads.put("profileImage", profile);
+        payloads.put("userIdx", user.getId());
+        payloads.put("email", user.getEmail());
+        payloads.put("roles", roles);
 
         return payloads;
     }
 
-    private Date getExpiredTime(Long expiredTime) {
-        Date now = new Date();
-        now.setTime(now.getTime() + expiredTime);
-        return now;
+    private Date getExpiredTime() {
+        Date expireDate = new Date();
+        expireDate.setTime(expireDate.getTime() + JWT_VALID_PERIOD);
+        return expireDate;
+    }
+
+    public Authentication getAuthentication(String token) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserId(token));
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    }
+
+    public String getUserId(String token) {
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public String resolveToken(HttpServletRequest request) {
+        return request.getHeader("X-AUTH-TOKEN");
+    }
+
+    public boolean validateToken (String jwtToken) {
+        try {
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
+            return !claims.getBody().getExpiration().before(new Date());
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

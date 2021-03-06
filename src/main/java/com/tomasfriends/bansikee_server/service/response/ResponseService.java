@@ -1,8 +1,9 @@
 package com.tomasfriends.bansikee_server.service.response;
 
-import com.tomasfriends.bansikee_server.domain.response.ListDataResultMessage;
-import com.tomasfriends.bansikee_server.domain.response.ResultMessage;
-import com.tomasfriends.bansikee_server.domain.response.SingleDataResultMessage;
+import com.tomasfriends.bansikee_server.domain.response.ListDataSuccessResponse;
+import com.tomasfriends.bansikee_server.domain.response.SuccessResponse;
+import com.tomasfriends.bansikee_server.domain.response.SingleDataSuccessResponse;
+import com.tomasfriends.bansikee_server.domain.response.SuccessCode;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,61 +16,32 @@ import java.util.List;
 @Service
 public class ResponseService {
 
-    public enum CommonResponse {
-        SUCCESS(0, "정상 응답"),
-        FAIL(-1, "응답 실패");
-
-        int code;
-        String msg;
-
-        CommonResponse(int code, String msg) {
-            this.code = code;
-            this.msg = msg;
-        }
-
-        public int getCode() {
-            return code;
-        }
-
-        public String getMsg() {
-            return msg;
-        }
-    }
-
     private final HttpHeaders headers = new HttpHeaders();
 
-    public <T> ResponseEntity<SingleDataResultMessage<T>> getSingleResult(T data) {
-        SingleDataResultMessage<T> message = new SingleDataResultMessage<>();
+    public <T> ResponseEntity<SingleDataSuccessResponse<T>> getSingleResult(T data, SuccessCode successCode) {
+        SingleDataSuccessResponse<T> message = new SingleDataSuccessResponse<>();
         message.setData(data);
-        setSuccessResult(message);
+        setSuccessResult(message, successCode);
         return new ResponseEntity<>(message, setHeaders(), HttpStatus.OK);
     }
 
-    public <T> ResponseEntity<ListDataResultMessage<T>> getListResult(List<T> list) {
-        ListDataResultMessage<T> message = new ListDataResultMessage<>();
+    public <T> ResponseEntity<ListDataSuccessResponse<T>> getListResult(List<T> list, SuccessCode successCode) {
+        ListDataSuccessResponse<T> message = new ListDataSuccessResponse<>();
         message.setListData(list);
-        setSuccessResult(message);
+        setSuccessResult(message, successCode);
         return new ResponseEntity<>(message, setHeaders(), HttpStatus.OK);
     }
 
-    public ResponseEntity<ResultMessage> getSuccessResult() {
-        ResultMessage message = new ResultMessage();
-        setSuccessResult(message);
+    public ResponseEntity<SuccessResponse> getSuccessResult(SuccessCode successCode) {
+        SuccessResponse message = new SuccessResponse();
+        setSuccessResult(message, successCode);
         return new ResponseEntity<>(message, setHeaders(), HttpStatus.OK);
     }
 
-    private void setSuccessResult(ResultMessage message) {
-        message.setSuccess(true);
-        message.setCode(CommonResponse.SUCCESS.getCode());
-        message.setMsg(CommonResponse.SUCCESS.getMsg());
-    }
-
-    public ResultMessage getFailResult() {
-        ResultMessage result = new ResultMessage();
-        result.setSuccess(false);
-        result.setCode(CommonResponse.FAIL.getCode());
-        result.setMsg(CommonResponse.FAIL.getMsg());
-        return result;
+    private void setSuccessResult(SuccessResponse message, SuccessCode successCode) {
+        message.setStatus(successCode.getStatus());
+        message.setTitle(successCode.getTitle());
+        message.setDetail(successCode.getDetail());
     }
 
     private HttpHeaders setHeaders() {
