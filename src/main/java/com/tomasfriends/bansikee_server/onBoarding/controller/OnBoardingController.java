@@ -37,6 +37,7 @@ public class OnBoardingController {
 
     // GET 설문지 조회 (질문 조회)
     // userTable에 온보딩 0일시 1로 바꾸기
+
     @ApiOperation(value = "온보딩 설문지 조회", notes = " ")
     @GetMapping("/on-boarding")
     @ApiImplicitParams({
