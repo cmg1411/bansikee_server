@@ -3,8 +3,6 @@ package com.tomasfriends.bansikee_server.onBoarding.domain;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
