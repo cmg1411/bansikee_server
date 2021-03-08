@@ -14,10 +14,6 @@ public class ResQuestionDto {
     private String questionContent;
     private List<Options> resOptionList = new ArrayList<>();
 
-//    public void addOptionDto(ResOptionDto resOptionDto) {
-//        resOptionList.add(resOptionDto);
-//    }
-
     public static ResQuestionDto of(Question question){
         ResQuestionDto resQuestionDto = new ResQuestionDto();
 

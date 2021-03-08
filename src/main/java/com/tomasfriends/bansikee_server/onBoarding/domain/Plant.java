@@ -2,10 +2,9 @@ package com.tomasfriends.bansikee_server.onBoarding.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,9 +26,9 @@ public class Plant {
 
     private Integer width;
 
-    private String speed;
+    private Integer speed;
 
-    private String smell;
+    private Integer smell;
 
     private String temperature;
 
@@ -40,4 +39,5 @@ public class Plant {
     private String area;
 
     private String plantImgUrl;
+
 }
