@@ -12,6 +12,7 @@ public class ResQuestionDto {
 
     private Integer questionIdx;
     private String questionContent;
+    private String info;
     private List<Options> resOptionList = new ArrayList<>();
 
     public static ResQuestionDto of(Question question){
@@ -19,6 +20,7 @@ public class ResQuestionDto {
 
         resQuestionDto.questionIdx = question.getQuestionIdx();
         resQuestionDto.questionContent = question.getContent();
+        resQuestionDto.info = question.getInfo();
         resQuestionDto.resOptionList = question.getOptions();
 
         return resQuestionDto;
