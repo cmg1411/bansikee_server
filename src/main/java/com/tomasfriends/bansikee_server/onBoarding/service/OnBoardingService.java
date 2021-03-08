@@ -3,11 +3,9 @@ package com.tomasfriends.bansikee_server.onBoarding.service;
 import com.tomasfriends.bansikee_server.onBoarding.domain.Favorites;
 import com.tomasfriends.bansikee_server.onBoarding.domain.OnBoardingAnswer;
 import com.tomasfriends.bansikee_server.onBoarding.domain.Plant;
+import com.tomasfriends.bansikee_server.onBoarding.domain.User;
 import com.tomasfriends.bansikee_server.onBoarding.dto.*;
-import com.tomasfriends.bansikee_server.onBoarding.repository.OnBoardingAnswerRepository;
-import com.tomasfriends.bansikee_server.onBoarding.repository.FavoritesRepository;
-import com.tomasfriends.bansikee_server.onBoarding.repository.PlantRepository;
-import com.tomasfriends.bansikee_server.onBoarding.repository.QuestionRepository;
+import com.tomasfriends.bansikee_server.onBoarding.repository.*;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -24,12 +22,14 @@ public class OnBoardingService {
     private OnBoardingAnswerRepository onBoardingAnswerRepository;
     private FavoritesRepository favoritesRepository;
     private PlantRepository plantRepository;
+    private OnBoardUserRepository onBoardUserRepository;
 
-    public OnBoardingService(QuestionRepository questionRepository, OnBoardingAnswerRepository onBoardingAnswerRepository, FavoritesRepository favoritesRepository, PlantRepository plantRepository) {
+    public OnBoardingService(QuestionRepository questionRepository, OnBoardingAnswerRepository onBoardingAnswerRepository, FavoritesRepository favoritesRepository, PlantRepository plantRepository, OnBoardUserRepository onBoardUserRepository) {
         this.questionRepository = questionRepository;
         this.onBoardingAnswerRepository = onBoardingAnswerRepository;
         this.favoritesRepository = favoritesRepository;
         this.plantRepository = plantRepository;
+        this.onBoardUserRepository = onBoardUserRepository;
     }
 
 
@@ -39,8 +39,13 @@ public class OnBoardingService {
     public List<ResQuestionDto> getQuestions(Integer userIdx) {
 
         //userIdx로 onBoarding 조회
-        //if 0
-        //make 1
+
+        List<User> user = onBoardUserRepository.findByUseridx(userIdx);
+        if(user.get(0).getOnBoarding() == 0) {
+            user.get(0).setOnBoarding(1);
+
+            onBoardUserRepository.save(user.get(0));
+        }
 
         List<ResQuestionDto> resQuestionDtos = questionRepository.findAll()
                 .stream()
