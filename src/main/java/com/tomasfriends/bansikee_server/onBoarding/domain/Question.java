@@ -18,6 +18,8 @@ public class Question {
 
     private String content;
 
+    private String info;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @Column(name = "options")
     @JoinColumn(name = "questionIdx")

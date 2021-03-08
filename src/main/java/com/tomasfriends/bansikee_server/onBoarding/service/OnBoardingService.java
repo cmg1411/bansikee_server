@@ -42,7 +42,6 @@ public class OnBoardingService {
         //if 0
         //make 1
 
-
         List<ResQuestionDto> resQuestionDtos = questionRepository.findAll()
                 .stream()
                 .map(ResQuestionDto::of)
@@ -62,7 +61,6 @@ public class OnBoardingService {
 
             onBoardingAnswerRepository.save(onBoardingAnswer);
         }
-
     }
 
     /**
@@ -79,7 +77,6 @@ public class OnBoardingService {
         int[] countList = new int[plantList.size()];
 
         ArrayList<Plant> result = new ArrayList<>();
-
 
         int count = 0;
         for (int i = 0; i < plantList.size(); i++) {
@@ -111,14 +108,11 @@ public class OnBoardingService {
                 .stream()
                 .map(ResRecoPlantDto::of)
                 .collect(Collectors.toList());
-        LOGGER.info("길이: "+countList.length);
+
         for(int i = 0; i < resRecoPlantDtos.size(); i++) {
             resRecoPlantDtos.get(i).setLike(favoritesRepository.existsByPlantIdxAndUserIdx(resRecoPlantDtos.get(i).getPlantIdx(), userIdx));
-
-            LOGGER.info("plantIdx : "+resRecoPlantDtos.get(i).getPlantIdx());
             resRecoPlantDtos.get(i).setCount(countList[resRecoPlantDtos.get(i).getPlantIdx()-1]);
         }
-
 
         return resRecoPlantDtos;
     }
