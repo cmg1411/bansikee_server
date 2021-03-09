@@ -1,11 +1,10 @@
 package com.tomasfriends.bansikee_server.config;
 
-import com.tomasfriends.bansikee_server.advice.CustomAuthenticationEntryPoint;
-import com.tomasfriends.bansikee_server.domain.jwt.JwtAuthenticationFilter;
-import com.tomasfriends.bansikee_server.domain.jwt.JwtProvider;
+import com.tomasfriends.bansikee_server.sign.advice.CustomAuthenticationEntryPoint;
+import com.tomasfriends.bansikee_server.jwt.JwtAuthenticationFilter;
+import com.tomasfriends.bansikee_server.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
