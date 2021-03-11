@@ -18,15 +18,15 @@ public class Plant {
 
     private String info;
 
-    private Integer managementLevel;
+    private String managementLevel;
 
     private Integer height;
 
     private Integer width;
 
-    private Integer speed;
+    private String speed;
 
-    private Integer smell;
+    private String smell;
 
     private String temperature;
 
@@ -37,5 +37,10 @@ public class Plant {
     private String area;
 
     private String plantImgUrl;
+
+    private Integer managementLevelCode;
+    private Integer heightCode;
+    private Integer speedCode;
+    private Integer smellCode;
 
 }
