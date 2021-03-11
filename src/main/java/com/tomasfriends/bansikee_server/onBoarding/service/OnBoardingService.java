@@ -88,10 +88,11 @@ public class OnBoardingService {
         int count = 0;
         for (int i = 0; i < plantList.size(); i++) {
             count = 0;
-            if (plantList.get(i).getSmell().equals(onBoardingAnswer.get(0).getOptionIdx())) count++;
-            if (plantList.get(i).getHeight().equals(onBoardingAnswer.get(1).getOptionIdx())) count++;
-            if (plantList.get(i).getSpeed().equals(onBoardingAnswer.get(2).getOptionIdx())) count++;
-            if (plantList.get(i).getManagementLevel().equals(onBoardingAnswer.get(3).getOptionIdx())) count++;
+
+            if (plantList.get(i).getSmellCode().equals(onBoardingAnswer.get(0).getOptionIdx())) count++;
+            if (plantList.get(i).getHeightCode().equals(onBoardingAnswer.get(1).getOptionIdx())) count++;
+            if (plantList.get(i).getSpeedCode().equals(onBoardingAnswer.get(2).getOptionIdx())) count++;
+            if (plantList.get(i).getManagementLevelCode().equals(onBoardingAnswer.get(3).getOptionIdx())) count++;
             switch (count) {
                 case 2:
                     two.add(plantList.get(i));

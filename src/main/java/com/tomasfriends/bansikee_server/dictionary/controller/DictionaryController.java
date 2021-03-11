@@ -1,11 +1,9 @@
 package com.tomasfriends.bansikee_server.dictionary.controller;
 
 import com.tomasfriends.bansikee_server.dictionary.service.DictionaryService;
-import com.tomasfriends.bansikee_server.dictionary.service.PlantDataService;
 import com.tomasfriends.bansikee_server.response.service.ResponseService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = {"5.식물사전"})

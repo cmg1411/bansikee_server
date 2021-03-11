@@ -2,7 +2,6 @@ package com.tomasfriends.bansikee_server.dictionary.config;
 
 import com.tomasfriends.bansikee_server.dictionary.repository.PlantDictionaryRepository;
 import com.tomasfriends.bansikee_server.dictionary.service.DictionaryService;
-import com.tomasfriends.bansikee_server.dictionary.service.PlantDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +21,8 @@ public class DictionaryConfig {
         return new DictionaryService();
     }
 
-    @Bean
-    public PlantDataService plantDataService(){
-        return new PlantDataService(plantDictionaryRepository);
-    }
+//    @Bean
+//    public PlantDataService plantDataService(){
+//        return new PlantDataService(plantDictionaryRepository);
+//    }
 }
