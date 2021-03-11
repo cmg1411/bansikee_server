@@ -12,6 +12,8 @@ public class Plant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer plantIdx;
 
+    private Integer code;
+
     private String name;
 
     private String species;

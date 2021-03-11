@@ -39,7 +39,6 @@ public class OnBoardingService {
     public List<ResQuestionDto> getQuestions(Integer userIdx) {
 
         //userIdx로 onBoarding 조회
-
         List<User> user = onBoardUserRepository.findByUseridx(userIdx);
         if(user.get(0).getOnBoarding() == 0) {
             user.get(0).setOnBoarding(1);
@@ -51,6 +50,9 @@ public class OnBoardingService {
                 .stream()
                 .map(ResQuestionDto::of)
                 .collect(Collectors.toList());
+
+        String[] questionContent =resQuestionDtos.get(3).getQuestionContent().split("\\n");
+        resQuestionDtos.get(3).setQuestionContent(questionContent[0] + "\n"+user.get(0).getName()+questionContent[1]);
 
         return resQuestionDtos;
     }
