@@ -30,7 +30,9 @@ public class Plant {
 
     private String temperature;
 
-    private String water;
+    private String summerWater;
+
+    private String winterWater;
 
     private String light;
 

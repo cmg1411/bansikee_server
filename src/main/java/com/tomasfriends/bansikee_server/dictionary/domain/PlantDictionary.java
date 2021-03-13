@@ -12,7 +12,6 @@ public class PlantDictionary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer plantIdx;
 
     private String name;
@@ -33,7 +32,9 @@ public class PlantDictionary {
 
     private String temperature;
 
-    private String water;
+    private String summerWater;
+
+    private String winterWater;
 
     private String light;
 
@@ -46,7 +47,7 @@ public class PlantDictionary {
     private Integer speedCode;
     private Integer smellCode;
 
-    public static PlantDictionary of( String name, String species, String info, String managementLevel, Integer height,Integer width,String speed,String smell,String temperature,String water,String light,String area, String plantImgUrl, Integer managementLevelCode, Integer heightCode, Integer speedCode,Integer smellCode) {
+    public static PlantDictionary of( String name, String species, String info, String managementLevel, Integer height,Integer width,String speed,String smell,String temperature,String summerWater,String winterWater,String light,String area, String plantImgUrl, Integer managementLevelCode, Integer heightCode, Integer speedCode,Integer smellCode) {
         PlantDictionary plantDictionary = new PlantDictionary();
 
         plantDictionary.name = name;
@@ -58,7 +59,8 @@ public class PlantDictionary {
         plantDictionary.speed = speed;
         plantDictionary.smell = smell;
         plantDictionary.temperature = temperature;
-        plantDictionary.water = water;
+        plantDictionary.summerWater = summerWater;
+        plantDictionary.winterWater = winterWater;
         plantDictionary.light = light;
         plantDictionary.area = area;
         plantDictionary.plantImgUrl = plantImgUrl;
