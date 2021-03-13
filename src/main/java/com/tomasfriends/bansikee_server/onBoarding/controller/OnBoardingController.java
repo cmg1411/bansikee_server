@@ -70,7 +70,6 @@ public class OnBoardingController {
 
 
     // GET 식물 추천
-    //식물db 구축
     @ApiOperation(value = "식물 추천", notes = " ")
     @GetMapping("/recommendation")
     @ApiImplicitParams({

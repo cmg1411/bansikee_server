@@ -120,6 +120,7 @@ public class OnBoardingService {
         for(int i = 0; i < resRecoPlantDtos.size(); i++) {
             resRecoPlantDtos.get(i).setLike(favoritesRepository.existsByPlantIdxAndUserIdx(resRecoPlantDtos.get(i).getPlantIdx(), userIdx));
             resRecoPlantDtos.get(i).setCount(countList[resRecoPlantDtos.get(i).getPlantIdx()-1]);
+            resRecoPlantDtos.get(i).setPlantImgUrl("http://www.nongsaro.go.kr/cms_contents/301/"+resRecoPlantDtos.get(i).getPlantImgUrl().split("\\|")[0]);
         }
 
         return resRecoPlantDtos;
