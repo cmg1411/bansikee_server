@@ -1,10 +1,10 @@
-package com.tomasfriends.bansikee_server.sign.controller.logincontroller;
+package com.tomasfriends.bansikee_server.sign.controller;
 
 import com.tomasfriends.bansikee_server.response.dto.SuccessCode;
 import com.tomasfriends.bansikee_server.response.dto.SuccessResponse;
-import com.tomasfriends.bansikee_server.sign.dto.servicedto.BansikeeUser;
+import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import com.tomasfriends.bansikee_server.response.service.ResponseService;
-import com.tomasfriends.bansikee_server.sign.service.userservice.BansikeeUserService;
+import com.tomasfriends.bansikee_server.sign.service.BansikeeUserService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

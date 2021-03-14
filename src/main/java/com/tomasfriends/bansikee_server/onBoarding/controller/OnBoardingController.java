@@ -9,7 +9,7 @@ import com.tomasfriends.bansikee_server.response.dto.SingleDataSuccessResponse;
 import com.tomasfriends.bansikee_server.response.dto.SuccessCode;
 import com.tomasfriends.bansikee_server.response.dto.SuccessResponse;
 import com.tomasfriends.bansikee_server.response.service.ResponseService;
-import com.tomasfriends.bansikee_server.sign.dto.servicedto.BansikeeUser;
+import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

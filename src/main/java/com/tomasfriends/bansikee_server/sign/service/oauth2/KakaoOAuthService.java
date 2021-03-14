@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.sign.service.userservice.oauth2;
+package com.tomasfriends.bansikee_server.sign.service.oauth2;
 
 import com.google.gson.Gson;
 import com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile.KakaoProfile;

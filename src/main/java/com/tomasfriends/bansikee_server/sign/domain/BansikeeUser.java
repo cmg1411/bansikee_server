@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.sign.dto.servicedto;
+package com.tomasfriends.bansikee_server.sign.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

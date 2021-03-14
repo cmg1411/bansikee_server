@@ -1,6 +1,6 @@
-package com.tomasfriends.bansikee_server.sign.repository.loginrepository;
+package com.tomasfriends.bansikee_server.sign.repository;
 
-import com.tomasfriends.bansikee_server.sign.dto.servicedto.BansikeeUser;
+import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

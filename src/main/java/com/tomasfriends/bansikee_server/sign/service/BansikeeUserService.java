@@ -1,11 +1,12 @@
-package com.tomasfriends.bansikee_server.sign.service.userservice;
+package com.tomasfriends.bansikee_server.sign.service;
 
 import com.tomasfriends.bansikee_server.sign.domain.LoginMethod;
 import com.tomasfriends.bansikee_server.jwt.JwtProvider;
+import com.tomasfriends.bansikee_server.sign.dto.SignInResponseDto;
 import com.tomasfriends.bansikee_server.sign.dto.controllerdto.BasicLoginUserRequest;
-import com.tomasfriends.bansikee_server.sign.dto.servicedto.BansikeeUser;
+import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import com.tomasfriends.bansikee_server.sign.exceptions.*;
-import com.tomasfriends.bansikee_server.sign.repository.loginrepository.UserRepository;
+import com.tomasfriends.bansikee_server.sign.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,11 +41,11 @@ public class BansikeeUserService {
         }
     }
 
-    public String signIn(String email, String password) {
+    public SignInResponseDto signIn(String email, String password) {
         BansikeeUser user = userRepository.findByEmail(email).orElseThrow(NotRegisteredEmailException::new);
         isNormalUser(user.getLoginMethod());
         isValidPassword(password, user.getPassword());
-        return jwtProvider.getJWT(user, user.getRoles());
+        return new SignInResponseDto(jwtProvider.getJWT(user, user.getRoles()), user.getName(), user.getEmail());
     }
 
     private void isNormalUser(String loginMethod) {

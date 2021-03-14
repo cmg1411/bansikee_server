@@ -1,12 +1,13 @@
-package com.tomasfriends.bansikee_server.sign.service.userservice.oauth2;
+package com.tomasfriends.bansikee_server.sign.service.oauth2;
 
 import com.tomasfriends.bansikee_server.jwt.JwtProvider;
+import com.tomasfriends.bansikee_server.sign.dto.SignInResponseDto;
 import com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile.GoogleProfile;
 import com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile.KakaoProfile;
 import com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile.Profile;
-import com.tomasfriends.bansikee_server.sign.dto.servicedto.BansikeeUser;
+import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import com.tomasfriends.bansikee_server.sign.exceptions.NotRegisteredEmailException;
-import com.tomasfriends.bansikee_server.sign.repository.loginrepository.UserRepository;
+import com.tomasfriends.bansikee_server.sign.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class OauthSignUpService {
         this.jwtProvider = jwtProvider;
     }
 
-    public String signUpWithKakao(KakaoProfile profile) {
+    public SignInResponseDto signUpWithKakao(KakaoProfile profile) {
         String nickname = profile.getProperties().getNickname();
         String profileImage = profile.getProperties().getProfile_image();
         String email = profile.getKakao_account().getEmail();
@@ -33,10 +34,10 @@ public class OauthSignUpService {
         signUpIfNotUser(nickname, email, profileImage, profile);
         BansikeeUser user = userRepository.findByEmail(email).orElseThrow(NotRegisteredEmailException::new);
 
-        return jwtProvider.getJWT(user, user.getRoles());
+        return new SignInResponseDto(jwtProvider.getJWT(user, user.getRoles()), user.getName(), user.getEmail());
     }
 
-    public String signUpWithGoogle(GoogleProfile profile) {
+    public SignInResponseDto signUpWithGoogle(GoogleProfile profile) {
         String nickname = profile.getGiven_name();
         String profileImage = profile.getPicture();
         String email = profile.getEmail();
@@ -44,7 +45,7 @@ public class OauthSignUpService {
         signUpIfNotUser(nickname, email, profileImage, profile);
         BansikeeUser user = userRepository.findByEmail(email).orElseThrow(NotRegisteredEmailException::new);
 
-        return jwtProvider.getJWT(user, user.getRoles());
+        return new SignInResponseDto(jwtProvider.getJWT(user, user.getRoles()), user.getName(), user.getEmail());
     }
 
     private void signUpIfNotUser(String nickname, String email, String profileImage, Profile profile) {

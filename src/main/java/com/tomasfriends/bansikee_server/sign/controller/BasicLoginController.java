@@ -1,13 +1,14 @@
-package com.tomasfriends.bansikee_server.sign.controller.logincontroller;
+package com.tomasfriends.bansikee_server.sign.controller;
 
 import com.tomasfriends.bansikee_server.response.dto.SuccessResponse;
 import com.tomasfriends.bansikee_server.response.dto.SingleDataSuccessResponse;
 import com.tomasfriends.bansikee_server.response.dto.SuccessCode;
+import com.tomasfriends.bansikee_server.sign.dto.SignInResponseDto;
 import com.tomasfriends.bansikee_server.sign.dto.controllerdto.BasicLoginUserRequest;
 import com.tomasfriends.bansikee_server.sign.dto.controllerdto.EmailAndPassword;
 import com.tomasfriends.bansikee_server.sign.dto.controllerdto.NickNameRequestDto;
 import com.tomasfriends.bansikee_server.response.service.ResponseService;
-import com.tomasfriends.bansikee_server.sign.service.userservice.BansikeeUserService;
+import com.tomasfriends.bansikee_server.sign.service.BansikeeUserService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +29,9 @@ public class BasicLoginController {
 
     @ApiOperation(value = "로그인", notes = "이메일 로그인 api")
     @PostMapping("/v1/signin")
-    public ResponseEntity<SingleDataSuccessResponse<String>> signIn(@ApiParam(value = "로그인 정보") @RequestBody @Valid EmailAndPassword emailAndPassword) {
-        String jwtToken = bansikeeUserService.signIn(emailAndPassword.getEmail(), emailAndPassword.getPassword());
-        return responseService.getSingleResult(jwtToken, SuccessCode.SIGN_IN_SUCCESS);
+    public ResponseEntity<SingleDataSuccessResponse<SignInResponseDto>> signIn(@ApiParam(value = "로그인 정보") @RequestBody @Valid EmailAndPassword emailAndPassword) {
+        SignInResponseDto response = bansikeeUserService.signIn(emailAndPassword.getEmail(), emailAndPassword.getPassword());
+        return responseService.getSingleResult(response, SuccessCode.SIGN_IN_SUCCESS);
     }
 
     @ApiOperation(value = "닉네임 중복검사", notes = "닉네임 중복검사 API")
