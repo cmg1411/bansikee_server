@@ -1,15 +1,16 @@
 package com.tomasfriends.bansikee_server.onBoarding.controller;
 
-import com.tomasfriends.bansikee_server.domain.response.SingleDataSuccessResponse;
-import com.tomasfriends.bansikee_server.domain.response.SuccessCode;
-import com.tomasfriends.bansikee_server.domain.response.SuccessResponse;
-import com.tomasfriends.bansikee_server.dto.servicedto.BansikeeUser;
 import com.tomasfriends.bansikee_server.onBoarding.dto.ReqAnswerListDto;
 import com.tomasfriends.bansikee_server.onBoarding.dto.ResQuestionDto;
 import com.tomasfriends.bansikee_server.onBoarding.dto.ResRecoPlantDto;
 import com.tomasfriends.bansikee_server.onBoarding.service.OnBoardingService;
 
-import com.tomasfriends.bansikee_server.service.response.ResponseService;
+import com.tomasfriends.bansikee_server.response.dto.SingleDataSuccessResponse;
+import com.tomasfriends.bansikee_server.response.dto.SuccessCode;
+import com.tomasfriends.bansikee_server.response.dto.SuccessResponse;
+import com.tomasfriends.bansikee_server.response.service.ResponseService;
+import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
