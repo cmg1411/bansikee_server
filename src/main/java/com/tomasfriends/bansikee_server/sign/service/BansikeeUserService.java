@@ -2,15 +2,18 @@ package com.tomasfriends.bansikee_server.sign.service;
 
 import com.tomasfriends.bansikee_server.sign.domain.LoginMethod;
 import com.tomasfriends.bansikee_server.jwt.JwtProvider;
-import com.tomasfriends.bansikee_server.sign.dto.SignInResponseDto;
-import com.tomasfriends.bansikee_server.sign.dto.controllerdto.BasicLoginUserRequest;
+import com.tomasfriends.bansikee_server.sign.service.dto.NickNameRequestDto;
+import com.tomasfriends.bansikee_server.sign.service.dto.SignInRequestDto;
+import com.tomasfriends.bansikee_server.sign.service.dto.SignInResponseDto;
+import com.tomasfriends.bansikee_server.sign.service.dto.BasicLoginUserRequest;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
-import com.tomasfriends.bansikee_server.sign.exceptions.*;
-import com.tomasfriends.bansikee_server.sign.repository.UserRepository;
+import com.tomasfriends.bansikee_server.sign.service.exceptions.*;
+import com.tomasfriends.bansikee_server.sign.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -41,10 +44,10 @@ public class BansikeeUserService {
         }
     }
 
-    public SignInResponseDto signIn(String email, String password) {
-        BansikeeUser user = userRepository.findByEmail(email).orElseThrow(NotRegisteredEmailException::new);
+    public SignInResponseDto signIn(SignInRequestDto signInRequestDto) {
+        BansikeeUser user = userRepository.findByEmail(signInRequestDto.getEmail()).orElseThrow(NotRegisteredEmailException::new);
         isNormalUser(user.getLoginMethod());
-        isValidPassword(password, user.getPassword());
+        isValidPassword(signInRequestDto.getPassword(), user.getPassword());
         return new SignInResponseDto(jwtProvider.getJWT(user, user.getRoles()), user.getName(), user.getEmail());
     }
 
@@ -64,6 +67,7 @@ public class BansikeeUserService {
         return userRepository.findByEmail(email).orElseThrow(NotRegisteredEmailException::new);
     }
 
+    @Transactional
     public void deleteUser(int id) {
         userRepository.deleteById(id);
     }
@@ -74,8 +78,8 @@ public class BansikeeUserService {
         return bansikeeUser.isOnBoarding();
     }
 
-    public Boolean nickNameCheck(String nickName) {
-        Optional<BansikeeUser> userByNickName = userRepository.findByName(nickName);
+    public Boolean nickNameCheck(NickNameRequestDto nickNameDto) {
+        Optional<BansikeeUser> userByNickName = userRepository.findByName(nickNameDto.getNickName());
         return userByNickName.isPresent();
     }
 }

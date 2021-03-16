@@ -2,13 +2,10 @@ package com.tomasfriends.bansikee_server.dictionary.controller;
 
 import com.tomasfriends.bansikee_server.dictionary.dto.dictionaryDto.ResPlantDto;
 import com.tomasfriends.bansikee_server.dictionary.service.DictionaryService;
-import com.tomasfriends.bansikee_server.onBoarding.dto.ReqAnswerListDto;
-import com.tomasfriends.bansikee_server.onBoarding.dto.ResRecoPlantDto;
 import com.tomasfriends.bansikee_server.response.dto.SingleDataSuccessResponse;
 import com.tomasfriends.bansikee_server.response.dto.SuccessCode;
-import com.tomasfriends.bansikee_server.response.dto.SuccessResponse;
 import com.tomasfriends.bansikee_server.response.service.ResponseService;
-import com.tomasfriends.bansikee_server.sign.dto.servicedto.BansikeeUser;
+import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -19,10 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @Api(tags = {"5.식물사전"})
 @RestController
