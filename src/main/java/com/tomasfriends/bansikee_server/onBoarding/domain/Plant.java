@@ -3,8 +3,6 @@ package com.tomasfriends.bansikee_server.onBoarding.domain;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -20,24 +18,31 @@ public class Plant {
 
     private String info;
 
-    private Integer managementLevel;
+    private String managementLevel;
 
     private Integer height;
 
     private Integer width;
 
-    private Integer speed;
+    private String speed;
 
-    private Integer smell;
+    private String smell;
 
     private String temperature;
 
-    private String water;
+    private String summerWater;
+
+    private String winterWater;
 
     private String light;
 
     private String area;
 
     private String plantImgUrl;
+
+    private Integer managementLevelCode;
+    private Integer heightCode;
+    private Integer speedCode;
+    private Integer smellCode;
 
 }
