@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.sign.service.exceptions;
+package com.tomasfriends.bansikee_server.sign.exceptions;
 
 public class NotRegisteredUserIdException extends RuntimeException {
     public NotRegisteredUserIdException(String msg, Throwable t) {

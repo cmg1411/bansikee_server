@@ -8,4 +8,13 @@ public class ResOptionDto {
 
     private Integer optionIdx;
     private String optionContent;
+
+    public static ResOptionDto of(Options options){
+        ResOptionDto resOptionDto = new ResOptionDto();
+
+        resOptionDto.optionIdx = options.getOptionsIdx();
+        resOptionDto.optionContent = options.getContent();
+
+        return resOptionDto;
+    }
 }

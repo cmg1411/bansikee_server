@@ -1,11 +1,11 @@
-package com.tomasfriends.bansikee_server.sign.service.dto;
+package com.tomasfriends.bansikee_server.sign.dto.controllerdto;
 
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 
 @Getter
-public class TokenRequestDto {
+public class AccessToken {
 
     @NotBlank
     private String accessToken;

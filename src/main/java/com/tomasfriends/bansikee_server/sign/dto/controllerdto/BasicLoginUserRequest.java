@@ -1,6 +1,6 @@
-package com.tomasfriends.bansikee_server.sign.service.dto;
+package com.tomasfriends.bansikee_server.sign.dto.controllerdto;
 
-import com.tomasfriends.bansikee_server.sign.service.exceptions.NotSamePasswordException;
+import com.tomasfriends.bansikee_server.sign.exceptions.NotSamePasswordException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

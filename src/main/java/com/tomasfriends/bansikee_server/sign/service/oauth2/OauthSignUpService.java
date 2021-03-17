@@ -1,13 +1,13 @@
 package com.tomasfriends.bansikee_server.sign.service.oauth2;
 
 import com.tomasfriends.bansikee_server.jwt.JwtProvider;
-import com.tomasfriends.bansikee_server.sign.service.dto.SignInResponseDto;
-import com.tomasfriends.bansikee_server.sign.service.dto.GoogleProfile;
-import com.tomasfriends.bansikee_server.sign.service.dto.KakaoProfile;
-import com.tomasfriends.bansikee_server.sign.service.dto.Profile;
+import com.tomasfriends.bansikee_server.sign.dto.SignInResponseDto;
+import com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile.GoogleProfile;
+import com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile.KakaoProfile;
+import com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile.Profile;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
-import com.tomasfriends.bansikee_server.sign.service.exceptions.NotRegisteredEmailException;
-import com.tomasfriends.bansikee_server.sign.domain.repository.UserRepository;
+import com.tomasfriends.bansikee_server.sign.exceptions.NotRegisteredEmailException;
+import com.tomasfriends.bansikee_server.sign.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

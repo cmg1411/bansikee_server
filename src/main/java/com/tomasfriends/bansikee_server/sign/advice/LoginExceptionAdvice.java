@@ -2,7 +2,7 @@ package com.tomasfriends.bansikee_server.sign.advice;
 
 import com.tomasfriends.bansikee_server.response.dto.ErrorCode;
 import com.tomasfriends.bansikee_server.response.dto.ErrorResponse;
-import com.tomasfriends.bansikee_server.sign.service.exceptions.*;
+import com.tomasfriends.bansikee_server.sign.exceptions.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

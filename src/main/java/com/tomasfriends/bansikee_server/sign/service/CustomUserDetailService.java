@@ -1,7 +1,7 @@
 package com.tomasfriends.bansikee_server.sign.service;
 
-import com.tomasfriends.bansikee_server.sign.service.exceptions.JWTDecodeException;
-import com.tomasfriends.bansikee_server.sign.domain.repository.UserRepository;
+import com.tomasfriends.bansikee_server.sign.exceptions.JWTDecodeException;
+import com.tomasfriends.bansikee_server.sign.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

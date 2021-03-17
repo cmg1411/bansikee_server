@@ -1,10 +1,9 @@
 package com.tomasfriends.bansikee_server.sign.service.oauth2;
 
 import com.google.gson.Gson;
-import com.tomasfriends.bansikee_server.sign.service.dto.KakaoProfile;
-import com.tomasfriends.bansikee_server.sign.service.dto.Profile;
-import com.tomasfriends.bansikee_server.sign.service.dto.TokenRequestDto;
-import com.tomasfriends.bansikee_server.sign.service.exceptions.CommunicationException;
+import com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile.KakaoProfile;
+import com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile.Profile;
+import com.tomasfriends.bansikee_server.sign.exceptions.CommunicationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -19,11 +18,11 @@ public class KakaoOAuthService implements OAuthService {
     private final Gson gson;
 
     @Override
-    public Profile getProfile(TokenRequestDto accessToken) {
+    public Profile getProfile(String accessToken) {
         // Set header : Content-type: application/x-www-form-urlencoded
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.set("Authorization", "Bearer " + accessToken.getAccessToken());
+        headers.set("Authorization", "Bearer " + accessToken);
 
         // Set http entity
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
