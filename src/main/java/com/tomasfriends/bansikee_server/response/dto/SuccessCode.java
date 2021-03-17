@@ -23,7 +23,10 @@ public enum SuccessCode {
     UNDO_LIKE_SUCCESS(201, "Post undo like success", "좋아요 취소 성공."),
 
     //---dictionary
-    GET_PLANTINFO(200, "Get plant info success", "식물정보 조회 성공.");
+    GET_PLANTINFO(200, "Get plant info success", "식물정보 조회 성공."),
+
+    // 식물등록
+    PLANT_REGISTER_SUCCESS(277, "Plant Registered.", "식물등록에 성공했습니다.");
 
 
     private final int status;
