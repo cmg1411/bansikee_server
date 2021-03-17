@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.sign.dto.controllerdto;
+package com.tomasfriends.bansikee_server.sign.service.dto;
 
 import lombok.Getter;
 

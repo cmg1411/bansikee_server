@@ -7,11 +7,4 @@ import java.util.List;
 
 public interface PlantRepository extends JpaRepository<Plant, Integer> {
 
-    List findBySmell(String smell);
-
-    List findByHeight(Integer height);
-
-    List findBySpeed(String speed);
-
-    List findByManagementLevel(Integer level);
 }

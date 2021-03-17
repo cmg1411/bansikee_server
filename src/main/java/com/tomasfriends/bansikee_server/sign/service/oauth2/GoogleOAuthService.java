@@ -1,8 +1,9 @@
 package com.tomasfriends.bansikee_server.sign.service.oauth2;
 
-import com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile.GoogleProfile;
-import com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile.Profile;
-import com.tomasfriends.bansikee_server.sign.exceptions.CommunicationException;
+import com.tomasfriends.bansikee_server.sign.service.dto.GoogleProfile;
+import com.tomasfriends.bansikee_server.sign.service.dto.Profile;
+import com.tomasfriends.bansikee_server.sign.service.dto.TokenRequestDto;
+import com.tomasfriends.bansikee_server.sign.service.exceptions.CommunicationException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -10,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 public class GoogleOAuthService implements OAuthService {
 
     @Override
-    public Profile getProfile(String accessToken) {
+    public Profile getProfile(TokenRequestDto accessToken) {
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://oauth2.googleapis.com/tokeninfo?id_token=" + accessToken;
         try {
