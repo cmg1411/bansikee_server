@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.sign.exceptions;
+package com.tomasfriends.bansikee_server.sign.service.exceptions;
 
 public class JWTDecodeException extends RuntimeException {
 
