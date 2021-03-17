@@ -17,7 +17,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -35,19 +34,19 @@ public class DictionaryController {
         this.responseService = responseService;
     }
 
-//    @ApiOperation(value = "식물 리스트 조회", notes = " ")
-//    @PostMapping("/plants")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인시 발급 받는 access_token", required = true, dataType = "String", paramType = "header")
-//    })
+    @ApiOperation(value = "식물 리스트 조회", notes = " ")
+    @PostMapping("/plants")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인시 발급 받는 access_token", required = true, dataType = "String", paramType = "header")
+    })
     // 정렬 기준
     // 페이징 처리
-//    public ResponseEntity<SingleDataSuccessResponse<List<ResPlantListDto>>> postAnswer() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
-//        Integer userIdx = principal.getId();
-//        return responseService.getSingleResult(dictionaryService.getPlantList(userIdx),SuccessCode.ON_BOARDING_RESULT_SUCCESS);
-//    }
+    public ResponseEntity<SingleDataSuccessResponse<List<ResPlantListDto>>> postAnswer() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
+        Integer userIdx = principal.getId();
+        return responseService.getSingleResult(dictionaryService.getPlantList(userIdx),SuccessCode.ON_BOARDING_RESULT_SUCCESS);
+    }
 
     @ApiOperation(value = "식물 상세 조회", notes = " ")
     @GetMapping("/plant/{plantidx}")
