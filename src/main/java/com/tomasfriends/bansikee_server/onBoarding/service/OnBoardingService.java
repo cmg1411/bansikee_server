@@ -94,9 +94,9 @@ public class OnBoardingService {
             if (plantList.get(i).getSpeedCode().equals(onBoardingAnswer.get(2).getOptionIdx())) count++;
             if (plantList.get(i).getManagementLevelCode().equals(onBoardingAnswer.get(3).getOptionIdx())) count++;
             switch (count) {
-                case 2:
-                    two.add(plantList.get(i));
-                    break;
+//                case 2:
+//                    two.add(plantList.get(i));
+//                    break;
                 case 3:
                     three.add(plantList.get(i));
                     break;
@@ -110,7 +110,7 @@ public class OnBoardingService {
 
         result.addAll(four);
         result.addAll(three);
-        result.addAll(two);
+//        result.addAll(two);
 
         List<ResRecoPlantDto> resRecoPlantDtos = result
                 .stream()

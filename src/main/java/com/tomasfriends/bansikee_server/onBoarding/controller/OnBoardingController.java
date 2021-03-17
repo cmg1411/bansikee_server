@@ -99,9 +99,9 @@ public class OnBoardingController {
 
         boolean likeResult = onBoardingService.postLike(userIdx, plantIdx);
         if (likeResult) {
-            return responseService.getSuccessResult(SuccessCode.LIKE_SUCCESS);
-        } else {
             return responseService.getSuccessResult(SuccessCode.UNDO_LIKE_SUCCESS);
+        } else {
+            return responseService.getSuccessResult(SuccessCode.LIKE_SUCCESS);
         }
     }
 }

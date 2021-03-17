@@ -1,6 +1,7 @@
 package com.tomasfriends.bansikee_server.dictionary.controller;
 
 import com.tomasfriends.bansikee_server.dictionary.dto.dictionaryDto.ResPlantDto;
+import com.tomasfriends.bansikee_server.dictionary.dto.dictionaryDto.ResPlantListDto;
 import com.tomasfriends.bansikee_server.dictionary.service.DictionaryService;
 import com.tomasfriends.bansikee_server.onBoarding.dto.ReqAnswerListDto;
 import com.tomasfriends.bansikee_server.onBoarding.dto.ResRecoPlantDto;
@@ -19,7 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -37,24 +38,27 @@ public class DictionaryController {
         this.responseService = responseService;
     }
 
-//    @ApiOperation(value = "식물 리스트 조회", notes = " ")
-//    @PostMapping("/on-boarding")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인시 발급 받는 access_token", required = true, dataType = "String", paramType = "header")
-//    })
-//    public ResponseEntity<SuccessResponse> postAnswer(@RequestBody ReqAnswerListDto reqAnswerDto) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
-//        Integer userIdx = principal.getId();
-//        onBoardingService.postAnswer(userIdx, reqAnswerDto);
-//        return responseService.getSuccessResult(SuccessCode.ON_BOARDING_RESULT_SUCCESS);
-//    }
+    @ApiOperation(value = "식물 리스트 조회", notes = " ")
+    @PostMapping("/plants")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인시 발급 받는 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    // 정렬 기준
+    // 페이징 처리
+    public ResponseEntity<SingleDataSuccessResponse<List<ResPlantListDto>>> postAnswer() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
+        Integer userIdx = principal.getId();
+        return responseService.getSingleResult(dictionaryService.getPlantList(userIdx),SuccessCode.ON_BOARDING_RESULT_SUCCESS);
+    }
 
     @ApiOperation(value = "식물 상세 조회", notes = " ")
     @GetMapping("/plant/{plantidx}")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인시 발급 받는 access_token", required = true, dataType = "String", paramType = "header")
     })
+
+    // 상세정보 조회 기록 저장 - 한 userIdx당 최대 5개까지만
     public ResponseEntity<SingleDataSuccessResponse<ResPlantDto>> getPlant(@PathVariable("plantidx") Integer plantIdx) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
@@ -63,6 +67,7 @@ public class DictionaryController {
         return responseService.getSingleResult(dictionaryService.getPlant(userIdx, plantIdx),SuccessCode.GET_PLANTINFO);
     }
 
+    //최근 검색 기록
 
 
 

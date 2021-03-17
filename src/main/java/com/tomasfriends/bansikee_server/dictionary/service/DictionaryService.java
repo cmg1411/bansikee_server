@@ -2,6 +2,7 @@ package com.tomasfriends.bansikee_server.dictionary.service;
 
 import com.tomasfriends.bansikee_server.dictionary.domain.PlantDictionary;
 import com.tomasfriends.bansikee_server.dictionary.dto.dictionaryDto.ResPlantDto;
+import com.tomasfriends.bansikee_server.dictionary.dto.dictionaryDto.ResPlantListDto;
 import com.tomasfriends.bansikee_server.dictionary.repository.FavoritesDictionaryRepository;
 import com.tomasfriends.bansikee_server.dictionary.repository.PlantDictionaryRepository;
 
@@ -20,6 +21,12 @@ public class DictionaryService {
         this.plantDictionaryRepository = plantDictionaryRepository;
         this.favoritesDictionaryRepository = favoritesDictionaryRepository;
     }
+
+//    public List<ResPlantListDto> getPlantList(Integer userIdx){
+//        List<ResPlantListDto> resPlantListDto = new ResPlantListDto();
+//        return resPlantListDto;
+//
+//    }
 
     public ResPlantDto getPlant(Integer userIdx, Integer plantIdx){
 
