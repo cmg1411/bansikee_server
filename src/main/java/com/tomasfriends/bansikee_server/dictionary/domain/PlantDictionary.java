@@ -1,9 +1,12 @@
 package com.tomasfriends.bansikee_server.dictionary.domain;
 
 import com.tomasfriends.bansikee_server.onBoarding.domain.OnBoardingAnswer;
+import com.tomasfriends.bansikee_server.onBoarding.domain.Options;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -46,6 +49,11 @@ public class PlantDictionary {
     private Integer heightCode;
     private Integer speedCode;
     private Integer smellCode;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "favorites")
+    @JoinColumn(name = "plantIdx")
+    private List<FavoritesDictionary> favorites = new ArrayList<>();
 
     public static PlantDictionary of( String name, String species, String info, String managementLevel, Integer height,Integer width,String speed,String smell,String temperature,String summerWater,String winterWater,String light,String area, String plantImgUrl, Integer managementLevelCode, Integer heightCode, Integer speedCode,Integer smellCode) {
         PlantDictionary plantDictionary = new PlantDictionary();

@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,24 +27,25 @@ public class DictionaryController {
     private final ResponseService responseService;
 
     @Autowired
-    public DictionaryController(DictionaryService dictionaryService, ResponseService responseService){
+    public DictionaryController(DictionaryService dictionaryService, ResponseService responseService) {
         this.dictionaryService = dictionaryService;
         this.responseService = responseService;
     }
 
-//    @ApiOperation(value = "식물 리스트 조회", notes = " ")
-//    @PostMapping("/plants")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인시 발급 받는 access_token", required = true, dataType = "String", paramType = "header")
-//    })
-    // 정렬 기준
-    // 페이징 처리
-//    public ResponseEntity<SingleDataSuccessResponse<List<ResPlantListDto>>> postAnswer() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
-//        Integer userIdx = principal.getId();
-//        return responseService.getSingleResult(dictionaryService.getPlantList(userIdx),SuccessCode.ON_BOARDING_RESULT_SUCCESS);
-//    }
+    @ApiOperation(value = "식물 리스트 조회", notes = " ")
+    @GetMapping("/plants")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인시 발급 받는 access_token", required = true, dataType = "String", paramType = "header")
+    })
+
+    public ResponseEntity<SingleDataSuccessResponse<List<ResPlantListDto>>> postAnswer(@RequestParam("keyWord") String keyWord,
+                                                                                       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                                                       @RequestParam("sortBy") String sortBy) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
+        Integer userIdx = principal.getId();
+        return responseService.getSingleResult(dictionaryService.getPlantList(userIdx, keyWord, pageNum - 1, sortBy), SuccessCode.GET_PLANTLIST);
+    }
 
     @ApiOperation(value = "식물 상세 조회", notes = " ")
     @GetMapping("/plant/{plantidx}")
@@ -61,11 +59,10 @@ public class DictionaryController {
         BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
         Integer userIdx = principal.getId();
 
-        return responseService.getSingleResult(dictionaryService.getPlant(userIdx, plantIdx),SuccessCode.GET_PLANTINFO);
+        return responseService.getSingleResult(dictionaryService.getPlant(userIdx, plantIdx), SuccessCode.GET_PLANTINFO);
     }
 
     //최근 검색 기록
-
 
 
 //    @GetMapping("/plant-list")
