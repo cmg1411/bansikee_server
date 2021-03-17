@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.sign.service.dto;
+package com.tomasfriends.bansikee_server.sign.dto.controllerdto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @AllArgsConstructor
-public class SignInRequestDto {
+public class EmailAndPassword {
 
     @NotBlank
     private final String email;

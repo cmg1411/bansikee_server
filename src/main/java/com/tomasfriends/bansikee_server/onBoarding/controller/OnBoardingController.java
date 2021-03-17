@@ -38,7 +38,6 @@ public class OnBoardingController {
 
     // GET 설문지 조회 (질문 조회)
     // userTable에 온보딩 0일시 1로 바꾸기
-
     @ApiOperation(value = "온보딩 설문지 조회", notes = " ")
     @GetMapping("/on-boarding")
     @ApiImplicitParams({
@@ -70,6 +69,7 @@ public class OnBoardingController {
 
 
     // GET 식물 추천
+    //식물db 구축
     @ApiOperation(value = "식물 추천", notes = " ")
     @GetMapping("/recommendation")
     @ApiImplicitParams({
@@ -99,9 +99,9 @@ public class OnBoardingController {
 
         boolean likeResult = onBoardingService.postLike(userIdx, plantIdx);
         if (likeResult) {
-            return responseService.getSuccessResult(SuccessCode.UNDO_LIKE_SUCCESS);
-        } else {
             return responseService.getSuccessResult(SuccessCode.LIKE_SUCCESS);
+        } else {
+            return responseService.getSuccessResult(SuccessCode.UNDO_LIKE_SUCCESS);
         }
     }
 }

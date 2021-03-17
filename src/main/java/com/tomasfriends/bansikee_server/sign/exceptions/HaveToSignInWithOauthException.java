@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.sign.service.exceptions;
+package com.tomasfriends.bansikee_server.sign.exceptions;
 
 public class HaveToSignInWithOauthException extends RuntimeException {
 

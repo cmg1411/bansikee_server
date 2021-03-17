@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.sign.service.dto;
+package com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile;
 
 import com.tomasfriends.bansikee_server.sign.domain.LoginMethod;
 import lombok.Getter;

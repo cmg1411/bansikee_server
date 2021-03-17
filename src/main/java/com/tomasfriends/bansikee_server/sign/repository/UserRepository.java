@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.sign.domain.repository;
+package com.tomasfriends.bansikee_server.sign.repository;
 
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import org.springframework.data.jpa.repository.JpaRepository;

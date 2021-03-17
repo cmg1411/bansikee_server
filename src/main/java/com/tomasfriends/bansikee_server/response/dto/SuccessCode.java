@@ -20,12 +20,7 @@ public enum SuccessCode {
     ON_BOARDING_RESULT_SUCCESS(200, "Post onBaording result success", "설문 결과 보내기 성공."),
     RECOMMEND_PLANT_SUCCESS(200, "Get recommendation success", "추천 식물 조회 성공."),
     LIKE_SUCCESS(200, "Post like success", "좋아요 성공."),
-    UNDO_LIKE_SUCCESS(201, "Post undo like success", "좋아요 취소 성공."),
-
-    //---dictionary
-    GET_PLANTLIST(200, "Get plant list success", "식물 리스트 조회 성공."),
-    GET_PLANTINFO(200, "Get plant info success", "식물정보 조회 성공.");
-
+    UNDO_LIKE_SUCCESS(201, "Post undo like success", "좋아요 취소 성공.");
 
     private final int status;
     private final String title;

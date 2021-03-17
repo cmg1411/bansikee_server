@@ -1,10 +1,10 @@
 package com.tomasfriends.bansikee_server.sign.controller;
 
 import com.tomasfriends.bansikee_server.response.dto.SuccessCode;
-import com.tomasfriends.bansikee_server.sign.service.dto.SignInResponseDto;
-import com.tomasfriends.bansikee_server.sign.service.dto.TokenRequestDto;
-import com.tomasfriends.bansikee_server.sign.service.dto.KakaoProfile;
-import com.tomasfriends.bansikee_server.sign.service.dto.Profile;
+import com.tomasfriends.bansikee_server.sign.dto.SignInResponseDto;
+import com.tomasfriends.bansikee_server.sign.dto.controllerdto.AccessToken;
+import com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile.KakaoProfile;
+import com.tomasfriends.bansikee_server.sign.dto.controllerdto.oauthprofile.Profile;
 import com.tomasfriends.bansikee_server.response.dto.SingleDataSuccessResponse;
 import com.tomasfriends.bansikee_server.sign.service.oauth2.KakaoOAuthService;
 import com.tomasfriends.bansikee_server.sign.service.oauth2.OAuthService;
@@ -39,8 +39,8 @@ public class KakaoSignInnController {
     @ApiOperation(value = "카카오 회원가입", notes = "등록되지 않은 회원은 카카오에 등록된 이메일로 가입. JWT 발급.")
     @PostMapping("/signup/kakao")
     public ResponseEntity<SingleDataSuccessResponse<SignInResponseDto>> signUpAndSignIn(
-        @ApiParam(value = "Access 토큰정보", required = true) @RequestBody @Valid TokenRequestDto tokenDto) {
-        Profile kakaoProfile = kakaoService.getProfile(tokenDto);
+        @ApiParam(value = "Access 토큰정보", required = true) @RequestBody @Valid AccessToken token) {
+        Profile kakaoProfile = kakaoService.getProfile(token.getAccessToken());
         SignInResponseDto signInResult = oauthSignUpService.signUpWithKakao((KakaoProfile) kakaoProfile);
         return responseService.getSingleResult(signInResult, SuccessCode.KAKAO_SIGN_IN_SUCCESS);
     }
