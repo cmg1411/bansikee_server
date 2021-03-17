@@ -1,7 +1,7 @@
 package com.tomasfriends.bansikee_server.jwt;
 
-import com.tomasfriends.bansikee_server.sign.dto.servicedto.BansikeeUser;
-import com.tomasfriends.bansikee_server.sign.service.userservice.CustomUserDetailService;
+import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
+import com.tomasfriends.bansikee_server.sign.service.CustomUserDetailService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
