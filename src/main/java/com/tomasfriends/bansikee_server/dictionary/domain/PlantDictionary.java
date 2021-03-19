@@ -1,7 +1,5 @@
 package com.tomasfriends.bansikee_server.dictionary.domain;
 
-import com.tomasfriends.bansikee_server.onBoarding.domain.OnBoardingAnswer;
-import com.tomasfriends.bansikee_server.onBoarding.domain.Options;
 import lombok.Data;
 
 import javax.persistence.*;
