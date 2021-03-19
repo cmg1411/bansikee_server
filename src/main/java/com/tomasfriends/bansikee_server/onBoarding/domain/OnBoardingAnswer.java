@@ -18,7 +18,7 @@ public class OnBoardingAnswer {
 
     private Integer optionIdx;
 
-    public static OnBoardingAnswer from(Integer userIdx, Integer questionIdx, Integer optionIdx) {
+    public static OnBoardingAnswer of(Integer userIdx, Integer questionIdx, Integer optionIdx) {
         OnBoardingAnswer onBoardingAnswer = new OnBoardingAnswer();
         onBoardingAnswer.userIdx = userIdx;
         onBoardingAnswer.questionIdx = questionIdx;

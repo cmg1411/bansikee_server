@@ -44,7 +44,8 @@ class KakaoLoginControllerTest {
 //        String name = "";
 //        String email = "11";
 //        String password = "123";
-//        String passwordRe = "123";
+//        S
+//        tring passwordRe = "123";
 //
 //        // when
 //        BasicLoginUserRequest user = BasicLoginUserRequest.builder()

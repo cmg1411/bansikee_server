@@ -64,7 +64,7 @@ public class OnBoardingService {
 
         for (ReqAnswerDto str : reqAnswerListDto.getReqAnswerList()) {
 
-            OnBoardingAnswer onBoardingAnswer = OnBoardingAnswer.from(userIdx, str.getQuestionIdx(), str.getOptionIdx());
+            OnBoardingAnswer onBoardingAnswer = OnBoardingAnswer.of(userIdx, str.getQuestionIdx(), str.getOptionIdx());
 
             onBoardingAnswerRepository.save(onBoardingAnswer);
         }
@@ -80,7 +80,7 @@ public class OnBoardingService {
 
         ArrayList<Plant> four = new ArrayList<>();
         ArrayList<Plant> three = new ArrayList<>();
-        ArrayList<Plant> two = new ArrayList<>();
+//        ArrayList<Plant> two = new ArrayList<>();
         int[] countList = new int[plantList.size()];
 
         ArrayList<Plant> result = new ArrayList<>();

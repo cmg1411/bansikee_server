@@ -1,15 +1,12 @@
 package com.tomasfriends.bansikee_server.dictionary.repository;
 
-import com.tomasfriends.bansikee_server.dictionary.domain.FavoritesDictionary;
 import com.tomasfriends.bansikee_server.dictionary.domain.PlantDictionary;
-import com.tomasfriends.bansikee_server.dictionary.dto.dictionaryDto.ResPlantListDto;
-import org.springframework.data.domain.Page;
+import com.tomasfriends.bansikee_server.dictionary.domain.SearchHistory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 public interface PlantDictionaryRepository extends JpaRepository<PlantDictionary,Integer>{
