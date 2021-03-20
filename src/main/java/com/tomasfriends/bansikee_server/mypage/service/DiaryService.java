@@ -9,7 +9,6 @@ import com.tomasfriends.bansikee_server.mypage.domain.repository.PictureReposito
 import com.tomasfriends.bansikee_server.mypage.service.dto.DiaryRequestDto;
 import com.tomasfriends.bansikee_server.mypage.service.exception.NotExistMyPlantException;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
-import com.tomasfriends.bansikee_server.sign.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,7 +28,7 @@ public class DiaryService {
     public void save(DiaryRequestDto diaryRequestDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         BansikeeUser loginUser = (BansikeeUser) authentication.getPrincipal();
-        Optional<PlantRegistration> registeredPlant = myPlantRepository.findById(diaryRequestDto.getPlantId());
+        Optional<PlantRegistration> registeredPlant = myPlantRepository.findById(diaryRequestDto.getMyPlantId());
         Diary diary = diaryRequestDto.toDiaryEntity(registeredPlant.orElseThrow(NotExistMyPlantException::new), loginUser);
         diaryRepository.save(diary);
         savePictures(diaryRequestDto, diary);

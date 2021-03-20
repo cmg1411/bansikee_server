@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MyPlantRepository extends JpaRepository<PlantRegistration, Integer> {
+    void findAllByUserId(int plantIdx);
 }

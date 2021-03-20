@@ -32,6 +32,6 @@ public class DiaryController {
     @PostMapping("/registration/diary")
     public ResponseEntity<SuccessResponse> registerDiary(@RequestBody @Valid DiaryRequestDto diaryRequestDto) {
         diaryService.save(diaryRequestDto);
-        return responseService.getSuccessResult(SuccessCode.PLANT_REGISTER_SUCCESS);
+        return responseService.getSuccessResult(SuccessCode.DIARY_REGISTER_SUCCESS);
     }
 }

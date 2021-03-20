@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Getter
 public class DiaryRequestDto {
 
-    private Integer plantId;
+    private Integer myPlantId;
     private PictureUrls dailyPictures;
     private Weather weather;
     private Integer height;

@@ -17,11 +17,14 @@ public class Diary extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Weather weather;
 
     private Integer height;
+
+    @Enumerated(EnumType.STRING)
     private Watered water;
+
     private String contents;
 
     @OneToOne
