@@ -1,9 +1,7 @@
 package com.tomasfriends.bansikee_server.mypage.controller;
 
 import com.tomasfriends.bansikee_server.mypage.service.DiaryService;
-import com.tomasfriends.bansikee_server.mypage.service.PlantRegisterService;
 import com.tomasfriends.bansikee_server.mypage.service.dto.DiaryRequestDto;
-import com.tomasfriends.bansikee_server.mypage.service.dto.PlantRegistrationRequestDto;
 import com.tomasfriends.bansikee_server.response.dto.SuccessCode;
 import com.tomasfriends.bansikee_server.response.dto.SuccessResponse;
 import com.tomasfriends.bansikee_server.response.service.ResponseService;
@@ -19,21 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-@Api(tags = {"6. 내 식물로 등록"})
+@Api(tags = {"7. 일기"})
 @RestController
 @RequiredArgsConstructor
-public class PlantRegistrationController {
+public class DiaryController {
 
-    private final PlantRegisterService plantRegisterService;
+    private final DiaryService diaryService;
     private final ResponseService responseService;
 
     @ApiImplicitParams({
         @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "내식물로 등록", notes = "토큰 인증 필요")
-    @PostMapping("/registration/plant")
-    public ResponseEntity<SuccessResponse> registerPlant(@RequestBody @Valid PlantRegistrationRequestDto plantRegistrationRequestDto) {
-        plantRegisterService.save(plantRegistrationRequestDto);
+    @ApiOperation(value = "일지 작성", notes = "토큰 인증 필요")
+    @PostMapping("/registration/diary")
+    public ResponseEntity<SuccessResponse> registerDiary(@RequestBody @Valid DiaryRequestDto diaryRequestDto) {
+        diaryService.save(diaryRequestDto);
         return responseService.getSuccessResult(SuccessCode.PLANT_REGISTER_SUCCESS);
     }
 }

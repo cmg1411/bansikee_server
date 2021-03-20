@@ -30,8 +30,7 @@ public class PlantRegisterService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         BansikeeUser loginUser = (BansikeeUser) authentication.getPrincipal();
         Optional<Plant> plant = plantRepository.findById(plantRegistrationRequestDto.getPlantId());
-        PlantRegistration plantRegistration
-            = PlantRegistration.toEntity(plantRegistrationRequestDto, plant.orElseThrow(NotRegisteredUserIdException::new), loginUser);
-        myPlantRepository.save(plantRegistration);
+        PlantRegistration myPlant = plantRegistrationRequestDto.toEntity(loginUser, plant.orElseThrow(NotRegisteredUserIdException::new));
+        myPlantRepository.save(myPlant);
     }
 }

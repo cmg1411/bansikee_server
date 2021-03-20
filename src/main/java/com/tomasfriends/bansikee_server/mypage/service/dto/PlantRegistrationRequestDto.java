@@ -1,5 +1,8 @@
 package com.tomasfriends.bansikee_server.mypage.service.dto;
 
+import com.tomasfriends.bansikee_server.mypage.domain.PlantRegistration;
+import com.tomasfriends.bansikee_server.onBoarding.domain.Plant;
+import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
@@ -21,4 +24,16 @@ public class PlantRegistrationRequestDto {
 
     @Positive
     private int waterPeriod;
+
+    public PlantRegistration toEntity(BansikeeUser user, Plant plant) {
+        return PlantRegistration.builder()
+            .pictureUrl(pictureUrl)
+            .user(user)
+            .plant(plant)
+            .plantNickName(plantNickName)
+            .plantBirth(plantBirth)
+            .plantIntroduce(plantIntro)
+            .wateringCycle(waterPeriod)
+            .build();
+    }
 }

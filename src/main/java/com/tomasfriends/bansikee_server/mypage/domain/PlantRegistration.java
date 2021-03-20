@@ -55,16 +55,4 @@ public class PlantRegistration extends BaseEntity {
         this.wateringCycle = wateringCycle;
         this.user = user;
     }
-
-    public static PlantRegistration toEntity(PlantRegistrationRequestDto dto, Plant plant, BansikeeUser user) {
-        return PlantRegistration.builder()
-            .pictureUrl(dto.getPictureUrl())
-            .user(user)
-            .plant(plant)
-            .plantNickName(dto.getPlantNickName())
-            .plantBirth(dto.getPlantBirth())
-            .plantIntroduce(dto.getPlantIntro())
-            .wateringCycle(dto.getWaterPeriod())
-            .build();
-    }
 }
