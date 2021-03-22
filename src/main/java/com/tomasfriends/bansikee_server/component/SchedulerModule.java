@@ -23,7 +23,7 @@ public class SchedulerModule {
 
     private static Logger logger = LoggerFactory.getLogger(SchedulerModule.class);
 
-    @Scheduled(fixedDelay = 1000*60)
+    @Scheduled(fixedDelay = 1000*60*60)
     public void deleteSearchHistory() {
         dictionaryService.deleteSearchHistory();
         logger.info("5일 지난 히스토리 삭제", new Date());
