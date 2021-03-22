@@ -24,7 +24,11 @@ public enum SuccessCode {
 
     //---dictionary
     GET_PLANTLIST(200, "Get plant list success", "식물 리스트 조회 성공."),
-    GET_PLANTINFO(200, "Get plant info success", "식물정보 조회 성공.");
+    GET_PLANTINFO(200, "Get plant info success", "식물정보 조회 성공."),
+
+    // 식물등록
+    PLANT_REGISTER_SUCCESS(277, "Plant Registered.", "식물등록에 성공했습니다."),
+    DIARY_REGISTER_SUCCESS(278, "Diary Registered.", "일기등록에 성공했습니다.");
 
 
     private final int status;
