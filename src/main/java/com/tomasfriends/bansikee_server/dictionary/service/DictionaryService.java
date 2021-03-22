@@ -72,6 +72,8 @@ public class DictionaryService {
                 .stream()
                 .map(ResPlantDto::of)
                 .collect(Collectors.toList());
+        resPlantDtos.get(0).setLight(resPlantDtos.get(0).getLight().replace("),","),\n"));
+        resPlantDtos.get(0).setArea(resPlantDtos.get(0).getArea().replace(",",",\n"));
         resPlantDtos.get(0).setPlantImgUrl("http://www.nongsaro.go.kr/cms_contents/301/"+resPlantDtos.get(0).getPlantImgUrl().split("\\|")[0]);
         resPlantDtos.get(0).setLike(favoritesDictionaryRepository.existsByPlantIdxAndUserIdx( plantIdx, userIdx));
 
