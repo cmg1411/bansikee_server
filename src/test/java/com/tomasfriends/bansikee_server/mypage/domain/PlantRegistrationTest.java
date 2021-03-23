@@ -2,12 +2,11 @@ package com.tomasfriends.bansikee_server.mypage.domain;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+@Transactional
 class PlantRegistrationTest {
 
     @Test
