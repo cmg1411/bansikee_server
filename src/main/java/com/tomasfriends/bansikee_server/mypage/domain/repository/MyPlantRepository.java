@@ -4,7 +4,9 @@ import com.tomasfriends.bansikee_server.mypage.domain.PlantRegistration;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface MyPlantRepository extends JpaRepository<PlantRegistration, Integer> {
-    void findAllByUserId(int plantIdx);
+    List<PlantRegistration> findAllByUserId(int plantIdx);
 }

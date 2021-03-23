@@ -37,7 +37,7 @@ class DiaryServiceTest {
     void pictureSaveTest() {
         BansikeeUser user = userRepository.findById(1).get();
         Plant plant = plantRepository.findById(1).get();
-        PlantRegistration plantRegistration = new PlantRegistration("abc", plant, "nic", LocalDateTime.now(), "gkgkgk", 3, user);
+        PlantRegistration plantRegistration = new PlantRegistration(1, "abc", plant, "nic", LocalDateTime.now(), "gkgkgk", 3, user);
 
         myPlantRepository.save(plantRegistration);
 

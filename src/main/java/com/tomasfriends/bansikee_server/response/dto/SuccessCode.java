@@ -28,7 +28,14 @@ public enum SuccessCode {
 
     // 식물등록
     PLANT_REGISTER_SUCCESS(277, "Plant Registered.", "식물등록에 성공했습니다."),
-    DIARY_REGISTER_SUCCESS(278, "Diary Registered.", "일기등록에 성공했습니다.");
+    MY_ALL_PLANT_READ_SUCCESS(290, "Plant List Searched", "내 정원의 식물들 조회를 성공했습니다."),
+    PLANT_READ_SUCCESS(291, "My Plant View.", "내 식물 페이지 조회에 성공했습니다."),
+    PLANT_PATCH_SUCCESS(293, "My Plant Patched.", "내 식물 수정에 성공했습니다."),
+    PLANT_DELETE_SUCCESS(295, "Delete Success", "내 정원에서 식물을 삭제했습니다."),
+
+    // 다이어리
+    DIARY_REGISTER_SUCCESS(280, "Diary Registered.", "일기등록에 성공했습니다."),
+    MY_DIARY_READ_SUCCESS(281, "Diary List Searched.", "다이어리 리스트 조회를 성공했습니다.");
 
 
     private final int status;

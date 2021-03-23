@@ -1,5 +1,6 @@
 package com.tomasfriends.bansikee_server.mypage.advice;
 
+import com.tomasfriends.bansikee_server.mypage.domain.exception.IllegalAuthUserException;
 import com.tomasfriends.bansikee_server.mypage.service.exception.NotExistMyPlantException;
 import com.tomasfriends.bansikee_server.response.dto.ErrorCode;
 import com.tomasfriends.bansikee_server.response.dto.ErrorResponse;
@@ -18,4 +19,10 @@ public class MyPlantAdvice {
     public ResponseEntity<ErrorResponse> jwtDecodeException(NotExistMyPlantException ex) {
         return new ResponseEntity<>(ErrorResponse.of(ErrorCode.NOT_EXIST_PLANT_IN_MYPAGE), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(IllegalAuthUserException.class)
+    public ResponseEntity<ErrorResponse> illegalAuthUserException(IllegalAuthUserException ex) {
+        return new ResponseEntity<>(ErrorResponse.of(ErrorCode.NOT_VALID_AUTH), HttpStatus.BAD_REQUEST);
+    }
+
 }
