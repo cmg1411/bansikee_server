@@ -16,6 +16,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -23,6 +24,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 class DiaryServiceTest {
 
     @Autowired DiaryRepository diaryRepository;
@@ -32,21 +34,21 @@ class DiaryServiceTest {
     @Autowired MyPlantRepository myPlantRepository;
 
 
-    @DisplayName("일기 삽입 테스트")
-    @Test
-    void pictureSaveTest() {
-        BansikeeUser user = userRepository.findById(1).get();
-        Plant plant = plantRepository.findById(1).get();
-        PlantRegistration plantRegistration = new PlantRegistration(1, "abc", plant, "nic", LocalDateTime.now(), "gkgkgk", 3, user);
-
-        myPlantRepository.save(plantRegistration);
-
-        Diary diary = new Diary(Weather.BAD, 10, Watered.YES, "zz", plantRegistration, user);
-        diaryRepository.save(diary);
-
-        DiaryPicture picture = new DiaryPicture(diary, "pictureUrl1");
-        pictureRepository.save(picture);
-    }
+//    @DisplayName("일기 삽입 테스트")
+//    @Test
+//    void pictureSaveTest() {
+//        BansikeeUser user = userRepository.findById(1).get();
+//        Plant plant = plantRepository.findById(1).get();
+//        PlantRegistration plantRegistration = new PlantRegistration(1000000001, "abc", plant, "nic", LocalDateTime.now(), "gkgkgk", 3, user);
+//
+//        myPlantRepository.save(plantRegistration);
+//
+//        Diary diary = new Diary(Weather.BAD, 10, Watered.YES, "zz", plantRegistration, user);
+//        diaryRepository.save(diary);
+//
+//        DiaryPicture picture = new DiaryPicture(diary, "pictureUrl1");
+//        pictureRepository.save(picture);
+//    }
 
 //    @DisplayName("일기 삽입 테스트")
 //    @Test
