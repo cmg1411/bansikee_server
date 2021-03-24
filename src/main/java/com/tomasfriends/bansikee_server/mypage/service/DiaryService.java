@@ -59,7 +59,7 @@ public class DiaryService implements MyPlant {
     public List<DiaryListResponseDto> findAll(int myPlantId) {
         List<Diary> allDiary = diaryRepository.findAllByUserId(myPlantId);
         return allDiary.stream()
-            .map(t -> t.toListResponseDto(t.getPictures().get(0), t.getCreatedDate().toLocalDate()))
+            .map(t -> t.toListResponseDto(t.getId(), t.getPictures().get(0), t.getCreatedDate().toLocalDate()))
             .collect(Collectors.toList());
     }
 
