@@ -1,7 +1,9 @@
 package com.tomasfriends.bansikee_server.mypage.controller;
 
 import com.tomasfriends.bansikee_server.mypage.service.DiaryService;
-import com.tomasfriends.bansikee_server.mypage.service.dto.*;
+import com.tomasfriends.bansikee_server.mypage.service.dto.req.DiaryRequestDto;
+import com.tomasfriends.bansikee_server.mypage.service.dto.resp.DiaryListResponseDto;
+import com.tomasfriends.bansikee_server.mypage.service.dto.resp.DiaryResponseDto;
 import com.tomasfriends.bansikee_server.response.dto.ListDataSuccessResponse;
 import com.tomasfriends.bansikee_server.response.dto.SingleDataSuccessResponse;
 import com.tomasfriends.bansikee_server.response.dto.SuccessCode;

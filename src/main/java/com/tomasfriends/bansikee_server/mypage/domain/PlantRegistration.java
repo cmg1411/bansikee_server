@@ -1,9 +1,8 @@
 package com.tomasfriends.bansikee_server.mypage.domain;
 
 import com.tomasfriends.bansikee_server.common.BaseEntity;
-import com.tomasfriends.bansikee_server.mypage.service.dto.MyPlantListResponseDto;
-import com.tomasfriends.bansikee_server.mypage.service.dto.MyPlantResponseDto;
-import com.tomasfriends.bansikee_server.mypage.service.dto.PlantRegistrationRequestDto;
+import com.tomasfriends.bansikee_server.mypage.service.dto.resp.MyPlantListResponseDto;
+import com.tomasfriends.bansikee_server.mypage.service.dto.resp.MyPlantResponseDto;
 import com.tomasfriends.bansikee_server.onBoarding.domain.Plant;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import lombok.*;
@@ -11,7 +10,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
@@ -99,6 +97,7 @@ public class PlantRegistration extends BaseEntity {
             .contents(plantIntroduce)
             .myPlantProfileUrl(pictureUrl)
             .startDate(plantBirth)
+            .plantTip(plant.getInfo())
             .dDay(getDDay(plantBirth))
             .build();
     }

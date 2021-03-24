@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.mypage.service.dto;
+package com.tomasfriends.bansikee_server.mypage.service.dto.req;
 
 import com.tomasfriends.bansikee_server.mypage.domain.PlantRegistration;
 import com.tomasfriends.bansikee_server.onBoarding.domain.Plant;

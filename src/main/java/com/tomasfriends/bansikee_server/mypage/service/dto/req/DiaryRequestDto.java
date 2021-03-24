@@ -1,8 +1,11 @@
-package com.tomasfriends.bansikee_server.mypage.service.dto;
+package com.tomasfriends.bansikee_server.mypage.service.dto.req;
 
 import com.tomasfriends.bansikee_server.mypage.domain.Diary;
 import com.tomasfriends.bansikee_server.mypage.domain.DiaryPicture;
 import com.tomasfriends.bansikee_server.mypage.domain.PlantRegistration;
+import com.tomasfriends.bansikee_server.mypage.service.dto.PictureUrls;
+import com.tomasfriends.bansikee_server.mypage.service.dto.Watered;
+import com.tomasfriends.bansikee_server.mypage.service.dto.Weather;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import lombok.Getter;
 

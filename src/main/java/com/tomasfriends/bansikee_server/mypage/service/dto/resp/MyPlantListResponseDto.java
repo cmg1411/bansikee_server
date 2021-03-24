@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.mypage.service.dto;
+package com.tomasfriends.bansikee_server.mypage.service.dto.resp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

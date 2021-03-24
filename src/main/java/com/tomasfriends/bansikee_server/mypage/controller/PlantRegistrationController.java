@@ -1,10 +1,10 @@
 package com.tomasfriends.bansikee_server.mypage.controller;
 
 import com.tomasfriends.bansikee_server.mypage.service.PlantRegisterService;
-import com.tomasfriends.bansikee_server.mypage.service.dto.MyPlantListResponseDto;
-import com.tomasfriends.bansikee_server.mypage.service.dto.MyPlantPatchRequestDto;
-import com.tomasfriends.bansikee_server.mypage.service.dto.MyPlantResponseDto;
-import com.tomasfriends.bansikee_server.mypage.service.dto.PlantRegistrationRequestDto;
+import com.tomasfriends.bansikee_server.mypage.service.dto.resp.MyPlantListResponseDto;
+import com.tomasfriends.bansikee_server.mypage.service.dto.req.MyPlantPatchRequestDto;
+import com.tomasfriends.bansikee_server.mypage.service.dto.resp.MyPlantResponseDto;
+import com.tomasfriends.bansikee_server.mypage.service.dto.req.PlantRegistrationRequestDto;
 import com.tomasfriends.bansikee_server.response.dto.ListDataSuccessResponse;
 import com.tomasfriends.bansikee_server.response.dto.SingleDataSuccessResponse;
 import com.tomasfriends.bansikee_server.response.dto.SuccessCode;

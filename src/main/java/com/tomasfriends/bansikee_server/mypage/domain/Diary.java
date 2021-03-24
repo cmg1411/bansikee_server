@@ -2,6 +2,8 @@ package com.tomasfriends.bansikee_server.mypage.domain;
 
 import com.tomasfriends.bansikee_server.common.BaseEntity;
 import com.tomasfriends.bansikee_server.mypage.service.dto.*;
+import com.tomasfriends.bansikee_server.mypage.service.dto.resp.DiaryListResponseDto;
+import com.tomasfriends.bansikee_server.mypage.service.dto.resp.DiaryResponseDto;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import lombok.*;
 
@@ -9,7 +11,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.tomasfriends.bansikee_server.mypage.service.dto.DiaryRequestDto.*;
 import static java.util.stream.Collectors.toList;
 
 @Getter

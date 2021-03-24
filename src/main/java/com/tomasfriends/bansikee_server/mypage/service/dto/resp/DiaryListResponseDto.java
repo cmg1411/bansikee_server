@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.mypage.service.dto;
+package com.tomasfriends.bansikee_server.mypage.service.dto.resp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +9,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class DiaryListResponseDto {
 
-    private String diaryProfile;
-    private LocalDate writeDate;
+    private final String diaryProfile;
+    private final LocalDate writeDate;
 }
