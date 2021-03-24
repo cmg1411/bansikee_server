@@ -3,7 +3,6 @@ package com.tomasfriends.bansikee_server.mypage.service;
 import com.tomasfriends.bansikee_server.common.AuthenticationUser;
 import com.tomasfriends.bansikee_server.mypage.domain.MyPlant;
 import com.tomasfriends.bansikee_server.mypage.domain.PlantRegistration;
-import com.tomasfriends.bansikee_server.mypage.domain.repository.DiaryRepository;
 import com.tomasfriends.bansikee_server.mypage.domain.repository.MyPlantRepository;
 import com.tomasfriends.bansikee_server.mypage.service.dto.MyPlantListResponseDto;
 import com.tomasfriends.bansikee_server.mypage.service.dto.MyPlantPatchRequestDto;

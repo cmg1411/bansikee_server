@@ -35,10 +35,4 @@ public class DiaryRequestDto {
             .map(p -> new DiaryPicture(diary, p))
             .collect(Collectors.toList());
     }
-
-    @Getter
-    static class PictureUrls {
-
-        private List<String> urls;
-    }
 }

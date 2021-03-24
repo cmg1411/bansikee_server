@@ -1,6 +1,7 @@
 package com.tomasfriends.bansikee_server.mypage.advice;
 
 import com.tomasfriends.bansikee_server.mypage.domain.exception.IllegalAuthUserException;
+import com.tomasfriends.bansikee_server.mypage.service.exception.NotExistDiaryException;
 import com.tomasfriends.bansikee_server.mypage.service.exception.NotExistMyPlantException;
 import com.tomasfriends.bansikee_server.response.dto.ErrorCode;
 import com.tomasfriends.bansikee_server.response.dto.ErrorResponse;
@@ -25,4 +26,8 @@ public class MyPlantAdvice {
         return new ResponseEntity<>(ErrorResponse.of(ErrorCode.NOT_VALID_AUTH), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(NotExistDiaryException.class)
+    public ResponseEntity<ErrorResponse> illegalAuthUserException(NotExistDiaryException ex) {
+        return new ResponseEntity<>(ErrorResponse.of(ErrorCode.NOT_EXIST_DIARY), HttpStatus.BAD_REQUEST);
+    }
 }

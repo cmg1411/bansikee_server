@@ -7,15 +7,17 @@ import com.tomasfriends.bansikee_server.mypage.domain.PlantRegistration;
 import com.tomasfriends.bansikee_server.mypage.domain.repository.DiaryRepository;
 import com.tomasfriends.bansikee_server.mypage.domain.repository.MyPlantRepository;
 import com.tomasfriends.bansikee_server.mypage.domain.repository.PictureRepository;
-import com.tomasfriends.bansikee_server.mypage.service.dto.DiaryListResponseDto;
-import com.tomasfriends.bansikee_server.mypage.service.dto.DiaryRequestDto;
+import com.tomasfriends.bansikee_server.mypage.service.dto.*;
+import com.tomasfriends.bansikee_server.mypage.service.exception.NotExistDiaryException;
 import com.tomasfriends.bansikee_server.mypage.service.exception.NotExistMyPlantException;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,18 +30,27 @@ public class DiaryService {
     private final PictureRepository pictureRepository;
     private final MyPlantRepository myPlantRepository;
 
+    @Transactional
     public void save(DiaryRequestDto diaryRequestDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         BansikeeUser loginUser = (BansikeeUser) authentication.getPrincipal();
         Optional<PlantRegistration> registeredPlant = myPlantRepository.findById(diaryRequestDto.getMyPlantId());
         Diary diary = diaryRequestDto.toDiaryEntity(registeredPlant.orElseThrow(NotExistMyPlantException::new), loginUser);
+
         diaryRepository.save(diary);
         savePictures(diaryRequestDto, diary);
+        checkWatered(diaryRequestDto.getWatered(), diaryRequestDto.getMyPlantId());
     }
 
     public void savePictures(DiaryRequestDto diaryRequestDto, Diary diary) {
         List<DiaryPicture> diaryPictures = diaryRequestDto.toDiaryPictureEntities(diary);
         diaryPictures.forEach(pictureRepository::save);
+    }
+
+    public void checkWatered(Watered watered, int myPlantId) {
+        if (watered.isWatered()) {
+            myPlantRepository.checkLastWaterDate(myPlantId, LocalDate.now());
+        }
     }
 
     public List<DiaryListResponseDto> findAll(int myPlantId) {
@@ -49,12 +60,13 @@ public class DiaryService {
             .collect(Collectors.toList());
     }
 
-//    public MyPlantResponseDto findPlant(Integer myPlantId) {
-//        Optional<PlantRegistration> foundMyPlant = myPlantRepository.findById(myPlantId);
-//        PlantRegistration plantRegistration = foundMyPlant.orElseThrow(NotExistMyPlantException::new);
-//        return plantRegistration.toMyPlantResponseDto();
-//    }
-//
+    public DiaryResponseDto findDiary(Integer diaryId) {
+        Optional<Diary> foundDiary = diaryRepository.findById(diaryId);
+        Diary diary = foundDiary.orElseThrow(NotExistDiaryException::new);
+        System.out.println(diary.toString());
+        return diary.toDiaryResponseDto();
+    }
+
 //    @Transactional
 //    public void patch(MyPlantPatchRequestDto myPlantPatchRequestDto) {
 //        BansikeeUser loginUser = getUser(myPlantPatchRequestDto.getMyPlantId());

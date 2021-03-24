@@ -9,9 +9,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class MyPlantListResponseDto {
 
-    private Integer MyPlantId;
-    private String nickName;
-    private String profileImgUrl;
-    private String plantName;
-    private String contents;
+    private final Integer myPlantId;
+    private final String nickName;
+    private final String profileImgUrl;
+    private final String plantName;
+    private final String contents;
+    private final long waterDaysFrom;
+    private final long waterDaysTo;
 }

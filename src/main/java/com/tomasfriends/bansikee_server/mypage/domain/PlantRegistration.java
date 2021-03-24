@@ -6,10 +6,7 @@ import com.tomasfriends.bansikee_server.mypage.service.dto.MyPlantResponseDto;
 import com.tomasfriends.bansikee_server.mypage.service.dto.PlantRegistrationRequestDto;
 import com.tomasfriends.bansikee_server.onBoarding.domain.Plant;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,9 +14,12 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Entity
 @Table(name = "myPlant")
 public class PlantRegistration extends BaseEntity {
@@ -42,6 +42,8 @@ public class PlantRegistration extends BaseEntity {
 
     @Column(name = "waterCycle")
     private Integer wateringCycle;
+
+    private LocalDate lastWateredDate;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userIdx")
@@ -67,13 +69,25 @@ public class PlantRegistration extends BaseEntity {
     }
 
     public MyPlantListResponseDto toListResponseDto() {
+        Map<String, Long> waterDaysNotice = getWaterDaysNotice();
         return MyPlantListResponseDto.builder()
-            .MyPlantId(id)
+            .myPlantId(id)
             .nickName(plantNickName)
             .contents(plantIntroduce)
             .plantName(plant.getName())
             .profileImgUrl(pictureUrl)
+            .waterDaysFrom(waterDaysNotice.get("from"))
+            .waterDaysTo(waterDaysNotice.get("to"))
             .build();
+    }
+
+    public Map<String, Long> getWaterDaysNotice() {
+        if (lastWateredDate == null) {
+            return Map.of("from", -1L, "to", -1L);
+        }
+        long from = getDDay(lastWateredDate.atStartOfDay());
+        long to = wateringCycle - from;
+        return Map.of("from", from, "to", to);
     }
 
     public MyPlantResponseDto toMyPlantResponseDto() {
@@ -89,7 +103,7 @@ public class PlantRegistration extends BaseEntity {
             .build();
     }
 
-    public long getDDay(LocalDateTime plantBirth) {
-        return ChronoUnit.DAYS.between(plantBirth.toLocalDate(), LocalDate.now());
+    public long getDDay(LocalDateTime date) {
+        return ChronoUnit.DAYS.between(date.toLocalDate(), LocalDate.now());
     }
 }

@@ -46,16 +46,16 @@ public class DiaryController {
         return responseService.getListResult(myAllPlantList, SuccessCode.MY_DIARY_READ_SUCCESS);
     }
 
-//    @ApiImplicitParams({
-//        @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
-//    })
-//    @ApiOperation(value = "내 식물 상세 조회", notes = "토큰 인증 필요")
-//    @GetMapping("/myplant/{myPlantId}")
-//    public ResponseEntity<SingleDataSuccessResponse<MyPlantResponseDto>> registerPlant(@PathVariable("myPlantId") Integer myPlantId) {
-//        MyPlantResponseDto plant = plantRegisterService.findPlant(myPlantId);
-//        return responseService.getSingleResult(plant, SuccessCode.PLANT_READ_SUCCESS);
-//    }
-//
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @ApiOperation(value = "내 식물 상세 조회", notes = "토큰 인증 필요")
+    @GetMapping("/diary/plantDiary/{diaryId}")
+    public ResponseEntity<SingleDataSuccessResponse<DiaryResponseDto>> registerPlant(@PathVariable("diaryId") Integer diaryId) {
+        DiaryResponseDto diaryResponse = diaryService.findDiary(diaryId);
+        return responseService.getSingleResult(diaryResponse, SuccessCode.DIARY_READ_SUCCESS);
+    }
+
 //    @ApiImplicitParams({
 //        @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
 //    })
