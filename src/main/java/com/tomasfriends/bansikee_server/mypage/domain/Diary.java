@@ -52,8 +52,8 @@ public class Diary extends BaseEntity {
         this.user = user;
     }
 
-    public DiaryListResponseDto toListResponseDto(DiaryPicture diaryProfilePicture, LocalDate writeDate) {
-        return new DiaryListResponseDto(diaryProfilePicture.getPictureUrl(), writeDate);
+    public DiaryListResponseDto toListResponseDto(int diaryId, DiaryPicture diaryProfilePicture, LocalDate writeDate) {
+        return new DiaryListResponseDto(diaryId, diaryProfilePicture.getPictureUrl(), writeDate);
     }
 
     public DiaryResponseDto toDiaryResponseDto() {

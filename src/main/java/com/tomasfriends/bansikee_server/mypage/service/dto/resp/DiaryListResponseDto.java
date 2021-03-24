@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class DiaryListResponseDto {
 
+    private final int diaryId;
     private final String diaryProfile;
     private final LocalDate writeDate;
 }
