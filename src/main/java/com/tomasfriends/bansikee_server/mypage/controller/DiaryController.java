@@ -51,30 +51,20 @@ public class DiaryController {
     @ApiImplicitParams({
         @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "내 식물 상세 조회", notes = "토큰 인증 필요")
+    @ApiOperation(value = "일기 상세 조회", notes = "토큰 인증 필요")
     @GetMapping("/diary/plantDiary/{diaryId}")
     public ResponseEntity<SingleDataSuccessResponse<DiaryResponseDto>> registerPlant(@PathVariable("diaryId") Integer diaryId) {
         DiaryResponseDto diaryResponse = diaryService.findDiary(diaryId);
         return responseService.getSingleResult(diaryResponse, SuccessCode.DIARY_READ_SUCCESS);
     }
 
-//    @ApiImplicitParams({
-//        @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
-//    })
-//    @ApiOperation(value = "내 식물 정보 수정", notes = "토큰 인증 필요")
-//    @PatchMapping("/myplant/modify")
-//    public ResponseEntity<SuccessResponse> modifyMyPlant(@RequestBody @Valid MyPlantPatchRequestDto myPlantPatchRequestDto) {
-//        plantRegisterService.patch(myPlantPatchRequestDto);
-//        return responseService.getSuccessResult(SuccessCode.PLANT_PATCH_SUCCESS);
-//    }
-//
-//    @ApiImplicitParams({
-//        @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
-//    })
-//    @ApiOperation(value = "내 식물로 삭제", notes = "토큰 인증 필요")
-//    @DeleteMapping("/myplant/delete/{myPlantId}")
-//    public ResponseEntity<SuccessResponse> deleteMyPlant(@PathVariable("myPlantId") Integer myPlantId) {
-//        plantRegisterService.delete(myPlantId);
-//        return responseService.getSuccessResult(SuccessCode.PLANT_DELETE_SUCCESS);
-//    }
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @ApiOperation(value = "일기 삭제", notes = "토큰 인증 필요")
+    @DeleteMapping("/diary/delete/{diaryId}")
+    public ResponseEntity<SuccessResponse> deleteMyPlant(@PathVariable("diaryId") Integer diaryId) {
+        diaryService.delete(diaryId);
+        return responseService.getSuccessResult(SuccessCode.DIARY_DELETE_SUCCESS);
+    }
 }

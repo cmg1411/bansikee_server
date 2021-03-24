@@ -2,6 +2,7 @@ package com.tomasfriends.bansikee_server.mypage.service;
 
 import com.tomasfriends.bansikee_server.mypage.domain.Diary;
 import com.tomasfriends.bansikee_server.mypage.domain.DiaryPicture;
+import com.tomasfriends.bansikee_server.mypage.domain.MyPlant;
 import com.tomasfriends.bansikee_server.mypage.domain.PlantRegistration;
 import com.tomasfriends.bansikee_server.mypage.domain.repository.DiaryRepository;
 import com.tomasfriends.bansikee_server.mypage.domain.repository.MyPlantRepository;
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class DiaryService {
+public class DiaryService implements MyPlant {
 
     private final DiaryRepository diaryRepository;
     private final PictureRepository pictureRepository;
@@ -69,25 +70,17 @@ public class DiaryService {
         return diary.toDiaryResponseDto();
     }
 
-//    @Transactional
-//    public void patch(MyPlantPatchRequestDto myPlantPatchRequestDto) {
-//        BansikeeUser loginUser = getUser(myPlantPatchRequestDto.getMyPlantId());
-//        Optional<Plant> plant = plantRepository.findById(myPlantPatchRequestDto.getPlantId());
-//        PlantRegistration patchedPlant = myPlantPatchRequestDto.toPatchEntity(loginUser, plant.orElseThrow(NotRegisteredUserIdException::new));
-//        myPlantRepository.save(patchedPlant);
-//    }
-//
-//    @Transactional
-//    public void delete(Integer myPlantId) {
-//        getUser(myPlantId);
-//        myPlantRepository.deleteById(myPlantId);
-//    }
-//
-//    public BansikeeUser getUser(Integer myPlantId) {
-//        int myPlantOwnerId = myPlantRepository.findById(myPlantId)
-//            .orElseThrow(NotExistMyPlantException::new)
-//            .getUser()
-//            .getId();
-//        return checkAuth(myPlantOwnerId);
-//    }
+    @Transactional
+    public void delete(Integer diaryId) {
+        getUser(diaryId);
+        diaryRepository.deleteById(diaryId);
+    }
+
+    public BansikeeUser getUser(Integer diaryId) {
+        int diaryOwnerId = diaryRepository.findById(diaryId)
+            .orElseThrow(NotExistMyPlantException::new)
+            .getUser()
+            .getId();
+        return checkAuth(diaryOwnerId);
+    }
 }
