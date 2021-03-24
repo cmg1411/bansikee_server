@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -52,7 +53,7 @@ public class PlantRegistration extends BaseEntity {
     private Plant plant;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "myPlant", orphanRemoval=true)
-    private List<Diary> diaries;
+    private List<Diary> diaries = new ArrayList<>();
 
     @Builder
     public PlantRegistration(Integer id, String pictureUrl, Plant plant, String plantNickName, LocalDateTime plantBirth, String plantIntroduce, Integer wateringCycle, BansikeeUser user) {
