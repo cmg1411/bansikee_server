@@ -1,3 +1,4 @@
+
 package com.tomasfriends.bansikee_server.sign.controller.logincontroller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,9 +32,9 @@ class KakaoLoginControllerTest {
 
         // then
         mockMvc.perform(post("/sginup/kakao")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(kakaoAccessTokenJsonString))
-            .andExpect(status().is(302));
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(kakaoAccessTokenJsonString))
+                .andExpect(status().is(302));
     }
 
 //    @Test
@@ -43,7 +44,8 @@ class KakaoLoginControllerTest {
 //        String name = "";
 //        String email = "11";
 //        String password = "123";
-//        String passwordRe = "123";
+//        S
+//        tring passwordRe = "123";
 //
 //        // when
 //        BasicLoginUserRequest user = BasicLoginUserRequest.builder()

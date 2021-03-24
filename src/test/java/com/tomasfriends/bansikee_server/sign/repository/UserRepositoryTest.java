@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.sign.domain.repository;
+package com.tomasfriends.bansikee_server.sign.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

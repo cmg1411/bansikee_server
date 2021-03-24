@@ -13,7 +13,7 @@ public class GoogleOAuthService implements OAuthService {
     @Override
     public Profile getProfile(TokenRequestDto accessToken) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "https://oauth2.googleapis.com/tokeninfo?id_token=" + accessToken;
+        String url = "https://oauth2.googleapis.com/tokeninfo?id_token=" + accessToken.getAccessToken();
         try {
             return restTemplate.getForObject(url, GoogleProfile.class);
         } catch (Exception e) {

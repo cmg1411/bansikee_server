@@ -2,6 +2,7 @@ package com.tomasfriends.bansikee_server.dictionary.controller;
 
 import com.tomasfriends.bansikee_server.dictionary.dto.dictionaryDto.ResPlantDto;
 import com.tomasfriends.bansikee_server.dictionary.dto.dictionaryDto.ResPlantListDto;
+import com.tomasfriends.bansikee_server.dictionary.dto.dictionaryDto.ResSearchHistoryDto;
 import com.tomasfriends.bansikee_server.dictionary.service.DictionaryService;
 import com.tomasfriends.bansikee_server.response.dto.SingleDataSuccessResponse;
 import com.tomasfriends.bansikee_server.response.dto.SuccessCode;
@@ -37,8 +38,7 @@ public class DictionaryController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인시 발급 받는 access_token", required = true, dataType = "String", paramType = "header")
     })
-
-    public ResponseEntity<SingleDataSuccessResponse<List<ResPlantListDto>>> postAnswer(@RequestParam("keyWord") String keyWord,
+    public ResponseEntity<SingleDataSuccessResponse<List<ResPlantListDto>>> getPlantList(@RequestParam("keyWord") String keyWord,
                                                                                        @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                                                        @RequestParam("sortBy") String sortBy) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -52,24 +52,26 @@ public class DictionaryController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인시 발급 받는 access_token", required = true, dataType = "String", paramType = "header")
     })
-
-    // 상세정보 조회 기록 저장 - 한 userIdx당 최대 5개까지만
-    public ResponseEntity<SingleDataSuccessResponse<ResPlantDto>> getPlant(@PathVariable("plantidx") Integer plantIdx) {
+    // 상세정보 조회 기록 저장
+    public ResponseEntity<SingleDataSuccessResponse<ResPlantDto>> getPlant(@PathVariable("plantidx") Integer plantIdx,@RequestParam("status") String status) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
         Integer userIdx = principal.getId();
 
-        return responseService.getSingleResult(dictionaryService.getPlant(userIdx, plantIdx), SuccessCode.GET_PLANTINFO);
+        return responseService.getSingleResult(dictionaryService.getPlant(userIdx, plantIdx,status), SuccessCode.GET_PLANTINFO);
     }
 
     //최근 검색 기록
+    @ApiOperation(value = "식물 검색 기록 조회", notes = " ")
+    @GetMapping("/plants-search")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인시 발급 받는 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    public ResponseEntity<SingleDataSuccessResponse<List<ResSearchHistoryDto>>> getSearchHistory(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
+        Integer userIdx = principal.getId();
 
-
-//    @GetMapping("/plant-list")
-//    public getList(){
-//
-//
-//
-
-//    }
+        return responseService.getSingleResult(dictionaryService.getSearchHistory(userIdx), SuccessCode.GET_PLANTINFO);
+    }
 }
