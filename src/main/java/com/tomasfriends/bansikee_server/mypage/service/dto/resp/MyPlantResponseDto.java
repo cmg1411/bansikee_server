@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class MyPlantResponseDto {
 
     private final int myPlantId;
+    private final int plantId;
     private final String plantName;
     private final String nickName;
     private final int water;

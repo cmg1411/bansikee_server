@@ -91,6 +91,7 @@ public class PlantRegistration extends BaseEntity {
     public MyPlantResponseDto toMyPlantResponseDto() {
         return MyPlantResponseDto.builder()
             .myPlantId(id)
+            .plantId(plant.getPlantIdx())
             .plantName(plant.getName())
             .nickName(plantNickName)
             .water(wateringCycle)
