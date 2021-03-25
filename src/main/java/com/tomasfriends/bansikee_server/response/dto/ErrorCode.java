@@ -15,7 +15,10 @@ public enum ErrorCode {
     ALREADY_EXIST_EMAIL(452, "The email is already exist.", "이미 가입된 이메일입니다."),
     HAVE_TO_SIGN_IN_WITH_OAUTH(460, "Need to Sign in with Oauth.", "소셜 로그인 회원입니다."),
     NOT_REGISTERED_ID(455, "Not registered id.", "해당 아이디인 계정이 없습니다.(이미 탈퇴한 회원의 토큰입니다.)"),
-    NOT_EXIST_PLANT_IN_MYPAGE(480, "Not a My Plant", "내 정원에 있는 식물이 아닙니다.");
+    NOT_EXIST_PLANT_IN_MYPAGE(480, "Not a My Plant", "등록된 식물이 아닙니다."),
+    NOT_VALID_AUTH(580, "Have not Auth.", "수정 권한이 없습니다."),
+    NOT_EXIST_DIARY(499, "Not Exist Diary.", "존재하지 않는 일기입니다."),
+    NOT_EXIST_PLANT(476, "Not Exist Plant.", "존재하지 않는 식물입니다.");
 
     private final int status;
     private final String title;
