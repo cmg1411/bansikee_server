@@ -61,7 +61,7 @@ public class OnBoardingController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인시 발급 받는 access_token", required = true, dataType = "String", paramType = "header")
     })
-    public ResponseEntity<SuccessResponse> postAnswer(@RequestBody ReqAnswerListDto reqAnswerDto) {
+    public ResponseEntity<SuccessResponse> postAnswer(@RequestBody List<ReqAnswerDto> reqAnswerDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
         Integer userIdx = principal.getId();
