@@ -37,15 +37,17 @@ class PlantRegistrationTest {
     void calculateWaterDay() {
         // given
         LocalDateTime now = LocalDateTime.now();
-        LocalDate wateredDay = now.toLocalDate().minusDays(3);
-        PlantRegistration p = new PlantRegistration(1, "a", "A", now, "a", 7, wateredDay, bansikeeUser, plant, diaries);
+        LocalDate wateredDay = now.toLocalDate().minusDays(7);
+        PlantRegistration p = new PlantRegistration(1, "a", "A", now, "a", 3, wateredDay, bansikeeUser, plant, diaries);
 
         // when
         Map<String, Long> waterDays = p.getWaterDaysNotice();
 
+        System.out.println(waterDays.get("from"));
+        System.out.println(waterDays.get("to"));
         // then
-        Assertions.assertThat(waterDays.get("from")).isEqualTo(3);
-        Assertions.assertThat(waterDays.get("to")).isEqualTo(4);
+        Assertions.assertThat(waterDays.get("from")).isEqualTo(7);
+        Assertions.assertThat(waterDays.get("to")).isEqualTo(-4);
     }
 
     @Test
