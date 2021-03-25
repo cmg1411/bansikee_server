@@ -18,4 +18,9 @@ public interface MyPlantRepository extends JpaRepository<PlantRegistration, Inte
     @Query("UPDATE PlantRegistration SET lastWateredDate = :now WHERE id = :myPlantId")
     void checkLastWaterDate(@Param("myPlantId") int myPlantId,
                             @Param("now") LocalDate now);
+
+    @Modifying
+    @Query("UPDATE PlantRegistration SET lastDiaryDate = :now WHERE id = :myPlantId")
+    void checkLastDiaryDate(@Param("myPlantId") int myPlantId,
+                            @Param("now") LocalDate now);
 }

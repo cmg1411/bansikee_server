@@ -27,9 +27,7 @@ public class DeleteUserController {
     @ApiOperation(value = "회원탈퇴", notes = "로그인한 유저 회원탈퇴")
     @DeleteMapping("/deleteUser")
     public ResponseEntity<SuccessResponse> signIn() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
-        bansikeeUserService.deleteUser(principal.getId());
+        bansikeeUserService.deleteUser();
         return responseService.getSuccessResult(SuccessCode.DELETE_USER_SUCCESS);
     }
 }

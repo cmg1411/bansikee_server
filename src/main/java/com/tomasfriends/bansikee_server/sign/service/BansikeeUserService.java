@@ -1,5 +1,6 @@
 package com.tomasfriends.bansikee_server.sign.service;
 
+import com.tomasfriends.bansikee_server.common.AuthenticationUser;
 import com.tomasfriends.bansikee_server.sign.domain.LoginMethod;
 import com.tomasfriends.bansikee_server.jwt.JwtProvider;
 import com.tomasfriends.bansikee_server.sign.service.dto.NickNameRequestDto;
@@ -68,8 +69,9 @@ public class BansikeeUserService {
     }
 
     @Transactional
-    public void deleteUser(int id) {
-        userRepository.deleteById(id);
+    public void deleteUser() {
+        BansikeeUser authenticationUser = AuthenticationUser.getAuthenticationUser();
+        userRepository.deleteById(authenticationUser.getId());
     }
 
     public Boolean getIsOnboardedService(int id) {

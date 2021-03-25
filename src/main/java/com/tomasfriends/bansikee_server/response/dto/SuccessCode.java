@@ -37,7 +37,10 @@ public enum SuccessCode {
     DIARY_REGISTER_SUCCESS(280, "Diary Registered.", "일기등록에 성공했습니다."),
     MY_DIARY_READ_SUCCESS(281, "Diary List Searched.", "다이어리 리스트 조회를 성공했습니다."),
     DIARY_READ_SUCCESS(282, "Diary Readed.", "일기 조회에 성공했습니다"),
-    DIARY_DELETE_SUCCESS(285, "Diary Delete Success", "다이어리 삭제에 성공했습니다.");
+    DIARY_DELETE_SUCCESS(285, "Diary Delete Success", "다이어리 삭제에 성공했습니다."),
+
+    // 홈
+    HOME_PAGE_RESULT(205, "Home Page Result.", "홈 화면 페이지 조회 성공.");
 
 
     private final int status;

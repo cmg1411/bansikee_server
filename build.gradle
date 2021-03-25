@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.4.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 
 	id 'java'
 	id 'jacoco'
@@ -32,6 +33,12 @@ dependencies {
 
 // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
 	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+	// queryDSL
+	implementation group: 'com.querydsl', name: 'querydsl-apt', version: '4.1.4'
+	implementation group: 'com.querydsl', name: 'querydsl-jpa', version: '4.1.4'
+
+
 
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -160,3 +167,24 @@ sonarqube {
 		property "sonar.exclusions", "*.dto, *.dto.*, *.BackApplication, *.config.*, *.security.*, *.exceptions.*, *.util.*, *.EmptyUser"
 	}
 }
+
+// querydsl
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+	main.java.srcDir querydslDir
+}
+
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
+}
+// querydsl
