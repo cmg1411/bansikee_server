@@ -9,7 +9,6 @@ import com.tomasfriends.bansikee_server.mypage.domain.repository.MyPlantReposito
 import com.tomasfriends.bansikee_server.onBoarding.domain.Plant;
 import com.tomasfriends.bansikee_server.onBoarding.repository.PlantRepository;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
-import com.tomasfriends.bansikee_server.sign.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +22,6 @@ public class HomeService {
 
     private final PlantRepository plantRepository;
     private final MyPlantRepository myPlantRepository;
-    private final DiaryRepository diaryRepository;
 
     public HomeResponseDto getHome() {
         HomeResponseDto responseDto = new HomeResponseDto();
