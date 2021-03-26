@@ -164,7 +164,8 @@ sonarqube {
 		property "sonar.language", "java"
 		property "sonar.sourceEncoding", "UTF-8"
 		property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
-		property "sonar.exclusions", "*.dto, *.dto.*, *.BackApplication, *.config.*, *.security.*, *.exceptions.*, *.util.*, *.EmptyUser"
+		property 'sonar.java.binaries', '${buildDir}/classes'
+		property 'sonar.exclusions', '**/test/**, **/Q*.java, **/*Doc*.java, **/resources/**, **/dto/**, **/config/**, **/common/**, **/component/**'
 	}
 }
 
