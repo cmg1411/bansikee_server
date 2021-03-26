@@ -43,30 +43,34 @@ public class DiaryService implements MyPlant {
         diaryRepository.save(diary);
         savePictures(diaryRequestDto, diary);
         checkWatered(diaryRequestDto.getWatered(), diaryRequestDto.getMyPlantId());
+        checkTodayDiary(diaryRequestDto.getMyPlantId());
     }
 
-    public void savePictures(DiaryRequestDto diaryRequestDto, Diary diary) {
+    private void savePictures(DiaryRequestDto diaryRequestDto, Diary diary) {
         List<DiaryPicture> diaryPictures = diaryRequestDto.toDiaryPictureEntities(diary);
         diaryPictures.forEach(pictureRepository::save);
     }
 
-    public void checkWatered(Watered watered, int myPlantId) {
+    private void checkWatered(Watered watered, int myPlantId) {
         if (watered.isWatered()) {
             myPlantRepository.checkLastWaterDate(myPlantId, LocalDate.now());
         }
     }
 
+    private void checkTodayDiary(int myPlantId) {
+        myPlantRepository.checkLastDiaryDate(myPlantId, LocalDate.now());
+    }
+
     public List<DiaryListResponseDto> findAll(int myPlantId) {
         List<Diary> allDiary = diaryRepository.findAllByUserId(myPlantId);
         return allDiary.stream()
-            .map(t -> t.toListResponseDto(t.getPictures().get(0), t.getCreatedDate().toLocalDate()))
+            .map(t -> t.toListResponseDto(t.getId(), t.getPictures().get(0), t.getCreatedDate().toLocalDate()))
             .collect(Collectors.toList());
     }
 
     public DiaryResponseDto findDiary(Integer diaryId) {
         Optional<Diary> foundDiary = diaryRepository.findById(diaryId);
         Diary diary = foundDiary.orElseThrow(NotExistDiaryException::new);
-        System.out.println(diary.toString());
         return diary.toDiaryResponseDto();
     }
 

@@ -1,6 +1,7 @@
 package com.tomasfriends.bansikee_server.mypage.domain;
 
 import com.tomasfriends.bansikee_server.common.BaseEntity;
+import com.tomasfriends.bansikee_server.home.service.dto.HomePlant;
 import com.tomasfriends.bansikee_server.mypage.service.dto.resp.MyPlantListResponseDto;
 import com.tomasfriends.bansikee_server.mypage.service.dto.resp.MyPlantResponseDto;
 import com.tomasfriends.bansikee_server.onBoarding.domain.Plant;
@@ -10,10 +11,11 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -41,6 +43,7 @@ public class PlantRegistration extends BaseEntity {
     @Column(name = "waterCycle")
     private Integer wateringCycle;
 
+    private LocalDate lastDiaryDate;
     private LocalDate lastWateredDate;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -52,7 +55,7 @@ public class PlantRegistration extends BaseEntity {
     private Plant plant;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "myPlant", orphanRemoval=true)
-    private List<Diary> diaries;
+    private List<Diary> diaries = new ArrayList<>();
 
     @Builder
     public PlantRegistration(Integer id, String pictureUrl, Plant plant, String plantNickName, LocalDateTime plantBirth, String plantIntroduce, Integer wateringCycle, BansikeeUser user) {
@@ -105,5 +108,29 @@ public class PlantRegistration extends BaseEntity {
 
     public long getDDay(LocalDateTime date) {
         return ChronoUnit.DAYS.between(date.toLocalDate(), LocalDate.now());
+    }
+
+    public String getBirth(LocalDateTime date) {
+        Period period = LocalDate.now().until(date.toLocalDate());
+        return period.getYears() + "년 | " + period.getMonths() + "개월차";
+    }
+
+    public HomePlant toHomeMyPlant() {
+        Map<String, Long> waterDaysNotice = getWaterDaysNotice();
+        return HomePlant.builder()
+            .myPlantId(id)
+            .myPlantNickName(plantNickName)
+            .myPlantSpecies(plant.getSpecies())
+            .myPlantWaterCycle(wateringCycle)
+            .myPlantLastWaterDay(lastWateredDate)
+            .waterDayFrom(waterDaysNotice.get("from"))
+            .waterDayTo(waterDaysNotice.get("to"))
+            .myPlantAge(getBirth(plantBirth))
+            .todayDiaryStatus(getIsWriteDiary())
+            .build();
+    }
+
+    private boolean getIsWriteDiary() {
+        return lastDiaryDate.isEqual(LocalDate.now());
     }
 }

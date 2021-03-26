@@ -2,7 +2,6 @@ package com.tomasfriends.bansikee_server.mypage.domain;
 
 import com.tomasfriends.bansikee_server.onBoarding.domain.Plant;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+
+import static org.assertj.core.api.Assertions.*;
 
 @Transactional
 class PlantRegistrationTest {
@@ -30,22 +31,24 @@ class PlantRegistrationTest {
 
         // then
 //        Assertions.assertThat(dDay).isEqualTo(27);
-        Assertions.assertThat(dDay).isNotNull();
+        assertThat(dDay).isNotNull();
     }
 
     @Test
     void calculateWaterDay() {
         // given
         LocalDateTime now = LocalDateTime.now();
-        LocalDate wateredDay = now.toLocalDate().minusDays(3);
-        PlantRegistration p = new PlantRegistration(1, "a", "A", now, "a", 7, wateredDay, bansikeeUser, plant, diaries);
+        LocalDate wateredDay = now.toLocalDate().minusDays(7);
+        PlantRegistration p = new PlantRegistration(1, "a", "A", now, "a", 3, LocalDate.now(), wateredDay, bansikeeUser, plant, diaries);
 
         // when
         Map<String, Long> waterDays = p.getWaterDaysNotice();
 
+        System.out.println(waterDays.get("from"));
+        System.out.println(waterDays.get("to"));
+
         // then
-        Assertions.assertThat(waterDays.get("from")).isEqualTo(3);
-        Assertions.assertThat(waterDays.get("to")).isEqualTo(4);
+        assertThat(waterDays).containsEntry("from", 7L).containsEntry("to", -4L);;
     }
 
     @Test
@@ -53,13 +56,12 @@ class PlantRegistrationTest {
         // given
         LocalDateTime now = LocalDateTime.now();
         LocalDate wateredDay = null;
-        PlantRegistration p = new PlantRegistration(1, "a", "A", now, "a", 7, wateredDay, bansikeeUser, plant, diaries);
+        PlantRegistration p = new PlantRegistration(1, "a", "A", now, "a", 7, LocalDate.now(), wateredDay, bansikeeUser, plant, diaries);
 
         // when
         Map<String, Long> waterDays = p.getWaterDaysNotice();
 
         // then
-        Assertions.assertThat(waterDays.get("from")).isEqualTo(-1L);
-        Assertions.assertThat(waterDays.get("to")).isEqualTo(-1L);
+        assertThat(waterDays).containsEntry("from", -1L).containsEntry("to", -1L);
     }
 }
