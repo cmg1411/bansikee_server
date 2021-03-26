@@ -1,6 +1,6 @@
 package com.tomasfriends.bansikee_server.home.service;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.security.SecureRandom;
 
 public class RandomPlant {
 
@@ -8,7 +8,7 @@ public class RandomPlant {
     }
 
     public static int getRandomPlantId(long count) {
-        ThreadLocalRandom random = ThreadLocalRandom.current();
+        SecureRandom random = new SecureRandom();
         return random.nextInt((int)count) + 1;
     }
 }

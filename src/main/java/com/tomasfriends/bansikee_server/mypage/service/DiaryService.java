@@ -71,7 +71,6 @@ public class DiaryService implements MyPlant {
     public DiaryResponseDto findDiary(Integer diaryId) {
         Optional<Diary> foundDiary = diaryRepository.findById(diaryId);
         Diary diary = foundDiary.orElseThrow(NotExistDiaryException::new);
-        System.out.println(diary.toString());
         return diary.toDiaryResponseDto();
     }
 

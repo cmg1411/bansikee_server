@@ -13,21 +13,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.hibernate.tool.schema.SchemaToolingLogging.LOGGER;
-
 @Transactional
 public class DictionaryService {
 
-    private PlantDictionaryRepository plantDictionaryRepository;
-    private FavoritesDictionaryRepository favoritesDictionaryRepository;
-    private SearchHistoryRepository searchHistoryRepository;
+    private static final String NONGSARO_URL = "http://www.nongsaro.go.kr/cms_contents/301/";
+
+    private final PlantDictionaryRepository plantDictionaryRepository;
+    private final FavoritesDictionaryRepository favoritesDictionaryRepository;
+    private final SearchHistoryRepository searchHistoryRepository;
 
     public DictionaryService(PlantDictionaryRepository plantDictionaryRepository, FavoritesDictionaryRepository favoritesDictionaryRepository, SearchHistoryRepository searchHistoryRepository) {
         this.plantDictionaryRepository = plantDictionaryRepository;
@@ -52,8 +50,7 @@ public class DictionaryService {
 
         for(int i = 0; i < resPlantListDto.size(); i++) {
             resPlantListDto.get(i).setLike(favoritesDictionaryRepository.existsByPlantIdxAndUserIdx(resPlantListDto.get(i).getPlantIdx(), userIdx));
-            resPlantListDto.get(i).setPlantImgUrl("http://www.nongsaro.go.kr/cms_contents/301/"+resPlantListDto.get(i).getPlantImgUrl().split("\\|")[0]);
-
+            resPlantListDto.get(i).setPlantImgUrl(NONGSARO_URL + resPlantListDto.get(i).getPlantImgUrl().split("\\|")[0]);
         }
         return resPlantListDto;
     }
@@ -74,7 +71,7 @@ public class DictionaryService {
                 .collect(Collectors.toList());
         resPlantDtos.get(0).setLight(resPlantDtos.get(0).getLight().replace("),","),\n"));
         resPlantDtos.get(0).setArea(resPlantDtos.get(0).getArea().replace(",",",\n"));
-        resPlantDtos.get(0).setPlantImgUrl("http://www.nongsaro.go.kr/cms_contents/301/"+resPlantDtos.get(0).getPlantImgUrl().split("\\|")[0]);
+        resPlantDtos.get(0).setPlantImgUrl(NONGSARO_URL + resPlantDtos.get(0).getPlantImgUrl().split("\\|")[0]);
         resPlantDtos.get(0).setLike(favoritesDictionaryRepository.existsByPlantIdxAndUserIdx( plantIdx, userIdx));
 
         return resPlantDtos.get(0);
@@ -89,12 +86,10 @@ public class DictionaryService {
                 .map(ResSearchHistoryDto::of)
                 .collect(Collectors.toList());
 
-        for(int i = 0; i < resSearchHistoryDtos.size(); i++) {
+        for (int i = 0; i < resSearchHistoryDtos.size(); i++) {
             resSearchHistoryDtos.get(i).setLike(favoritesDictionaryRepository.existsByPlantIdxAndUserIdx(resSearchHistoryDtos.get(i).getPlantIdx(), userIdx));
-            resSearchHistoryDtos.get(i).setPlantImgUrl("http://www.nongsaro.go.kr/cms_contents/301/"+resSearchHistoryDtos.get(i).getPlantImgUrl().split("\\|")[0]);
-
+            resSearchHistoryDtos.get(i).setPlantImgUrl(NONGSARO_URL + resSearchHistoryDtos.get(i).getPlantImgUrl().split("\\|")[0]);
         }
-
         return resSearchHistoryDtos;
     }
 

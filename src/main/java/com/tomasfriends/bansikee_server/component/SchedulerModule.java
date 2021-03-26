@@ -1,7 +1,6 @@
 package com.tomasfriends.bansikee_server.component;
 
 import com.tomasfriends.bansikee_server.dictionary.service.DictionaryService;
-import com.tomasfriends.bansikee_server.response.service.ResponseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

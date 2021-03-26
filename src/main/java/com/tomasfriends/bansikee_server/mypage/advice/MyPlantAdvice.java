@@ -5,7 +5,6 @@ import com.tomasfriends.bansikee_server.mypage.service.exception.NotExistDiaryEx
 import com.tomasfriends.bansikee_server.mypage.service.exception.NotExistMyPlantException;
 import com.tomasfriends.bansikee_server.response.dto.ErrorCode;
 import com.tomasfriends.bansikee_server.response.dto.ErrorResponse;
-import com.tomasfriends.bansikee_server.sign.service.exceptions.JWTDecodeException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
