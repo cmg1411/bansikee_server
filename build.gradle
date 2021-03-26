@@ -86,12 +86,33 @@ jacocoTestReport {
 //      xml.destination file("$buildDir/jacoco.xml")
 	}
 
+	def Qdomains = []
+
+	for (qPattern in '**/QA'..'**/QZ') { // qPattern = '**/QA', '**/QB', ... '*.QZ'
+		Qdomains.add(qPattern + '*')
+	}
+
+	// 여기부터
+	afterEvaluate {
+		classDirectories.setFrom(
+				files(classDirectories.files.collect {
+					fileTree(dir: it, excludes: [] + Qdomains)
+				})
+		)
+	}
+
 	// test task 를 실행할 때 마다 자동으로 jacoco task 을 실행되게 한다.
 	// 테스트만 하려 했는데 리포트도 실행될 수 있으니 개인 취향대로 넣고 빼자.
 	finalizedBy 'jacocoTestCoverageVerification'
 }
 
 jacocoTestCoverageVerification {
+	def Qdomains = []
+
+	for (qPattern in '**/QA'..'**/QZ') { // qPattern = '**/QA', '**/QB', ... '*.QZ'
+		Qdomains.add(qPattern + '*')
+	}
+
 	violationRules {
 		rule {
 			// 'element'가 없으면 프로젝트의 전체 파일을 합친 값을 기준으로 한다.
@@ -100,6 +121,14 @@ jacocoTestCoverageVerification {
 				// 'value'를 지정하지 않으면 default는 'COVEREDRATIO'
 				minimum = 0.00
 			}
+		}
+
+		rule {
+			enabled = true
+
+			element = 'CLASS'
+			// 커버리지 체크를 제외할 클래스들
+			excludes = [] + Qdomains
 		}
 
 		rule {
@@ -132,10 +161,7 @@ jacocoTestCoverageVerification {
 			}
 
 			// 커버리지 체크를 제외할 클래스들
-			excludes = [
-//                    '*.test.*',
-//                    '*.Kotlin*'
-			]
+			excludes = ["*.Q*"] + Qdomains
 		}
 	}
 }
