@@ -78,6 +78,13 @@ public class Diary extends BaseEntity {
     private List<String> getPictureCollect() {
         return pictures.stream().map(DiaryPicture::getPictureUrl).collect(toList());
     }
+
+    public DiaryPicture getFirstDiaryPicture() {
+        if (pictures.isEmpty()) {
+            return new DiaryPicture(this, "사진을 등록하지 않았습니다.");
+        }
+        return pictures.get(0);
+    }
 }
 
 
