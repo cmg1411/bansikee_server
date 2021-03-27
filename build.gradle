@@ -128,7 +128,7 @@ jacocoTestCoverageVerification {
 
 			element = 'CLASS'
 			// 커버리지 체크를 제외할 클래스들
-			excludes = [] + Qdomains
+			excludes = ["*.*Application", "*.*Dto"] + Qdomains
 		}
 
 		rule {
@@ -161,7 +161,7 @@ jacocoTestCoverageVerification {
 			}
 
 			// 커버리지 체크를 제외할 클래스들
-			excludes = ["*.Q*"] + Qdomains
+			excludes = ["*.Q*", "*.*Application"] + Qdomains
 		}
 	}
 }

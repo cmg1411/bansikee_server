@@ -20,7 +20,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 
 import static org.assertj.core.api.Assertions.*;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @SpringBootTest
 class HomeServiceTest {
@@ -34,7 +33,7 @@ class HomeServiceTest {
     void getHomeTest() {
         HomeResponseDto home = homeService.getHome();
 
-        assertThat(home.getRecommendPlantId()).isBetween(1,200);
+        assertThat(home.getRecommendPlantId()).isBetween(1,3000);
         assertThat(home).isNotNull();
     }
 
