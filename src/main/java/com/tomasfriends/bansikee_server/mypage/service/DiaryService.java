@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -65,6 +66,7 @@ public class DiaryService implements MyPlant {
         List<Diary> allDiary = diaryRepository.findAllByMyPlantId(myPlantId);
         return allDiary.stream()
             .map(t -> t.toListResponseDto(t.getId(), t.getPictures().get(0), t.getCreatedDate().toLocalDate()))
+            .sorted(Comparator.comparing(DiaryListResponseDto::getWriteDate).reversed())
             .collect(Collectors.toList());
     }
 
@@ -80,11 +82,11 @@ public class DiaryService implements MyPlant {
         diaryRepository.deleteById(diaryId);
     }
 
-    public BansikeeUser getUser(Integer diaryId) {
+    public void getUser(Integer diaryId) {
         int diaryOwnerId = diaryRepository.findById(diaryId)
             .orElseThrow(NotExistMyPlantException::new)
             .getUser()
             .getId();
-        return checkAuth(diaryOwnerId);
+        checkAuth(diaryOwnerId);
     }
 }
