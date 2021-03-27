@@ -106,7 +106,7 @@ public class PlantRegistration extends BaseEntity {
             .build();
     }
 
-    public long getDDay(LocalDateTime date) {
+    public static long getDDay(LocalDateTime date) {
         return ChronoUnit.DAYS.between(date.toLocalDate(), LocalDate.now());
     }
 

@@ -2,10 +2,13 @@ package com.tomasfriends.bansikee_server;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class BansikeeServerApplicationTests {
+
+	@Autowired BansikeeServerApplication bansikeeServerApplication;
 
 	@Test
 	void contextLoads() {
@@ -13,6 +16,6 @@ class BansikeeServerApplicationTests {
 
 	@Test
 	void test() {
-		Assertions.assertThat(1).isEqualTo(1);
+		bansikeeServerApplication.main(new String[0]);
 	}
 }

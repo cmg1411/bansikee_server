@@ -9,6 +9,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -59,6 +60,7 @@ public class Diary extends BaseEntity {
     public DiaryResponseDto toDiaryResponseDto() {
         return DiaryResponseDto.builder()
             .myDiaryId(id)
+            .dayFromBirth(PlantRegistration.getDDay(myPlant.getPlantBirth()))
             .diaryPictures(getDiaryPictures())
             .nickName(myPlant.getPlantNickName())
             .weather(weather)

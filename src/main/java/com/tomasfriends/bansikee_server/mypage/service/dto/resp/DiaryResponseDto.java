@@ -16,6 +16,7 @@ public class DiaryResponseDto {
 
     private final int myDiaryId;
     private final PictureUrls diaryPictures;
+    private final long dayFromBirth;
     private final String nickName;
     private final Weather weather;
     private final Watered watered;
