@@ -93,8 +93,16 @@ public class DictionaryService {
         return resSearchHistoryDtos;
     }
 
-    public void deleteSearchHistory(){
+    public void deleteSearchHistoryScheduler(){
         LocalDateTime subDate = LocalDateTime.now().minusDays(5);
         searchHistoryRepository.deleteByUpdatedAtIsBefore(subDate);
+    }
+
+        public void deleteSearchHistories(Integer userIdx){
+        searchHistoryRepository.deleteByUserIdx(userIdx);
+    }
+
+    public void deleteSearchHistory(Integer userIdx, Integer plantIdx){
+        searchHistoryRepository.deleteByUserIdxAndPlantIdx(userIdx,plantIdx);
     }
 }

@@ -6,6 +6,7 @@ import com.tomasfriends.bansikee_server.dictionary.dto.dictionaryDto.ResSearchHi
 import com.tomasfriends.bansikee_server.dictionary.service.DictionaryService;
 import com.tomasfriends.bansikee_server.response.dto.SingleDataSuccessResponse;
 import com.tomasfriends.bansikee_server.response.dto.SuccessCode;
+import com.tomasfriends.bansikee_server.response.dto.SuccessResponse;
 import com.tomasfriends.bansikee_server.response.service.ResponseService;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import io.swagger.annotations.Api;
@@ -72,6 +73,34 @@ public class DictionaryController {
         BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
         Integer userIdx = principal.getId();
 
-        return responseService.getSingleResult(dictionaryService.getSearchHistory(userIdx), SuccessCode.GET_PLANTINFO);
+        return responseService.getSingleResult(dictionaryService.getSearchHistory(userIdx), SuccessCode.GET_SEARCH_HISTORY_SUCCESS);
+    }
+
+        //검색 기록 모두 삭제
+    @ApiOperation(value = "식물 검색 기록 모두 삭제", notes = " ")
+    @DeleteMapping("/plant-histories")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인시 발급 받는 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    public ResponseEntity<SuccessResponse> deleteSearchHistories(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
+        Integer userIdx = principal.getId();
+        dictionaryService.deleteSearchHistories(userIdx);
+        return responseService.getSuccessResult(SuccessCode.DELETE_ALL_SEARCH_HISTORY_SUCCESS);
+    }
+
+    //검색 기록 개별 삭제
+    @ApiOperation(value = "식물 검색 기록 개별 삭제", notes = " ")
+    @DeleteMapping("/plant-history/{plantidx}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인시 발급 받는 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    public ResponseEntity<SuccessResponse> deleteSearchHistory(@PathVariable("plantidx") Integer plantIdx){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        BansikeeUser principal = (BansikeeUser) authentication.getPrincipal();
+        Integer userIdx = principal.getId();
+        dictionaryService.deleteSearchHistory(userIdx,plantIdx);
+        return responseService.getSuccessResult(SuccessCode.DELETE_SEARCH_HISTORY_SUCCESS);
     }
 }

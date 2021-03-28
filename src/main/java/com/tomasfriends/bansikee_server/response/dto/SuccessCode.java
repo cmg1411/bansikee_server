@@ -25,6 +25,14 @@ public enum SuccessCode {
     //---dictionary
     GET_PLANTLIST(200, "Get plant list success", "식물 리스트 조회 성공."),
     GET_PLANTINFO(200, "Get plant info success", "식물정보 조회 성공."),
+    GET_SEARCH_HISTORY_SUCCESS(200, "Get plant search history success", "식물 검색 기록 조회 성공."),
+    DELETE_ALL_SEARCH_HISTORY_SUCCESS(200, "Delete all plant search history success", "식물 검색 기록 모두 삭제 성공."),
+    DELETE_SEARCH_HISTORY_SUCCESS(200, "Delete plant search history success", "식물 검색 기록 개별 삭제 성공."),
+
+    //---myPage
+    GET_PLANTLIKELIST(200, "Get plant like info success", "식물 좋아요 리스트 조회 성공."),
+    PATCH_USERINFO(200, "Patch user info success", "회원 정보 수정 성공."),
+
 
     // 식물등록
     PLANT_REGISTER_SUCCESS(277, "Plant Registered.", "식물등록에 성공했습니다."),

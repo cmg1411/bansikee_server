@@ -13,6 +13,11 @@ public interface SearchHistoryRepository extends JpaRepository<SearchHistory, In
     List<SearchHistory> findByUserIdxOrderByUpdatedAtDesc(Integer userIdx);
 
     @Modifying
-//    @Query(value = "delete from search_history where updated_at < DATE_SUB(updated_at,INTERVAL 3 day )", nativeQuery=true)
     void deleteByUpdatedAtIsBefore(LocalDateTime date);
+
+    @Modifying
+    void deleteByUserIdx(Integer userIdx);
+
+    @Modifying
+    void deleteByUserIdxAndPlantIdx(Integer userIdx, Integer plantIdx);
 }
