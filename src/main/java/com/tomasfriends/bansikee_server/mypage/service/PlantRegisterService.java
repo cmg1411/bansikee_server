@@ -8,7 +8,7 @@ import com.tomasfriends.bansikee_server.mypage.service.dto.resp.MyPlantListRespo
 import com.tomasfriends.bansikee_server.mypage.service.dto.req.MyPlantPatchRequestDto;
 import com.tomasfriends.bansikee_server.mypage.service.dto.resp.MyPlantResponseDto;
 import com.tomasfriends.bansikee_server.mypage.service.dto.req.PlantRegistrationRequestDto;
-import com.tomasfriends.bansikee_server.mypage.service.exception.NotExistMyPlantException;
+import com.tomasfriends.bansikee_server.mypage.service.exceptions.NotExistMyPlantException;
 import com.tomasfriends.bansikee_server.onBoarding.domain.Plant;
 import com.tomasfriends.bansikee_server.onBoarding.repository.PlantRepository;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;

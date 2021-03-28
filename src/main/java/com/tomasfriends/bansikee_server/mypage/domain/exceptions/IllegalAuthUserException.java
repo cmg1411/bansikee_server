@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.mypage.domain.exception;
+package com.tomasfriends.bansikee_server.mypage.domain.exceptions;
 
 public class IllegalAuthUserException extends RuntimeException {
 

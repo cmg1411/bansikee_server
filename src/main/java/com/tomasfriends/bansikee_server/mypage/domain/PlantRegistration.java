@@ -119,6 +119,7 @@ public class PlantRegistration extends BaseEntity {
         Map<String, Long> waterDaysNotice = getWaterDaysNotice();
         return HomePlant.builder()
             .myPlantId(id)
+            .myPlantImgUrl(pictureUrl)
             .myPlantNickName(plantNickName)
             .myPlantSpecies(plant.getSpecies())
             .myPlantWaterCycle(wateringCycle)
