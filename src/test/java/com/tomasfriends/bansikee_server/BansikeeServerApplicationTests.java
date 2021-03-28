@@ -13,9 +13,4 @@ class BansikeeServerApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
-	@Test
-	void test() {
-		BansikeeServerApplication.main(new String[0]);
-	}
 }
