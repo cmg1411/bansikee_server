@@ -132,6 +132,9 @@ public class PlantRegistration extends BaseEntity {
     }
 
     private boolean getIsWriteDiary() {
+        if (lastDiaryDate == null) {
+            return false;
+        }
         return lastDiaryDate.isEqual(LocalDate.now());
     }
 }
