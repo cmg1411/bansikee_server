@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.home.service.exception;
+package com.tomasfriends.bansikee_server.home.service.exceptions;
 
 public class NotExistPlantException extends RuntimeException {
     public NotExistPlantException(String msg, Throwable t) {

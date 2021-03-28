@@ -1,60 +1,59 @@
 package com.tomasfriends.bansikee_server.mypage.service;
 
 import com.tomasfriends.bansikee_server.mypage.domain.Diary;
-import com.tomasfriends.bansikee_server.mypage.domain.DiaryPicture;
 import com.tomasfriends.bansikee_server.mypage.domain.PlantRegistration;
 import com.tomasfriends.bansikee_server.mypage.domain.repository.DiaryRepository;
 import com.tomasfriends.bansikee_server.mypage.domain.repository.MyPlantRepository;
 import com.tomasfriends.bansikee_server.mypage.domain.repository.PictureRepository;
+import com.tomasfriends.bansikee_server.mypage.service.dto.PictureUrls;
 import com.tomasfriends.bansikee_server.mypage.service.dto.Watered;
 import com.tomasfriends.bansikee_server.mypage.service.dto.Weather;
+import com.tomasfriends.bansikee_server.mypage.service.dto.req.DiaryRequestDto;
 import com.tomasfriends.bansikee_server.onBoarding.domain.Plant;
 import com.tomasfriends.bansikee_server.onBoarding.repository.PlantRepository;
-import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import com.tomasfriends.bansikee_server.sign.domain.repository.UserRepository;
+import com.tomasfriends.bansikee_server.sign.service.CustomUserDetailService;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-@SpringBootTest
 @Transactional
+@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 class DiaryServiceTest {
 
-    @Autowired DiaryRepository diaryRepository;
-    @Autowired PictureRepository pictureRepository;
-    @Autowired PlantRepository plantRepository;
-    @Autowired UserRepository userRepository;
+//    @MockBean DiaryRepository diaryRepository;
+//    @MockBean PictureRepository pictureRepository;
+//    @MockBean PlantRepository plantRepository;
+//    @MockBean UserRepository userRepository;
+//    @MockBean MyPlantRepository myPlantRepository;
+//    @InjectMocks DiaryService diaryService;
+
+    @Autowired DiaryService diaryService;
     @Autowired MyPlantRepository myPlantRepository;
+    @Autowired PlantRepository plantRepository;
 
+    @DisplayName("일기 삽입 테스트")
+    @Test
+    @WithUserDetails(value = "1", userDetailsServiceBeanName = "customUserDetailService")
+    void pictureSaveTest() {
 
-//    @DisplayName("일기 삽입 테스트")
-//    @Test
-//    void pictureSaveTest() {
-//        BansikeeUser user = userRepository.findById(1).get();
-//        Plant plant = plantRepository.findById(1).get();
-//        PlantRegistration plantRegistration = new PlantRegistration(1000000001, "abc", plant, "nic", LocalDateTime.now(), "gkgkgk", 3, user);
-//
-//        myPlantRepository.save(plantRegistration);
-//
-//        Diary diary = new Diary(Weather.BAD, 10, Watered.YES, "zz", plantRegistration, user);
-//        diaryRepository.save(diary);
-//
-//        DiaryPicture picture = new DiaryPicture(diary, "pictureUrl1");
-//        pictureRepository.save(picture);
-//    }
+    }
 
 //    @DisplayName("일기 삽입 테스트")
 //    @Test
 //    void diaryWriteTest() {
-//
-//
 //        Diary diary = Diary.builder()
 //            .myPlant(new PlantRegistration("abc", new Plant(), "ttt", LocalDateTime.now(), "안녕하세요", 3, new BansikeeUser()))
 //            .pictures(urls)
