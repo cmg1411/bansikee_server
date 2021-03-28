@@ -121,7 +121,7 @@ public class PlantRegistration extends BaseEntity {
             .myPlantId(id)
             .myPlantImgUrl(pictureUrl)
             .myPlantNickName(plantNickName)
-            .myPlantSpecies(plant.getSpecies())
+            .myPlantName(plant.getName())
             .myPlantWaterCycle(wateringCycle)
             .myPlantLastWaterDay(lastWateredDate)
             .waterDayFrom(waterDaysNotice.get("from"))

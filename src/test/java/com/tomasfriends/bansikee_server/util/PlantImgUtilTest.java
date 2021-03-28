@@ -18,4 +18,17 @@ class PlantImgUtilTest {
         // then
         Assertions.assertThat(result).isEqualTo("http://www.nongsaro.go.kr/cms_contents/301/12957_MF_ATTACH_01.jpg");
     }
+
+    @DisplayName("사진이 한개만 있는 식물")
+    @Test
+    void oneImgTest() {
+        // given
+        String dbUrl = "12981_MF_REPR_ATTACH_01.jpg";
+
+        // when
+        String result = PlantImgUtil.getPlantProfileImg(dbUrl);
+
+        // then
+        Assertions.assertThat(result).isEqualTo("http://www.nongsaro.go.kr/cms_contents/301/12981_MF_REPR_ATTACH_01.jpg");
+    }
 }
