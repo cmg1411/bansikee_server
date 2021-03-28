@@ -87,8 +87,9 @@ jacocoTestReport {
 	}
 
 	def Qdomains = []
+	def Exceptions = ['**/exceptions/**']
 
-	for (qPattern in '**/QA'..'**/QZ') { // qPattern = '**/QA', '**/QB', ... '*.QZ'
+	for (qPattern in '**/QA'..'**/QZ') {
 		Qdomains.add(qPattern + '*')
 	}
 
@@ -96,7 +97,7 @@ jacocoTestReport {
 	afterEvaluate {
 		classDirectories.setFrom(
 				files(classDirectories.files.collect {
-					fileTree(dir: it, excludes: [] + Qdomains)
+					fileTree(dir: it, excludes: [] + Qdomains + Exceptions)
 				})
 		)
 	}
@@ -161,7 +162,7 @@ jacocoTestCoverageVerification {
 			}
 
 			// 커버리지 체크를 제외할 클래스들
-			excludes = ["*.Q*", "*.*Application"] + Qdomains
+			excludes = ["*.Q*", "*.*Application", "*.dto", "*.dto.*", "*.config.*", "*.security.*", "*.exceptions.*"] + Qdomains
 		}
 	}
 }
