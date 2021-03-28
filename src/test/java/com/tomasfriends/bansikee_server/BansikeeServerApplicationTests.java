@@ -16,5 +16,6 @@ class BansikeeServerApplicationTests {
 
 	@Test
 	void test() {
+		BansikeeServerApplication.main(new String[0]);
 	}
 }
