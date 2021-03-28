@@ -88,6 +88,7 @@ jacocoTestReport {
 
 	def Qdomains = []
 	def Exceptions = ['**/exceptions/**']
+	def Dtos = ['**/dto/**']
 
 	for (qPattern in '**/QA'..'**/QZ') {
 		Qdomains.add(qPattern + '*')
@@ -97,7 +98,7 @@ jacocoTestReport {
 	afterEvaluate {
 		classDirectories.setFrom(
 				files(classDirectories.files.collect {
-					fileTree(dir: it, excludes: [] + Qdomains + Exceptions)
+					fileTree(dir: it, excludes: [] + Qdomains + Exceptions + Dtos)
 				})
 		)
 	}

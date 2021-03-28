@@ -10,14 +10,15 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.stream.Collectors.toList;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@ToString
 public class Diary extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,7 +62,7 @@ public class Diary extends BaseEntity {
         return DiaryResponseDto.builder()
             .myDiaryId(id)
             .dayFromBirth(PlantRegistration.getDDay(myPlant.getPlantBirth()))
-            .diaryPictures(getDiaryPictures())
+            .diaryPictures(getDiaryPictures(pictures))
             .nickName(myPlant.getPlantNickName())
             .weather(weather)
             .watered(water)
@@ -71,11 +72,14 @@ public class Diary extends BaseEntity {
             .build();
     }
 
-    private PictureUrls getDiaryPictures() {
-        return new PictureUrls(getPictureCollect());
+    private PictureUrls getDiaryPictures(List<DiaryPicture> pictures) {
+        return new PictureUrls(getPictureCollect(pictures));
     }
 
-    private List<String> getPictureCollect() {
+    private List<String> getPictureCollect(List<DiaryPicture> pictures) {
+        if (Objects.isNull(pictures)) {
+            return Collections.emptyList();
+        }
         return pictures.stream().map(DiaryPicture::getPictureUrl).collect(toList());
     }
 
