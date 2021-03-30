@@ -51,11 +51,6 @@ class DiaryTest {
     }
 
     @Test
-    void toEntityTest() {
-        assertThat(diary.toDiaryResponseDto()).isInstanceOf(DiaryResponseDto.class);
-    }
-
-    @Test
     void toListResponseDtoTest() {
         DiaryListResponseDto diaryListResponseDto = diary.toListResponseDto(1, new DiaryPicture(), LocalDateTime.now().toLocalDate());
 
