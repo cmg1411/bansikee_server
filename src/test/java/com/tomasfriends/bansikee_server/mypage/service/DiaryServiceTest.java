@@ -2,14 +2,12 @@ package com.tomasfriends.bansikee_server.mypage.service;
 
 import com.tomasfriends.bansikee_server.mypage.domain.Diary;
 import com.tomasfriends.bansikee_server.mypage.domain.repository.DiaryRepository;
-import com.tomasfriends.bansikee_server.mypage.service.dto.PictureUrls;
 import com.tomasfriends.bansikee_server.mypage.service.dto.Watered;
 import com.tomasfriends.bansikee_server.mypage.service.dto.Weather;
 import com.tomasfriends.bansikee_server.mypage.service.dto.req.DiaryRequestDto;
 import com.tomasfriends.bansikee_server.mypage.service.dto.resp.DiaryListResponseDto;
 import com.tomasfriends.bansikee_server.mypage.service.dto.resp.DiaryResponseDto;
 import com.tomasfriends.bansikee_server.mypage.service.exceptions.NotExistDiaryException;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -18,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,11 +39,10 @@ class DiaryServiceTest {
         ArrayList<String> strings = new ArrayList<>();
         strings.add("url");
 
-        PictureUrls pictureUrls = new PictureUrls(strings);
         diaryRequestDto = DiaryRequestDto.builder()
             .myPlantId(3)
             .contents("일기 테스트")
-            .dailyPictures(pictureUrls)
+            .dailyPictures(strings)
             .height(11)
             .watered(Watered.YES)
             .weather(Weather.BAD)

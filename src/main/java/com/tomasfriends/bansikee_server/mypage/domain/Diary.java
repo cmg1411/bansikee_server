@@ -9,7 +9,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -72,8 +71,8 @@ public class Diary extends BaseEntity {
             .build();
     }
 
-    private PictureUrls getDiaryPictures(List<DiaryPicture> pictures) {
-        return new PictureUrls(getPictureCollect(pictures));
+    private List<String> getDiaryPictures(List<DiaryPicture> pictures) {
+        return getPictureCollect(pictures);
     }
 
     private List<String> getPictureCollect(List<DiaryPicture> pictures) {

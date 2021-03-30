@@ -3,7 +3,6 @@ package com.tomasfriends.bansikee_server.mypage.service.dto.req;
 import com.tomasfriends.bansikee_server.mypage.domain.Diary;
 import com.tomasfriends.bansikee_server.mypage.domain.DiaryPicture;
 import com.tomasfriends.bansikee_server.mypage.domain.PlantRegistration;
-import com.tomasfriends.bansikee_server.mypage.service.dto.PictureUrls;
 import com.tomasfriends.bansikee_server.mypage.service.dto.Watered;
 import com.tomasfriends.bansikee_server.mypage.service.dto.Weather;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 public class DiaryRequestDto {
 
     private final Integer myPlantId;
-    private final PictureUrls dailyPictures;
+    private final List<String> dailyPictures;
     private final Weather weather;
     private final Integer height;
     private final Watered watered;
@@ -38,7 +37,7 @@ public class DiaryRequestDto {
     }
 
     public List<DiaryPicture> toDiaryPictureEntities(Diary diary) {
-        return dailyPictures.getUrls().stream()
+        return dailyPictures.stream()
             .map(p -> new DiaryPicture(diary, p))
             .collect(Collectors.toList());
     }
