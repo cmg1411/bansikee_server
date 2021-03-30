@@ -61,7 +61,7 @@ public class Diary extends BaseEntity {
     public DiaryResponseDto toDiaryResponseDto() {
         return DiaryResponseDto.builder()
             .myDiaryId(id)
-            .dayFromBirth(PlantRegistration.getDDay(myPlant.getPlantBirth()))
+            .dayFromBirth(PlantRegistration.getDDay(myPlant.getPlantBirth(), this.getCreatedDate()))
             .diaryPictures(getDiaryPictures(pictures))
             .nickName(myPlant.getPlantNickName())
             .weather(weather)
@@ -88,6 +88,10 @@ public class Diary extends BaseEntity {
             return new DiaryPicture(this, "사진을 등록하지 않았습니다.");
         }
         return pictures.get(0);
+    }
+
+    public boolean isWriter(BansikeeUser loginUser, BansikeeUser diaryWriter) {
+        return loginUser.getId() == diaryWriter.getId();
     }
 }
 

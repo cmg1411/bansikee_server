@@ -1,5 +1,6 @@
 package com.tomasfriends.bansikee_server.mypage.service;
 
+import com.tomasfriends.bansikee_server.common.AuthenticationUser;
 import com.tomasfriends.bansikee_server.mypage.domain.Diary;
 import com.tomasfriends.bansikee_server.mypage.domain.DiaryPicture;
 import com.tomasfriends.bansikee_server.mypage.domain.MyPlant;
@@ -15,8 +16,6 @@ import com.tomasfriends.bansikee_server.mypage.service.exceptions.NotExistDiaryE
 import com.tomasfriends.bansikee_server.mypage.service.exceptions.NotExistMyPlantException;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,8 +35,7 @@ public class DiaryService implements MyPlant {
 
     @Transactional
     public void save(DiaryRequestDto diaryRequestDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        BansikeeUser loginUser = (BansikeeUser) authentication.getPrincipal();
+        BansikeeUser loginUser = AuthenticationUser.getAuthenticationUser();
         Optional<PlantRegistration> registeredPlant = myPlantRepository.findById(diaryRequestDto.getMyPlantId());
         Diary diary = diaryRequestDto.toDiaryEntity(registeredPlant.orElseThrow(NotExistMyPlantException::new), loginUser);
 
@@ -63,8 +61,10 @@ public class DiaryService implements MyPlant {
     }
 
     public List<DiaryListResponseDto> findAll(int myPlantId) {
+        BansikeeUser loginUser = AuthenticationUser.getAuthenticationUser();
         List<Diary> allDiary = diaryRepository.findAllByMyPlantId(myPlantId);
         return allDiary.stream()
+            .filter(diary -> diary.isWriter(loginUser, diary.getUser()))
             .map(t -> t.toListResponseDto(t.getId(), t.getFirstDiaryPicture(), t.getCreatedDate().toLocalDate()))
             .sorted(Comparator.comparing(DiaryListResponseDto::getDiaryId).reversed())
             .collect(Collectors.toList());
@@ -73,6 +73,7 @@ public class DiaryService implements MyPlant {
     public DiaryResponseDto findDiary(Integer diaryId) {
         Optional<Diary> foundDiary = diaryRepository.findById(diaryId);
         Diary diary = foundDiary.orElseThrow(NotExistDiaryException::new);
+        checkAuth(diary.getUser().getId());
         return diary.toDiaryResponseDto();
     }
 
