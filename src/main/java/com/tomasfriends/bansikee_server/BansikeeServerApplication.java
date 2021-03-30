@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 @EnableJpaAuditing
 @SpringBootApplication
 public class BansikeeServerApplication {
@@ -18,5 +21,10 @@ public class BansikeeServerApplication {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	}
+
+	@PostConstruct
+	public void setTimeZone() {
+		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
 	}
 }

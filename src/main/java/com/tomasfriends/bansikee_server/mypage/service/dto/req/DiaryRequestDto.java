@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class DiaryRequestDto {
 
-    private Integer myPlantId;
-    private PictureUrls dailyPictures;
-    private Weather weather;
-    private Integer height;
-    private Watered watered;
-    private String contents;
+    private final Integer myPlantId;
+    private final PictureUrls dailyPictures;
+    private final Weather weather;
+    private final Integer height;
+    private final Watered watered;
+    private final String contents;
 
     public Diary toDiaryEntity(PlantRegistration plant, BansikeeUser user) {
         return Diary.builder()
