@@ -1,6 +1,6 @@
 package com.tomasfriends.bansikee_server.home.advice;
 
-import com.tomasfriends.bansikee_server.home.service.exception.NotExistPlantException;
+import com.tomasfriends.bansikee_server.home.service.exceptions.NotExistPlantException;
 import com.tomasfriends.bansikee_server.response.dto.ErrorCode;
 import com.tomasfriends.bansikee_server.response.dto.ErrorResponse;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class HomeAdviceController {
 
     @ExceptionHandler(NotExistPlantException.class)
-    protected ResponseEntity<ErrorResponse> tokenValidationException(NotExistPlantException ex) {
+    protected ResponseEntity<ErrorResponse> notExistPlantException(NotExistPlantException ex) {
         return new ResponseEntity<>(ErrorResponse.of(ErrorCode.NOT_EXIST_PLANT), HttpStatus.BAD_REQUEST);
     }
 }

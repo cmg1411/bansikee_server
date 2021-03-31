@@ -42,7 +42,7 @@ public class PlantRegistrationController {
     @ApiImplicitParams({
         @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "내식물 리스트 조회", notes = "토큰 인증 필요")
+    @ApiOperation(value = "내 식물 리스트 조회", notes = "토큰 인증 필요")
     @GetMapping("/myplant")
     public ResponseEntity<ListDataSuccessResponse<MyPlantListResponseDto>> findMyPlantList() {
         List<MyPlantListResponseDto> myAllPlantList = plantRegisterService.findAll();

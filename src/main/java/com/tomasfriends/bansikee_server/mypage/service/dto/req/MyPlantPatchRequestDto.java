@@ -3,6 +3,7 @@ package com.tomasfriends.bansikee_server.mypage.service.dto.req;
 import com.tomasfriends.bansikee_server.mypage.domain.PlantRegistration;
 import com.tomasfriends.bansikee_server.onBoarding.domain.Plant;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,21 +12,22 @@ import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 @Getter
+@AllArgsConstructor
 public class MyPlantPatchRequestDto {
 
-    private Integer myPlantId;
-    private String pictureUrl;
-    private LocalDateTime plantBirth;
-    private String plantIntro;
+    private final Integer myPlantId;
+    private final String pictureUrl;
+    private final LocalDateTime plantBirth;
+    private final String plantIntro;
 
     @Positive
-    private Integer plantId;
+    private final Integer plantId;
 
     @NotBlank
-    private String plantNickName;
+    private final String plantNickName;
 
     @Positive
-    private int waterPeriod;
+    private final int waterPeriod;
 
     @Builder
     public PlantRegistration toPatchEntity(BansikeeUser user, Plant plant) {

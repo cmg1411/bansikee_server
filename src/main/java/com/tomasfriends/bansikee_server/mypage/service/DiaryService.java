@@ -1,5 +1,6 @@
 package com.tomasfriends.bansikee_server.mypage.service;
 
+import com.tomasfriends.bansikee_server.common.AuthenticationUser;
 import com.tomasfriends.bansikee_server.mypage.domain.Diary;
 import com.tomasfriends.bansikee_server.mypage.domain.DiaryPicture;
 import com.tomasfriends.bansikee_server.mypage.domain.MyPlant;
@@ -11,16 +12,15 @@ import com.tomasfriends.bansikee_server.mypage.service.dto.*;
 import com.tomasfriends.bansikee_server.mypage.service.dto.req.DiaryRequestDto;
 import com.tomasfriends.bansikee_server.mypage.service.dto.resp.DiaryListResponseDto;
 import com.tomasfriends.bansikee_server.mypage.service.dto.resp.DiaryResponseDto;
-import com.tomasfriends.bansikee_server.mypage.service.exception.NotExistDiaryException;
-import com.tomasfriends.bansikee_server.mypage.service.exception.NotExistMyPlantException;
+import com.tomasfriends.bansikee_server.mypage.service.exceptions.NotExistDiaryException;
+import com.tomasfriends.bansikee_server.mypage.service.exceptions.NotExistMyPlantException;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,8 +35,7 @@ public class DiaryService implements MyPlant {
 
     @Transactional
     public void save(DiaryRequestDto diaryRequestDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        BansikeeUser loginUser = (BansikeeUser) authentication.getPrincipal();
+        BansikeeUser loginUser = AuthenticationUser.getAuthenticationUser();
         Optional<PlantRegistration> registeredPlant = myPlantRepository.findById(diaryRequestDto.getMyPlantId());
         Diary diary = diaryRequestDto.toDiaryEntity(registeredPlant.orElseThrow(NotExistMyPlantException::new), loginUser);
 
@@ -62,15 +61,19 @@ public class DiaryService implements MyPlant {
     }
 
     public List<DiaryListResponseDto> findAll(int myPlantId) {
-        List<Diary> allDiary = diaryRepository.findAllByUserId(myPlantId);
+        BansikeeUser loginUser = AuthenticationUser.getAuthenticationUser();
+        List<Diary> allDiary = diaryRepository.findAllByMyPlantId(myPlantId);
         return allDiary.stream()
-            .map(t -> t.toListResponseDto(t.getId(), t.getPictures().get(0), t.getCreatedDate().toLocalDate()))
+            .filter(diary -> diary.isWriter(loginUser, diary.getUser()))
+            .map(t -> t.toListResponseDto(t.getId(), t.getFirstDiaryPicture(), t.getCreatedDate().toLocalDate()))
+            .sorted(Comparator.comparing(DiaryListResponseDto::getDiaryId).reversed())
             .collect(Collectors.toList());
     }
 
     public DiaryResponseDto findDiary(Integer diaryId) {
         Optional<Diary> foundDiary = diaryRepository.findById(diaryId);
         Diary diary = foundDiary.orElseThrow(NotExistDiaryException::new);
+        checkAuth(diary.getUser().getId());
         return diary.toDiaryResponseDto();
     }
 
@@ -80,11 +83,11 @@ public class DiaryService implements MyPlant {
         diaryRepository.deleteById(diaryId);
     }
 
-    public BansikeeUser getUser(Integer diaryId) {
+    public void getUser(Integer diaryId) {
         int diaryOwnerId = diaryRepository.findById(diaryId)
             .orElseThrow(NotExistMyPlantException::new)
             .getUser()
             .getId();
-        return checkAuth(diaryOwnerId);
+        checkAuth(diaryOwnerId);
     }
 }

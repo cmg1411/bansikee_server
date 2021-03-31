@@ -24,7 +24,7 @@ public class SchedulerModule {
 
     @Scheduled(fixedDelay = 1000*60*60)
     public void deleteSearchHistory() {
-        dictionaryService.deleteSearchHistory();
+        dictionaryService.deleteSearchHistoryScheduler();
         logger.info("5일 지난 히스토리 삭제", new Date());
     }
 }

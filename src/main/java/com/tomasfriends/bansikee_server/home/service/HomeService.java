@@ -2,9 +2,8 @@ package com.tomasfriends.bansikee_server.home.service;
 
 import com.tomasfriends.bansikee_server.common.AuthenticationUser;
 import com.tomasfriends.bansikee_server.home.service.dto.HomeResponseDto;
-import com.tomasfriends.bansikee_server.home.service.exception.NotExistPlantException;
+import com.tomasfriends.bansikee_server.home.service.exceptions.NotExistPlantException;
 import com.tomasfriends.bansikee_server.mypage.domain.PlantRegistration;
-import com.tomasfriends.bansikee_server.mypage.domain.repository.DiaryRepository;
 import com.tomasfriends.bansikee_server.mypage.domain.repository.MyPlantRepository;
 import com.tomasfriends.bansikee_server.onBoarding.domain.Plant;
 import com.tomasfriends.bansikee_server.onBoarding.repository.PlantRepository;

@@ -60,9 +60,9 @@ public class OnBoardingService {
     /**
      * 결과 DB에 저장
      */
-    public void postAnswer(Integer userIdx, ReqAnswerListDto reqAnswerListDto) {
+    public void postAnswer(Integer userIdx, List<ReqAnswerDto> reqAnswerDtos) {
 
-        for (ReqAnswerDto str : reqAnswerListDto.getReqAnswerList()) {
+        for (ReqAnswerDto str : reqAnswerDtos) {
 
             OnBoardingAnswer onBoardingAnswer = OnBoardingAnswer.of(userIdx, str.getQuestionIdx(), str.getOptionIdx());
 

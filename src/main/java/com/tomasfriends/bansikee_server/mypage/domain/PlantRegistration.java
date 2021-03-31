@@ -86,7 +86,7 @@ public class PlantRegistration extends BaseEntity {
         if (lastWateredDate == null) {
             return Map.of("from", -1L, "to", -1L);
         }
-        long from = getDDay(lastWateredDate.atStartOfDay());
+        long from = getDDay(lastWateredDate.atStartOfDay(), LocalDateTime.now());
         long to = wateringCycle - from;
         return Map.of("from", from, "to", to);
     }
@@ -102,12 +102,12 @@ public class PlantRegistration extends BaseEntity {
             .myPlantProfileUrl(pictureUrl)
             .startDate(plantBirth)
             .plantTip(plant.getInfo())
-            .dDay(getDDay(plantBirth))
+            .dDay(getDDay(plantBirth, LocalDateTime.now()))
             .build();
     }
 
-    public long getDDay(LocalDateTime date) {
-        return ChronoUnit.DAYS.between(date.toLocalDate(), LocalDate.now());
+    public static long getDDay(LocalDateTime birth, LocalDateTime writeDate) {
+        return ChronoUnit.DAYS.between(birth.toLocalDate(), writeDate.toLocalDate());
     }
 
     public String getBirth(LocalDateTime date) {
@@ -119,8 +119,9 @@ public class PlantRegistration extends BaseEntity {
         Map<String, Long> waterDaysNotice = getWaterDaysNotice();
         return HomePlant.builder()
             .myPlantId(id)
+            .myPlantImgUrl(pictureUrl)
             .myPlantNickName(plantNickName)
-            .myPlantSpecies(plant.getSpecies())
+            .myPlantName(plant.getName())
             .myPlantWaterCycle(wateringCycle)
             .myPlantLastWaterDay(lastWateredDate)
             .waterDayFrom(waterDaysNotice.get("from"))
@@ -131,6 +132,9 @@ public class PlantRegistration extends BaseEntity {
     }
 
     private boolean getIsWriteDiary() {
+        if (lastDiaryDate == null) {
+            return false;
+        }
         return lastDiaryDate.isEqual(LocalDate.now());
     }
 }

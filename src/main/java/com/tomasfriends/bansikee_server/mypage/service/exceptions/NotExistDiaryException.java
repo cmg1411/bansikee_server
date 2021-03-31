@@ -1,4 +1,4 @@
-package com.tomasfriends.bansikee_server.mypage.service.exception;
+package com.tomasfriends.bansikee_server.mypage.service.exceptions;
 
 public class NotExistDiaryException extends RuntimeException {
 

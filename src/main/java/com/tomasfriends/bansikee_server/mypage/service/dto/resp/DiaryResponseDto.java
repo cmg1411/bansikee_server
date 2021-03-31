@@ -1,6 +1,5 @@
 package com.tomasfriends.bansikee_server.mypage.service.dto.resp;
 
-import com.tomasfriends.bansikee_server.mypage.service.dto.PictureUrls;
 import com.tomasfriends.bansikee_server.mypage.service.dto.Watered;
 import com.tomasfriends.bansikee_server.mypage.service.dto.Weather;
 import lombok.AllArgsConstructor;
@@ -8,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Builder
@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 public class DiaryResponseDto {
 
     private final int myDiaryId;
-    private final PictureUrls diaryPictures;
+    private final List<String> diaryPictures;
+    private final long dayFromBirth;
     private final String nickName;
     private final Weather weather;
     private final Watered watered;

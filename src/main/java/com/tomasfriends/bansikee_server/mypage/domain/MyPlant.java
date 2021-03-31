@@ -1,7 +1,7 @@
 package com.tomasfriends.bansikee_server.mypage.domain;
 
 import com.tomasfriends.bansikee_server.common.AuthenticationUser;
-import com.tomasfriends.bansikee_server.mypage.domain.exception.IllegalAuthUserException;
+import com.tomasfriends.bansikee_server.mypage.domain.exceptions.IllegalAuthUserException;
 import com.tomasfriends.bansikee_server.sign.domain.BansikeeUser;
 
 public interface MyPlant {

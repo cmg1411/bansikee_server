@@ -9,14 +9,15 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.stream.Collectors.toList;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@ToString
 public class Diary extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,7 +60,8 @@ public class Diary extends BaseEntity {
     public DiaryResponseDto toDiaryResponseDto() {
         return DiaryResponseDto.builder()
             .myDiaryId(id)
-            .diaryPictures(getDiaryPictures())
+            .dayFromBirth(PlantRegistration.getDDay(myPlant.getPlantBirth(), this.getCreatedDate()))
+            .diaryPictures(getDiaryPictures(pictures))
             .nickName(myPlant.getPlantNickName())
             .weather(weather)
             .watered(water)
@@ -69,12 +71,26 @@ public class Diary extends BaseEntity {
             .build();
     }
 
-    private PictureUrls getDiaryPictures() {
-        return new PictureUrls(getPictureCollect());
+    private List<String> getDiaryPictures(List<DiaryPicture> pictures) {
+        return getPictureCollect(pictures);
     }
 
-    private List<String> getPictureCollect() {
+    private List<String> getPictureCollect(List<DiaryPicture> pictures) {
+        if (Objects.isNull(pictures)) {
+            return Collections.emptyList();
+        }
         return pictures.stream().map(DiaryPicture::getPictureUrl).collect(toList());
+    }
+
+    public DiaryPicture getFirstDiaryPicture() {
+        if (pictures.isEmpty()) {
+            return new DiaryPicture(this, "사진을 등록하지 않았습니다.");
+        }
+        return pictures.get(0);
+    }
+
+    public boolean isWriter(BansikeeUser loginUser, BansikeeUser diaryWriter) {
+        return loginUser.getId() == diaryWriter.getId();
     }
 }
 

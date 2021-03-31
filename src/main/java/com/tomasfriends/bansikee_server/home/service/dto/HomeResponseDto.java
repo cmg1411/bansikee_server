@@ -9,6 +9,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.tomasfriends.bansikee_server.util.PlantImgUtil.getPlantProfileImg;
+
 @Getter
 public class HomeResponseDto {
 
@@ -20,6 +22,7 @@ public class HomeResponseDto {
     private String recommendPlantImg;
     private String recommendPlantName;
     private String recommendPlantSpices;
+    private String recommendPlantInfo;
     private List<HomePlant> myPlants;
 
 
@@ -35,14 +38,16 @@ public class HomeResponseDto {
 
     public void setRandomRecommendPlant(Plant randomPlant) {
         this.recommendPlantId = randomPlant.getPlantIdx();
-        this.recommendPlantImg = randomPlant.getPlantImgUrl();
+        this.recommendPlantImg = getPlantProfileImg(randomPlant.getPlantImgUrl());
         this.recommendPlantName = randomPlant.getName();
         this.recommendPlantSpices = randomPlant.getSpecies();
+        this.recommendPlantInfo = randomPlant.getInfo();
     }
 
     public void setTwoMyPlants(List<PlantRegistration> myPlants) {
         this.myPlants = myPlants.stream()
             .map(PlantRegistration::toHomeMyPlant)
+            .filter(myPlant -> myPlant.getWaterDayTo() != -1)
             .sorted(Comparator.comparing(HomePlant::getWaterDayTo))
             .limit(2)
             .collect(Collectors.toList());
