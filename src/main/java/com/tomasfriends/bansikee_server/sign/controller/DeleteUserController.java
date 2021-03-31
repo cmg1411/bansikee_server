@@ -26,7 +26,7 @@ public class DeleteUserController {
     })
     @ApiOperation(value = "회원탈퇴", notes = "로그인한 유저 회원탈퇴")
     @DeleteMapping("/deleteUser")
-    public ResponseEntity<SuccessResponse> signIn() {
+    public ResponseEntity<SuccessResponse> signOut() {
         bansikeeUserService.deleteUser();
         return responseService.getSuccessResult(SuccessCode.DELETE_USER_SUCCESS);
     }
