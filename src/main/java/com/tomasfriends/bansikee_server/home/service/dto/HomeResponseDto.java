@@ -47,6 +47,7 @@ public class HomeResponseDto {
     public void setTwoMyPlants(List<PlantRegistration> myPlants) {
         this.myPlants = myPlants.stream()
             .map(PlantRegistration::toHomeMyPlant)
+            .filter(myPlant -> myPlant.getWaterDayTo() != -1)
             .sorted(Comparator.comparing(HomePlant::getWaterDayTo))
             .limit(2)
             .collect(Collectors.toList());

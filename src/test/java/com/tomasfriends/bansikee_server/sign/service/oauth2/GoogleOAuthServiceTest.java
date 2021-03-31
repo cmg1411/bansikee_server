@@ -2,16 +2,14 @@ package com.tomasfriends.bansikee_server.sign.service.oauth2;
 
 import com.tomasfriends.bansikee_server.sign.service.dto.GoogleProfile;
 import com.tomasfriends.bansikee_server.sign.service.dto.TokenRequestDto;
+import com.tomasfriends.bansikee_server.sign.service.exceptions.CommunicationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 
-import java.net.URISyntaxException;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class GoogleOAuthServiceTest {
+class GoogleOAuthServiceTest extends OAuthTokenToTest {
 
     private final GoogleOAuthService googleOAuthService = new GoogleOAuthService();
 
@@ -19,29 +17,24 @@ class GoogleOAuthServiceTest {
     @DisplayName("구글토큰으로 정보 받아오기")
     void googleTest() {
         // given
-        String token = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjZhOGJhNTY1MmE3MDQ0MTIxZDRmZWRhYzhmMTRkMTRjNTRlNDg5NWIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI5ODI1NDY5NTU3Ni1rdXE1YzJjNDFzbGc3bDMyZG42bDBhODBxcDRhdjJlOS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsImF1ZCI6Ijk4MjU0Njk1NTc2LWdvMjZvMXQ5MmZmbTJscWduN2p0aGYzMmYzcDcwMWtzLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAyNTU2NDEyMTA5NzU1ODk5MTg0IiwiZW1haWwiOiJiYWd0YWVodW5AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJ0eWVob29uZXkiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tLy1NaktkVUJrRk1MWS9BQUFBQUFBQUFBSS9BQUFBQUFBQUFBQS9BTVp1dWNrejBJMF9xcnYwRktPWHZiN1Q4LWZVTHlVMjJRL3M5Ni1jL3Bob3RvLmpwZyIsImdpdmVuX25hbWUiOiJ0eWVob29uZXkiLCJsb2NhbGUiOiJrbyIsImlhdCI6MTYxNjQ4NDE0NiwiZXhwIjoxNjE2NDg3NzQ2fQ.o3uwzB5NmYS1VLQK4n5HuUq87BY6CEYd6LQivQalfcg1TjqjrFZYa4nSkhvDl7D35Qp88LTmzMVIvs7qH8S9drmXdYHPddbog5cTjDKje5MK1XDC_tBat_ubOFGdix9J9MJo2kg8Anc7XT0p0hnr_gk--aDHqdoFbC_NXj1nbbO4PJX5ZmdEuIgDASMrZ-Sq5YBM-NCdi5K4relUSu47yJqgOrDB1u-rRqZtfWbunQoG-UtPnclsIW7_xW9gGdLtbJJZ4WiunqQQa9msURoLzUGH1pFmeg_gqcW3QX67CksTGI1by0AgIvL-DKaQdFjB5nzJX8_9uMl6nwhDoz2U9Q";
-        TokenRequestDto dto = new TokenRequestDto(token);
+        TokenRequestDto dto = new TokenRequestDto(googleToken);
 
         // when
-//        Profile profile = googleOAuthService.getProfile(dto);
+        GoogleProfile profile = (GoogleProfile) googleOAuthService.getProfile(dto);
 
         // then
-//        Assertions.assertThat(profile).isNotNull();
-        assertThrows(Exception.class, () -> googleOAuthService.getProfile(dto));
+        assertThat(profile.getEmail()).isEqualTo("cmg14111@gmail.com");
     }
 
     @Test
-    void restTemplateTest() throws URISyntaxException {
+    @DisplayName("토큰이 유요하지 않으면 예외가 발생한다.")
+    void invalidGoogleTokenTest() {
         // given
-        RestTemplate restTemplate = new RestTemplate();
-        String token = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjZhOGJhNTY1MmE3MDQ0MTIxZDRmZWRhYzhmMTRkMTRjNTRlNDg5NWIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI5ODI1NDY5NTU3Ni1rdXE1YzJjNDFzbGc3bDMyZG42bDBhODBxcDRhdjJlOS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsImF1ZCI6Ijk4MjU0Njk1NTc2LWdvMjZvMXQ5MmZmbTJscWduN2p0aGYzMmYzcDcwMWtzLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAyNTU2NDEyMTA5NzU1ODk5MTg0IiwiZW1haWwiOiJiYWd0YWVodW5AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJ0eWVob29uZXkiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tLy1NaktkVUJrRk1MWS9BQUFBQUFBQUFBSS9BQUFBQUFBQUFBQS9BTVp1dWNrejBJMF9xcnYwRktPWHZiN1Q4LWZVTHlVMjJRL3M5Ni1jL3Bob3RvLmpwZyIsImdpdmVuX25hbWUiOiJ0eWVob29uZXkiLCJsb2NhbGUiOiJrbyIsImlhdCI6MTYxNjQ4NDE0NiwiZXhwIjoxNjE2NDg3NzQ2fQ.o3uwzB5NmYS1VLQK4n5HuUq87BY6CEYd6LQivQalfcg1TjqjrFZYa4nSkhvDl7D35Qp88LTmzMVIvs7qH8S9drmXdYHPddbog5cTjDKje5MK1XDC_tBat_ubOFGdix9J9MJo2kg8Anc7XT0p0hnr_gk--aDHqdoFbC_NXj1nbbO4PJX5ZmdEuIgDASMrZ-Sq5YBM-NCdi5K4relUSu47yJqgOrDB1u-rRqZtfWbunQoG-UtPnclsIW7_xW9gGdLtbJJZ4WiunqQQa9msURoLzUGH1pFmeg_gqcW3QX67CksTGI1by0AgIvL-DKaQdFjB5nzJX8_9uMl6nwhDoz2U9Q";
-        String url = "https://oauth2.googleapis.com/tokeninfo?id_token=" + token;
-
-        // when
-//        GoogleProfile profile = restTemplate.getForObject(url, GoogleProfile.class);
+        String token =
+            "1eyJhbGciOiJSUzI1NiIsImtpZCI6IjEzZThkNDVhNDNjYjIyNDIxNTRjN2Y0ZGFmYWMyOTMzZmVhMjAzNzQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI5ODI1NDY5NTU3Ni00M2tmODhmZTUzOXFsaWo3cnZlZjNlZ21pMWJubGV0dS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsImF1ZCI6Ijk4MjU0Njk1NTc2LTQza2Y4OGZlNTM5cWxpajdydmVmM2VnbWkxYm5sZXR1LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTExOTcyMjY0NTc1NDc1NTM1NDA1IiwiZW1haWwiOiJjbWcxNDExMUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6IktfWWNBdl9kWnBYSXVRQjhXUnpUUVEiLCJuYW1lIjoicm9ybyBwbyIsInBpY3R1cmUiOiJodHRwczovL2xoNC5nb29nbGV1c2VyY29udGVudC5jb20vLWxMNDZKcDF3MFNFL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL0FNWnV1Y2tzdmZpMGdVRFVkMTBaYzVzSGhiR3NaNGhBd3cvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6InJvcm8iLCJmYW1pbHlfbmFtZSI6InBvIiwibG9jYWxlIjoia28iLCJpYXQiOjE2MTcxODcwMTYsImV4cCI6MTYxNzE5MDYxNn0.Ou1Nxn0AD8AcQj3bjPVs-QDxEPFK0WscPryYIw3yxhLqvy9YQjvQh7jp70VCmvMebAkMZKeAdjugaTt0MKcTkoZP7uy6Q-QYhTp4RSqGukAI1S4vgXwho1pHyDIOT_qDoZV0l20n_Uz9s61nItXZfjIbT1pnXEww7y3J_N5OULdz05fMXvgTXPttJRSHz5P3b0wdKhd61stXEG00XFg60ue6S0k1I7thVlFYJxo3fme_1lwA18Zldu9Dyl7GeYFnPDuTLwMwMhxTfUVvk2OADypHMgIUJUnRMuy21tI20kAOZ-DRjhXAo1O_Z0SHchPBpA1z3dQ6_dO951MqprNsnQ";
+        TokenRequestDto dto = new TokenRequestDto(token);
 
         // then
-//        Assertions.assertThat(profile).isNotNull();
-        assertThrows(HttpClientErrorException.class, () -> restTemplate.getForObject(url, GoogleProfile.class));
+        assertThrows(CommunicationException.class, () -> googleOAuthService.getProfile(dto));
     }
 }
