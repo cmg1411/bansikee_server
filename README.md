@@ -4,7 +4,7 @@
 ## ⛓ 링크
 |서비스|노션|데모영상|
 |:---|:---|:---|
-|[앱스토어]()|[노션링크](https://www.notion.so/6a15fe6f5f37405d9b930ef9b1b3840a?v=d0d942426e0b426585b4216e3ef48395)|[Youtube]()|
+|[앱스토어](https://play.google.com/store/apps/details?id=com.tomasandfriends.bansikee)|[노션링크](https://www.notion.so/6a15fe6f5f37405d9b930ef9b1b3840a?v=d0d942426e0b426585b4216e3ef48395)|[Youtube](https://www.youtube.com/watch?v=_dU9z03kyFg)|
 
 <br>
 <br>
@@ -30,7 +30,7 @@
 |포지션|팀원|
 |---|---|
 |서버|[김민걸](https://github.com/cmg1411/)|
-|서버|[이유나]()|
-|IOS|[도연서]()|
-|AOS|[박태훈]()|
-|디자이너|[천세정]()|
+|서버|이유나|
+|IOS|도연서|
+|AOS|박태훈|
+|디자이너|천세정|
